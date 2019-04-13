@@ -2,23 +2,23 @@
 软件工具与环境结课作业，一个非常简单的学生信息管理系统
 ## 系统组成
 ```
-StudentManageMent──┬──MainForm──┬──StudentForm──┬──CourseChooseForm
+StudentManageMent──┬──MainForm──┬──StudentForm──┬──CourseChooseForm(Unfinished)
                    |            |               |
-                   |            |               └──GradeViewForm
+                   |            |               └──GradeViewForm(Unfinished)
                    |            |               
-                   |            ├──TeacherForm──┬──CourseAddForm
+                   |            ├──TeacherForm──┬──CourseAddForm(Unfinished)
                    |            |               |
-                   |            |               └──GradeChangeForm
+                   |            |               └──GradeChangeForm(Unfinished)
                    |            |
-                   |            └──AdminForm────┬──UserChangeForm
+                   |            └──AdminForm────┬──UserChangeForm(Finished)
                    |                            |
-                   |                            └──UserCheckForm
+                   |                            └──UserCheckForm(Finished)
                    |
                    |
-                   ├──LoginForm
+                   ├──LoginForm(Finished)
                    |
                    |
                    |
-                   └──RegisterForm
+                   └──RegisterForm(Finished)
                                           
 ```
