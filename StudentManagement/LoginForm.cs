@@ -217,7 +217,7 @@ namespace StudentManagement
                 objPinOptions.DontFragment = true;
                 string data = "";
                 byte[] buffer = Encoding.UTF8.GetBytes(data);
-                int intTimeout = 300;
+                int intTimeout = 1000;
                 PingReply objPinReply = objPingSender.Send("152.136.73.240", intTimeout, buffer, objPinOptions);
                 string strInfo = objPinReply.Status.ToString();
                 if (strInfo == "Success")

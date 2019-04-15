@@ -65,28 +65,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminForm.cs">
+    <Compile Include="Admin\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminForm.Designer.cs">
+    <Compile Include="Admin\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangeNameForm.cs">
+    <Compile Include="Main\ChangeNameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangeNameForm.Designer.cs">
+    <Compile Include="Main\ChangeNameForm.Designer.cs">
       <DependentUpon>ChangeNameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangePasswordForm.cs">
+    <Compile Include="Main\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangePasswordForm.Designer.cs">
+    <Compile Include="Main\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StudentForm.cs">
+    <Compile Include="Student\StudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StudentForm.Designer.cs">
+    <Compile Include="Student\StudentForm.Designer.cs">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
@@ -95,10 +95,10 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -110,51 +110,51 @@
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlHelper.cs" />
-    <Compile Include="CheckTableControl.cs">
+    <Compile Include="Admin\CheckTableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CheckTableControl.Designer.cs">
+    <Compile Include="Admin\CheckTableControl.Designer.cs">
       <DependentUpon>CheckTableControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TeacherTableControl .cs">
+    <Compile Include="Admin\TeacherTableControl .cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TeacherTableControl .Designer.cs">
+    <Compile Include="Admin\TeacherTableControl .Designer.cs">
       <DependentUpon>TeacherTableControl .cs</DependentUpon>
     </Compile>
-    <Compile Include="StudentTableControl.cs">
+    <Compile Include="Admin\StudentTableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StudentTableControl.Designer.cs">
+    <Compile Include="Admin\StudentTableControl.Designer.cs">
       <DependentUpon>StudentTableControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TableForm.cs">
+    <Compile Include="Admin\TableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TableForm.Designer.cs">
+    <Compile Include="Admin\TableForm.Designer.cs">
       <DependentUpon>TableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TeacherForm.cs">
+    <Compile Include="Teacher\TeacherForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeacherForm.Designer.cs">
+    <Compile Include="Teacher\TeacherForm.Designer.cs">
       <DependentUpon>TeacherForm.cs</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="ValidateNum.cs" />
-    <EmbeddedResource Include="AdminForm.resx">
+    <EmbeddedResource Include="Admin\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangeNameForm.resx">
+    <EmbeddedResource Include="Main\ChangeNameForm.resx">
       <DependentUpon>ChangeNameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangePasswordForm.resx">
+    <EmbeddedResource Include="Main\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -170,22 +170,22 @@
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentForm.resx">
+    <EmbeddedResource Include="Student\StudentForm.resx">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckTableControl.resx">
+    <EmbeddedResource Include="Admin\CheckTableControl.resx">
       <DependentUpon>CheckTableControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TeacherTableControl .resx">
+    <EmbeddedResource Include="Admin\TeacherTableControl .resx">
       <DependentUpon>TeacherTableControl .cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentTableControl.resx">
+    <EmbeddedResource Include="Admin\StudentTableControl.resx">
       <DependentUpon>StudentTableControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TableForm.resx">
+    <EmbeddedResource Include="Admin\TableForm.resx">
       <DependentUpon>TableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TeacherForm.resx">
+    <EmbeddedResource Include="Teacher\TeacherForm.resx">
       <DependentUpon>TeacherForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
