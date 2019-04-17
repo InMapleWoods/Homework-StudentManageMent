@@ -6,9 +6,9 @@ StudentManageMent──┬──MainForm──┬──StudentForm──┬─�
                    |            |               |
                    |            |               └──GradeViewForm(Unfinished)
                    |            |               
-                   |            ├──TeacherForm──┬──CourseAddForm(Unfinished)
+                   |            ├──TeacherForm──┬──CourseAddForm(Finished)
                    |            |               |
-                   |            |               └──GradeChangeForm(Unfinished)
+                   |            |               └──GradeChangeForm(Finished)
                    |            |
                    |            └──AdminForm────┬──UserChangeForm(Finished)
                    |                            |
