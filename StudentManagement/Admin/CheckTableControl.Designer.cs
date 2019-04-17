@@ -80,6 +80,7 @@
             this.RightButton.TabIndex = 5;
             this.RightButton.Text = "->";
             this.RightButton.UseVisualStyleBackColor = true;
+            this.RightButton.Click += new System.EventHandler(this.RightButton_Click);
             // 
             // LeftButton
             // 
@@ -89,6 +90,7 @@
             this.LeftButton.TabIndex = 4;
             this.LeftButton.Text = "<-";
             this.LeftButton.UseVisualStyleBackColor = true;
+            this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
             // IndexLabel
             // 
@@ -120,7 +122,7 @@
             this.SplitLabel.TabIndex = 2;
             this.SplitLabel.Text = "/";
             // 
-            // StudentTableView
+            // CheckTableView
             // 
             this.CheckTableView.AllowUserToAddRows = false;
             this.CheckTableView.AllowUserToDeleteRows = false;
@@ -136,7 +138,7 @@
             this.CheckTableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.CheckTableView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CheckTableView.Location = new System.Drawing.Point(3, 3);
-            this.CheckTableView.Name = "StudentTableView";
+            this.CheckTableView.Name = "CheckTableView";
             this.CheckTableView.ReadOnly = true;
             this.CheckTableView.RowHeadersVisible = false;
             this.CheckTableView.Size = new System.Drawing.Size(1035, 348);

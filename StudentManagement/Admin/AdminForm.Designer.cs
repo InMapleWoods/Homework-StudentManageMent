@@ -32,6 +32,7 @@
             this.StudentTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TeacherTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CourseTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // OpenToolStripMenuItem
@@ -39,6 +40,7 @@
             this.OpenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StudentTableToolStripMenuItem,
             this.TeacherTableToolStripMenuItem,
+            this.CourseTableToolStripMenuItem,
             this.CheckTableToolStripMenuItem});
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
             this.OpenToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
@@ -49,21 +51,28 @@
             this.StudentTableToolStripMenuItem.Name = "StudentTableToolStripMenuItem";
             this.StudentTableToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.StudentTableToolStripMenuItem.Text = "学生表(&S)";
-            this.StudentTableToolStripMenuItem.Click += new System.EventHandler(this.StudentTableToolStripMenuItem_Click);
+            this.StudentTableToolStripMenuItem.Click += new System.EventHandler(this.TableToolStripMenuItem_Click);
             // 
             // TeacherTableToolStripMenuItem
             // 
             this.TeacherTableToolStripMenuItem.Name = "TeacherTableToolStripMenuItem";
             this.TeacherTableToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.TeacherTableToolStripMenuItem.Text = "教师表(&T)";
-            this.TeacherTableToolStripMenuItem.Click += new System.EventHandler(this.TeacherTableToolStripMenuItem_Click);
+            this.TeacherTableToolStripMenuItem.Click += new System.EventHandler(this.TableToolStripMenuItem_Click);
+            // 
+            // CourseTableToolStripMenuItem
+            // 
+            this.CourseTableToolStripMenuItem.Name = "CourseTableToolStripMenuItem";
+            this.CourseTableToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.CourseTableToolStripMenuItem.Text = "课程表(&K)";
+            this.CourseTableToolStripMenuItem.Click += new System.EventHandler(this.TableToolStripMenuItem_Click);
             // 
             // CheckTableToolStripMenuItem
             // 
             this.CheckTableToolStripMenuItem.Name = "CheckTableToolStripMenuItem";
             this.CheckTableToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.CheckTableToolStripMenuItem.Text = "审核表(&C)";
-            this.CheckTableToolStripMenuItem.Click += new System.EventHandler(this.CheckTableToolStripMenuItem_Click);
+            this.CheckTableToolStripMenuItem.Click += new System.EventHandler(this.TableToolStripMenuItem_Click);
             // 
             // AdminForm
             // 
@@ -81,5 +90,6 @@
         public System.Windows.Forms.ToolStripMenuItem StudentTableToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem TeacherTableToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem CheckTableToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem CourseTableToolStripMenuItem;
     }
 }

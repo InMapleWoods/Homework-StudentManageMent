@@ -41,9 +41,9 @@ namespace StudentManagement
         }
 
         /// <summary>
-        /// 学生表显示
+        /// 表显示
         /// </summary>
-        private void StudentTableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TableIsShowed)
             {
@@ -59,57 +59,25 @@ namespace StudentManagement
                 tableForm = new TableForm();
             }
             tableForm.MdiParent = this;
-            tableForm.Controls.Add(tableForm.studentTableControl1);
+            if(((ToolStripMenuItem)sender).Text== "学生表(&S)")
+            {
+                tableForm.Controls.Add(tableForm.studentTableControl1);
+            }
+            else if (((ToolStripMenuItem)sender).Text == "教师表(&T)")
+            {
+                tableForm.Controls.Add(tableForm.teacherTableControl1);
+            }
+            else if (((ToolStripMenuItem)sender).Text == "审核表(&C)")
+            {
+                tableForm.Controls.Add(tableForm.CheckTableControl1);
+            }
+            else if (((ToolStripMenuItem)sender).Text == "课程表(&K)")
+            {
+                tableForm.Controls.Add(tableForm.courseTableControl1);
+            }
             tableForm.StartPosition = FormStartPosition.CenterParent;
             tableForm.Show();            
         } 
-
-        /// <summary>
-        /// 教师表显示
-        /// </summary>
-        private void TeacherTableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (TableIsShowed)
-            {
-                int t = tableForm.Controls.Count;
-                while (t > 0)
-                {
-                    t--;
-                    tableForm.Controls.RemoveAt(0);
-                }
-            }
-            else
-            {
-                tableForm = new TableForm();
-            }
-            tableForm.MdiParent = this;
-            tableForm.Controls.Add(tableForm.teacherTableControl1);
-            tableForm.StartPosition = FormStartPosition.CenterParent;
-            tableForm.Show();
-        }
-
-        /// <summary>
-        /// 审核表显示
-        /// </summary>
-        private void CheckTableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (TableIsShowed)
-            {
-                int t = tableForm.Controls.Count;
-                while (t > 0)
-                {
-                    t--;
-                    tableForm.Controls.RemoveAt(0);
-                }
-            }
-            else
-            {
-                tableForm = new TableForm();
-            }
-            tableForm.MdiParent = this;
-            tableForm.Controls.Add(tableForm.CheckTableControl1);
-            tableForm.Show();
-        }
 
         /// <summary>
         /// 继承后子窗体增加内容

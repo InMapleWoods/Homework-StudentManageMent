@@ -80,6 +80,7 @@
             this.RightButton.TabIndex = 5;
             this.RightButton.Text = "->";
             this.RightButton.UseVisualStyleBackColor = true;
+            this.RightButton.Click += new System.EventHandler(this.RightButton_Click);
             // 
             // LeftButton
             // 
@@ -89,6 +90,7 @@
             this.LeftButton.TabIndex = 4;
             this.LeftButton.Text = "<-";
             this.LeftButton.UseVisualStyleBackColor = true;
+            this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
             // IndexLabel
             // 

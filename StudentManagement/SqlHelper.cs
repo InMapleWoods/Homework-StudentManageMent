@@ -27,7 +27,7 @@ namespace StudentManagement
 
         public bool SqlFilter(string InText)
         {
-            string word = "and|exec|insert|select|delete|update|chr|mid|master|or|truncate|char|declare|join|cmd";
+            /*string word = "and|exec|insert|select|delete|update|chr|mid|master|or|truncate|char|declare|join|cmd";
             if (InText == null)
                 return false;
             foreach (string i in word.Split('|'))
@@ -36,22 +36,22 @@ namespace StudentManagement
                 {
                     return true;
                 }
-            }
+            }*/
             return false;
         }
 
         private string protectsql(string text)
         {
-            text = text.Replace(";", "");
-            text = text.Replace("-", "");
+            //text = text.Replace(";", "");
+            //text = text.Replace("-", "");
             return text;
         }
 
-        /// <summary>
-        /// 打开数据库
-        /// </summary>
-        /// <returns>返回SqlConnection</returns>
-        private SqlConnection getconn()
+    /// <summary>
+    /// 打开数据库
+    /// </summary>
+    /// <returns>返回SqlConnection</returns>
+    private SqlConnection getconn()
         {
             try
             {
@@ -75,6 +75,42 @@ namespace StudentManagement
         {
             cmdtext=protectsql(cmdtext);
             string sqltext = "SELECT COUNT(*) from " + cmdtext; 
+            getconn();
+            int res = 0;
+            try
+            {
+                using (cmd = new SqlCommand(sqltext, conn))
+                {
+                    
+                    cmd.CommandType = CommandType.Text;
+                    res=(int)cmd.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                res = -1;
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return res;
+        }
+        
+        /// <summary>
+        /// 查询表中数据条数
+        /// </summary>
+        /// <param name="cmdID">要查询的ID列名称</param>
+        /// <param name="cmdtext">要查询的表</param>
+        /// <returns>表中数据最大值</returns>
+        public int sqlMaxID(string cmdID,string cmdtext)
+        {
+            cmdtext=protectsql(cmdtext);
+            string sqltext = "SELECT Max("+ cmdID + ")+1 from " + cmdtext; 
             getconn();
             int res = 0;
             try

@@ -12,9 +12,9 @@ using System.Data.SqlClient;
 namespace StudentManagement
 {
     /// <summary>
-    /// 老师表
+    /// 课程表
     /// </summary>
-    public partial class TeacherTableControl : UserControl
+    public partial class CourseTableControl : UserControl
     {
         /// <summary>
         /// 分页宽度
@@ -29,9 +29,9 @@ namespace StudentManagement
         /// </summary>
         int num = 1;
         /// <summary>
-        /// 老师表控件构造函数
+        /// 审核表控价构造函数
         /// </summary>
-        public TeacherTableControl()
+        public CourseTableControl()
         {
             InitializeComponent();
             TableShow();
@@ -43,18 +43,18 @@ namespace StudentManagement
         private void TableShow()
         {
             SQLHelper helper = new SQLHelper();//创建SQLHelp对象
-            num = helper.sqlNum("tb_Users where Role=2");
+            num = helper.sqlNum("tb_Course");
             num = num / size + (num % size == 0 ? 0 : 1);
-            string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=2 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
+            string sqlstr = "select Id 课程ID,Name 课程名称 from tb_Course order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
-            TeacherTableView.DataSource = dataTable;
+            CourseTableView.DataSource = dataTable;
             DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
             btn.Name = "btnDelete";
             btn.HeaderText = "删除";
             btn.DefaultCellStyle.NullValue = "删除";           
-            if (!TeacherTableView.Columns.Contains("btnDelete"))
+            if (!CourseTableView.Columns.Contains("btnDelete"))
             {
-                TeacherTableView.Columns.Add(btn);
+                CourseTableView.Columns.Add(btn);
             }
             if (IndexLabel != null)
                 IndexLabel.Text = index.ToString();
@@ -63,13 +63,13 @@ namespace StudentManagement
         }
 
         /// <summary>
-        /// 删除老师
+        /// 删除课程
         /// </summary>
-        /// <param name="id">用户ID</param>
+        /// <param name="id">课程ID</param>
         private void DeleteUser(string id)
         {
             SQLHelper sqlHelper = new SQLHelper();
-            string sqlStr = "delete from tb_Users where Id=@Id";
+            string sqlStr = "delete from tb_Course where Id=@Id";
             SqlParameter[] para = new SqlParameter[]
              {                
                 new SqlParameter("@Id",id)
@@ -99,14 +99,14 @@ namespace StudentManagement
         /// <summary>
         /// button按钮事件
         /// </summary>
-        private void TeacherTableView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void CourseTableView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             //点击button按钮事件
-            if (TeacherTableView.Columns[e.ColumnIndex].Name == "btnDelete" && e.RowIndex >= 0)
+            if (CourseTableView.Columns[e.ColumnIndex].Name == "btnDelete" && e.RowIndex >= 0)
             {
                 //说明点击的列是DataGridViewButtonColumn列
-                DataGridViewColumn column = TeacherTableView.Columns[e.ColumnIndex];
-                string id = TeacherTableView.CurrentRow.Cells[1].Value.ToString();
+                DataGridViewColumn column = CourseTableView.Columns[e.ColumnIndex];
+                string id = CourseTableView.CurrentRow.Cells[1].Value.ToString();
                 DeleteUser(id);
             }
         }

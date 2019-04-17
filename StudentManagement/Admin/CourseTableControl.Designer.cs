@@ -1,6 +1,6 @@
 ﻿namespace StudentManagement
 {
-    partial class StudentTableControl
+    partial class CourseTableControl
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -36,10 +36,10 @@
             this.IndexLabel = new System.Windows.Forms.Label();
             this.CountLabel = new System.Windows.Forms.Label();
             this.SplitLabel = new System.Windows.Forms.Label();
-            this.StudentTableView = new System.Windows.Forms.DataGridView();
+            this.CourseTableView = new System.Windows.Forms.DataGridView();
             this.SplitPanel.SuspendLayout();
             this.PagePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StudentTableView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CourseTableView)).BeginInit();
             this.SuspendLayout();
             // 
             // SplitPanel
@@ -47,7 +47,7 @@
             this.SplitPanel.ColumnCount = 1;
             this.SplitPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.SplitPanel.Controls.Add(this.PagePanel, 0, 1);
-            this.SplitPanel.Controls.Add(this.StudentTableView, 0, 0);
+            this.SplitPanel.Controls.Add(this.CourseTableView, 0, 0);
             this.SplitPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitPanel.Location = new System.Drawing.Point(0, 0);
             this.SplitPanel.Name = "SplitPanel";
@@ -122,12 +122,12 @@
             this.SplitLabel.TabIndex = 2;
             this.SplitLabel.Text = "/";
             // 
-            // StudentTableView
+            // CourseTableView
             // 
-            this.StudentTableView.AllowUserToAddRows = false;
-            this.StudentTableView.AllowUserToDeleteRows = false;
-            this.StudentTableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.StudentTableView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.CourseTableView.AllowUserToAddRows = false;
+            this.CourseTableView.AllowUserToDeleteRows = false;
+            this.CourseTableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CourseTableView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -135,28 +135,28 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentTableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.StudentTableView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StudentTableView.Location = new System.Drawing.Point(3, 3);
-            this.StudentTableView.Name = "StudentTableView";
-            this.StudentTableView.ReadOnly = true;
-            this.StudentTableView.RowHeadersVisible = false;
-            this.StudentTableView.Size = new System.Drawing.Size(1035, 348);
-            this.StudentTableView.TabIndex = 3;
-            this.StudentTableView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StudentTableView_CellContentClick);
+            this.CourseTableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.CourseTableView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CourseTableView.Location = new System.Drawing.Point(3, 3);
+            this.CourseTableView.Name = "CourseTableView";
+            this.CourseTableView.ReadOnly = true;
+            this.CourseTableView.RowHeadersVisible = false;
+            this.CourseTableView.Size = new System.Drawing.Size(1035, 348);
+            this.CourseTableView.TabIndex = 3;
+            this.CourseTableView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CourseTableView_CellContentClick);
             // 
-            // StudentTableControl
+            // CourseTableControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.SplitPanel);
-            this.Name = "StudentTableControl";
+            this.Name = "CourseTableControl";
             this.Size = new System.Drawing.Size(1041, 394);
             this.SplitPanel.ResumeLayout(false);
             this.SplitPanel.PerformLayout();
             this.PagePanel.ResumeLayout(false);
             this.PagePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StudentTableView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CourseTableView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -170,6 +170,6 @@
         private System.Windows.Forms.Label IndexLabel;
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Label SplitLabel;
-        private System.Windows.Forms.DataGridView StudentTableView;
+        private System.Windows.Forms.DataGridView CourseTableView;
     }
 }

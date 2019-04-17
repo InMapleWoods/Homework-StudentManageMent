@@ -29,13 +29,10 @@ namespace StudentManagement
         /// </summary>
         int num = 1;
         /// <summary>
-        /// 审核表控价构造函数
+        /// 学生表控件构造函数
         /// </summary>
         public StudentTableControl()
         {
-            SQLHelper helper = new SQLHelper();//创建SQLHelp对象
-            num = helper.sqlNum("tb_Users where Role=1");
-            num = num / size + (num % size == 0 ? 0 : 1);
             InitializeComponent();
             TableShow();
         }
@@ -46,6 +43,8 @@ namespace StudentManagement
         private void TableShow()
         {
             SQLHelper helper = new SQLHelper();//创建SQLHelp对象
+            num = helper.sqlNum("tb_Users where Role=1");
+            num = num / size + (num % size == 0 ? 0 : 1);
             string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=1 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             StudentTableView.DataSource = dataTable;

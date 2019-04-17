@@ -33,9 +33,6 @@ namespace StudentManagement
         /// </summary>
         public CheckTableControl()
         {
-            SQLHelper helper = new SQLHelper();//创建SQLHelp对象
-            num = helper.sqlNum("tb_Log where IsChecked=0");
-            num = num / size + (num % size == 0 ? 0 : 1);
             InitializeComponent();
             TableShow();
         }
@@ -46,6 +43,8 @@ namespace StudentManagement
         private void TableShow()
         {
             SQLHelper helper = new SQLHelper();//创建SQLHelp对象
+            num = helper.sqlNum("tb_Log where IsChecked=0");
+            num = num / size + (num % size == 0 ? 0 : 1);
             string sqlstr = "select dbo.PadLeft(UserId,8,'0') 账号,Name 昵称,WantToBe 申请角色 from tb_Log where IsChecked=0 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             CheckTableView.DataSource = dataTable;

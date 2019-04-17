@@ -32,6 +32,7 @@
             this.CheckTableControl1 = new StudentManagement.CheckTableControl();
             this.studentTableControl1 = new StudentManagement.StudentTableControl();
             this.teacherTableControl1 = new StudentManagement.TeacherTableControl();
+            this.courseTableControl1 = new StudentManagement.CourseTableControl();
             this.SuspendLayout();
             // 
             // CheckTableControl1
@@ -64,6 +65,16 @@
             this.teacherTableControl1.Size = new System.Drawing.Size(1041, 394);
             this.teacherTableControl1.TabIndex = 0;
             // 
+            // courseTableControl1
+            // 
+            this.courseTableControl1.AutoSize = true;
+            this.courseTableControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.courseTableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.courseTableControl1.Location = new System.Drawing.Point(36, 67);
+            this.courseTableControl1.Name = "courseTableControl1";
+            this.courseTableControl1.Size = new System.Drawing.Size(1041, 394);
+            this.courseTableControl1.TabIndex = 0;
+            // 
             // TableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -82,6 +93,7 @@
         #endregion
 
         public CheckTableControl CheckTableControl1;
+        public CourseTableControl courseTableControl1;
         public StudentTableControl studentTableControl1;
         public TeacherTableControl teacherTableControl1;
     }

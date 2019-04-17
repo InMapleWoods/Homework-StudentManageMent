@@ -84,7 +84,7 @@ namespace StudentManagement
             SQLHelper sqlHelper = new SQLHelper();
             int numid = 0;
             numid = sqlHelper.sqlNum("tb_Users");//获取表中数据条数
-            string id = numid.ToString().PadLeft(8, '0');//将ID补全为8位
+            string id =sqlHelper.sqlMaxID("Id", "tb_Users").ToString().PadLeft(8, '0');//将ID补全为8位
             if (numid == 0)//如果是第一个注册默认成为管理员
             {
                 Role = 3;
