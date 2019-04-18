@@ -10,6 +10,14 @@ namespace StudentManagement
 {
     public partial class StudentForm : MainForm
     {
+        /// <summary>
+        /// 子窗体是否显示
+        /// </summary>
+        public static bool isshow = false;
+        /// <summary>
+        /// 子窗体
+        /// </summary>
+        Student.TableForm tableForm =null;
         public StudentForm() : base()
         {
             InitializeComponent();
@@ -18,12 +26,73 @@ namespace StudentManagement
         public StudentForm(User user) : base(user)
         {
             InitializeComponent();
-            this.webBrowser1.Navigate(AppDomain.CurrentDomain.BaseDirectory + @"GradeChoose.html"); this.webBrowser1.Document.Window.Error += new HtmlElementErrorEventHandler(Window_Error);
+            AddExtend();
+            tableForm = new Student.TableForm(user);
         }
 
-        private void Window_Error(object sender, HtmlElementErrorEventArgs e)
+        /// <summary>
+        /// 表显示
+        /// </summary>
+        private void courseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            e.Handled = true;
+            if (isshow)
+            {
+                int t = tableForm.Controls.Count;
+                while (t > 0)
+                {
+                    t--;
+                    tableForm.Controls.RemoveAt(0);
+                }
+            }
+            else
+            {
+                tableForm = new Student.TableForm(Logined_user);
+            }
+            tableForm.MdiParent = this;
+            tableForm.Controls.Add(tableForm.courseAddControl);
+            tableForm.StartPosition = FormStartPosition.CenterParent;
+            tableForm.Show();
+
         }
+
+        /// <summary>
+        /// 表显示
+        /// </summary>
+        private void gradeViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isshow)
+            {
+                int t = tableForm.Controls.Count;
+                while (t > 0)
+                {
+                    t--;
+                    tableForm.Controls.RemoveAt(0);
+                }
+            }
+            else
+            {
+                tableForm = new Student.TableForm(Logined_user);
+            }
+            tableForm.MdiParent = this;
+            tableForm.Controls.Add(tableForm.gradeManageControl);
+            tableForm.StartPosition = FormStartPosition.CenterParent;
+            tableForm.Show();
+
+        }
+
+        /// <summary>
+        /// 继承后子窗体增加内容
+        /// </summary>
+        private void AddExtend()
+        {
+            #region 增加菜单栏
+            this.MainFormMenuStrip.Items.Insert(0, this.courseChooseToolStripMenuItem);
+            this.MainFormMenuStrip.Items.Insert(0, this.gradeToolStripMenuItem);
+            this.MainFormMenuStrip.SuspendLayout();
+            this.MainFormMenuStrip.ResumeLayout(false);
+            this.MainFormMenuStrip.PerformLayout();
+            #endregion
+        }
+
     }
 }

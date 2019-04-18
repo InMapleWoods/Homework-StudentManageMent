@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
-namespace StudentManagement
+namespace StudentManagement.Teacher
 {
-    /// <summary>
-    /// 增加课程
-    /// </summary>
-    public partial class CoursemanageForm : Form
+    public partial class CourseAddControl : UserControl
     {
         /// <summary>
         /// 构造函数
         /// </summary>
-        public CoursemanageForm()
+        public CourseAddControl()
         {
             InitializeComponent();
             DataListBind();
@@ -36,13 +33,6 @@ namespace StudentManagement
             courseDataGridView.DataSource = dataTable;//设置数据源，用于填充控件
         }
 
-        /// <summary>
-        /// 窗体关闭事件
-        /// </summary>
-        private void CoursemanageForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            TeacherForm.isshow = false;
-        }
 
         /// <summary>
         /// 增加课程按钮点击事件

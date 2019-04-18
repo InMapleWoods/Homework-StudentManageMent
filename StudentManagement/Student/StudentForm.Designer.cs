@@ -28,33 +28,57 @@
         /// </summary>
         private new void InitializeComponent()
         {
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.courseChooseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.courseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gradeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gradeViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
-            // webBrowser1
+            // courseChooseToolStripMenuItem
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(800, 422);
-            this.webBrowser1.TabIndex = 3;
+            this.courseChooseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.courseToolStripMenuItem});
+            this.courseChooseToolStripMenuItem.Name = "courseChooseToolStripMenuItem";
+            this.courseChooseToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.courseChooseToolStripMenuItem.Text = "选课(&C)";
+            // 
+            // courseToolStripMenuItem
+            // 
+            this.courseToolStripMenuItem.Name = "courseToolStripMenuItem";
+            this.courseToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.courseToolStripMenuItem.Text = "课程选择(&K)";
+            this.courseToolStripMenuItem.Click += new System.EventHandler(this.courseToolStripMenuItem_Click);
+            // 
+            // gradeToolStripMenuItem
+            // 
+            this.gradeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gradeViewToolStripMenuItem});
+            this.gradeToolStripMenuItem.Name = "gradeToolStripMenuItem";
+            this.gradeToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.gradeToolStripMenuItem.Text = "查看成绩(&G)";
+            // 
+            // gradeViewToolStripMenuItem
+            // 
+            this.gradeViewToolStripMenuItem.Name = "gradeViewToolStripMenuItem";
+            this.gradeViewToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.gradeViewToolStripMenuItem.Text = "成绩查看(&V)";
+            this.gradeViewToolStripMenuItem.Click += new System.EventHandler(this.gradeViewToolStripMenuItem_Click);
             // 
             // StudentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.webBrowser1);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "StudentForm";
-            this.Controls.SetChildIndex(this.webBrowser1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.ToolStripMenuItem courseChooseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem courseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gradeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gradeViewToolStripMenuItem;
     }
 }

@@ -10,7 +10,14 @@ namespace StudentManagement
 {
     public partial class TeacherForm : MainForm
     {
+        /// <summary>
+        /// 子窗体是否显示
+        /// </summary>
         public static bool isshow = false;
+        /// <summary>
+        /// 子窗体
+        /// </summary>
+        Teacher.TableForm tableForm = new Teacher.TableForm();
         public TeacherForm() : base()
         {
             InitializeComponent();
@@ -22,28 +29,46 @@ namespace StudentManagement
             AddExtend();
         }
 
-
         private void 增添ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CoursemanageForm form2 = new CoursemanageForm();
-            form2.MdiParent = this;
-            if (isshow == false)
+            if (isshow)
             {
-                form2.Show();
-                isshow = true;
+                int t = tableForm.Controls.Count;
+                while (t > 0)
+                {
+                    t--;
+                    tableForm.Controls.RemoveAt(0);
+                }
             }
+            else
+            {
+                tableForm = new Teacher.TableForm();
+            }
+            tableForm.MdiParent = this;
+            tableForm.Controls.Add(tableForm.courseAddControl);
+            tableForm.StartPosition = FormStartPosition.CenterParent;
+            tableForm.Show();
         }
 
         private void 成绩录入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StudentgrademangeForm form3 = new StudentgrademangeForm();
-            form3.MdiParent = this;
-            if (isshow == false)
+            if (isshow)
             {
-                form3.Show();
-                isshow = true;
+                int t = tableForm.Controls.Count;
+                while (t > 0)
+                {
+                    t--;
+                    tableForm.Controls.RemoveAt(0);
+                }
             }
-
+            else
+            {
+                tableForm = new Teacher.TableForm();
+            }
+            tableForm.MdiParent = this;
+            tableForm.Controls.Add(tableForm.gradeManageControl);
+            tableForm.StartPosition = FormStartPosition.CenterParent;
+            tableForm.Show();
         }
 
         /// <summary>

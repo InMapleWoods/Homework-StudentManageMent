@@ -1,16 +1,16 @@
-﻿namespace StudentManagement
+﻿namespace StudentManagement.Teacher
 {
-    partial class StudentgrademangeForm
+    partial class GradeManageControl
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// 必需的设计器变量。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// 清理所有正在使用的资源。
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,17 +20,17 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region 组件设计器生成的代码
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要修改
+        /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent()
         {
-            this.gradeLabel = new System.Windows.Forms.Label();
-            this.gradeTextBox = new System.Windows.Forms.TextBox();
             this.changeButton = new System.Windows.Forms.Button();
+            this.gradeTextBox = new System.Windows.Forms.TextBox();
+            this.gradeLabel = new System.Windows.Forms.Label();
             this.courseComboBox = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -48,24 +48,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // gradeLabel
-            // 
-            this.gradeLabel.AutoSize = true;
-            this.gradeLabel.Location = new System.Drawing.Point(28, 84);
-            this.gradeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.gradeLabel.Name = "gradeLabel";
-            this.gradeLabel.Size = new System.Drawing.Size(45, 15);
-            this.gradeLabel.TabIndex = 20;
-            this.gradeLabel.Text = "成绩:";
-            // 
-            // gradeTextBox
-            // 
-            this.gradeTextBox.Location = new System.Drawing.Point(76, 81);
-            this.gradeTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.gradeTextBox.Name = "gradeTextBox";
-            this.gradeTextBox.Size = new System.Drawing.Size(234, 25);
-            this.gradeTextBox.TabIndex = 16;
-            // 
             // changeButton
             // 
             this.changeButton.Location = new System.Drawing.Point(125, 141);
@@ -77,6 +59,24 @@
             this.changeButton.UseVisualStyleBackColor = true;
             this.changeButton.Click += new System.EventHandler(this.ChangeButton_Click);
             // 
+            // gradeTextBox
+            // 
+            this.gradeTextBox.Location = new System.Drawing.Point(76, 81);
+            this.gradeTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.gradeTextBox.Name = "gradeTextBox";
+            this.gradeTextBox.Size = new System.Drawing.Size(234, 25);
+            this.gradeTextBox.TabIndex = 16;
+            // 
+            // gradeLabel
+            // 
+            this.gradeLabel.AutoSize = true;
+            this.gradeLabel.Location = new System.Drawing.Point(28, 84);
+            this.gradeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.gradeLabel.Name = "gradeLabel";
+            this.gradeLabel.Size = new System.Drawing.Size(45, 15);
+            this.gradeLabel.TabIndex = 20;
+            this.gradeLabel.Text = "成绩:";
+            // 
             // courseComboBox
             // 
             this.courseComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -84,7 +84,7 @@
             this.courseComboBox.Location = new System.Drawing.Point(0, 0);
             this.courseComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.courseComboBox.Name = "courseComboBox";
-            this.courseComboBox.Size = new System.Drawing.Size(430, 23);
+            this.courseComboBox.Size = new System.Drawing.Size(415, 23);
             this.courseComboBox.TabIndex = 22;
             this.courseComboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
@@ -100,8 +100,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(873, 523);
-            this.tableLayoutPanel1.TabIndex = 23;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(843, 551);
+            this.tableLayoutPanel1.TabIndex = 24;
             // 
             // panel2
             // 
@@ -110,7 +110,7 @@
             this.panel2.Controls.Add(this.changeButton);
             this.panel2.Controls.Add(this.gradeTextBox);
             this.panel2.Controls.Add(this.gradeLabel);
-            this.panel2.Location = new System.Drawing.Point(466, 144);
+            this.panel2.Location = new System.Drawing.Point(443, 158);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(377, 235);
             this.panel2.TabIndex = 25;
@@ -129,7 +129,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(430, 517);
+            this.panel1.Size = new System.Drawing.Size(415, 545);
             this.panel1.TabIndex = 24;
             // 
             // splitContainer1
@@ -146,8 +146,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(430, 517);
-            this.splitContainer1.SplitterDistance = 28;
+            this.splitContainer1.Size = new System.Drawing.Size(415, 545);
+            this.splitContainer1.SplitterDistance = 29;
             this.splitContainer1.TabIndex = 23;
             // 
             // dataGridView1
@@ -164,21 +164,17 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(430, 485);
+            this.dataGridView1.Size = new System.Drawing.Size(415, 512);
             this.dataGridView1.TabIndex = 17;
             this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.DataGridView1_CurrentCellChanged);
             // 
-            // StudentgrademangeForm
+            // GradeManageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 523);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "StudentgrademangeForm";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StudentgrademangeForm_FormClosing);
+            this.Name = "GradeManageControl";
+            this.Size = new System.Drawing.Size(843, 551);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -193,15 +189,16 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label gradeLabel;
-        private System.Windows.Forms.TextBox gradeTextBox;
+
         private System.Windows.Forms.Button changeButton;
+        private System.Windows.Forms.TextBox gradeTextBox;
+        private System.Windows.Forms.Label gradeLabel;
         private System.Windows.Forms.ComboBox courseComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label studentIdLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label studentIdLabel;
     }
 }

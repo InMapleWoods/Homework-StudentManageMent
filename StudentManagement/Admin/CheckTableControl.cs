@@ -48,13 +48,17 @@ namespace StudentManagement
             string sqlstr = "select dbo.PadLeft(UserId,8,'0') 账号,Name 昵称,WantToBe 申请角色 from tb_Log where IsChecked=0 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             CheckTableView.DataSource = dataTable;
-            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
-            btn.Name = "btnPass";
-            btn.HeaderText = "通过";
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn
+            {
+                Name = "btnPass",
+                HeaderText = "通过"
+            };
             btn.DefaultCellStyle.NullValue = "通过";
-            DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn();
-            btn2.Name = "btnReject";
-            btn2.HeaderText = "拒绝";
+            DataGridViewButtonColumn btn2 = new DataGridViewButtonColumn
+            {
+                Name = "btnReject",
+                HeaderText = "拒绝"
+            };
             btn2.DefaultCellStyle.NullValue = "拒绝";
             if (!CheckTableView.Columns.Contains("btnPass"))
             {
@@ -85,7 +89,7 @@ namespace StudentManagement
                 new SqlParameter("@tobe",tobe),
                 new SqlParameter("@userId",id)
              };
-            int count = sqlHelper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            sqlHelper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             TableShow();
         }
 
@@ -103,7 +107,7 @@ namespace StudentManagement
                 new SqlParameter("@isChecked",true),
                 new SqlParameter("@userId",id)
              };
-            int count = sqlHelper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            sqlHelper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             TableShow();
         }
 
@@ -134,7 +138,6 @@ namespace StudentManagement
             if (CheckTableView.Columns[e.ColumnIndex].Name == "btnPass" && e.RowIndex >= 0)
             {
                 //说明点击的列是DataGridViewButtonColumn列
-                DataGridViewColumn column = CheckTableView.Columns[e.ColumnIndex];
                 string id = CheckTableView.CurrentRow.Cells[2].Value.ToString();
                 string WantToBe = CheckTableView.CurrentRow.Cells[4].Value.ToString();
                 AcceptLog(id, WantToBe);
@@ -142,7 +145,6 @@ namespace StudentManagement
             else if (CheckTableView.Columns[e.ColumnIndex].Name == "btnReject" && e.RowIndex >= 0)
             {
                 //说明点击的列是DataGridViewButtonColumn列
-                DataGridViewColumn column = CheckTableView.Columns[e.ColumnIndex];
                 string id = CheckTableView.CurrentRow.Cells[2].Value.ToString();
                 RejectionLog(id);
             }

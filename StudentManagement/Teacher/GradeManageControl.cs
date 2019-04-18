@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
-namespace StudentManagement
+namespace StudentManagement.Teacher
 {
-    /// <summary>
-    /// 学生成绩管理
-    /// </summary>
-    public partial class StudentgrademangeForm : Form
+    public partial class GradeManageControl : UserControl
     {
         /// <summary>
         /// 学生ID
@@ -36,10 +33,11 @@ namespace StudentManagement
         /// <summary>
         /// 构造函数
         /// </summary>
-        public StudentgrademangeForm()
+        public GradeManageControl()
         {
             InitializeComponent();
             DataListBind();
+            CourseListBind();
         }
 
         /// <summary>
@@ -48,11 +46,16 @@ namespace StudentManagement
         public void DataListBind()
         {
             SQLHelper helper = new SQLHelper();//创建SQLHelp对象
-            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Grade as 课程分数 from tb_Grade ,tb_Users where CId='" + courseid+ "' and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
+            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Grade as 课程分数 from tb_Grade ,tb_Users where CId='" + courseid + "' and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             dataGridView1.DataSource = dataTable;//设置数据源，用于填充控件
-            sqlstr = "select Id,Name from tb_Course";//SQL执行字符串
-            dataTable = helper.reDt(sqlstr);//储存Datatable
+        }
+
+        private void CourseListBind()
+        {
+            SQLHelper helper = new SQLHelper();//创建SQLHelp对象
+            string sqlstr = "select Id,Name from tb_Course";//SQL执行字符串
+            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             string[] accounts = new string[dataTable.Rows.Count];
             comboBoxId = new string[accounts.Length];
             for (int i = 0; i < accounts.Length; i++)
@@ -61,14 +64,6 @@ namespace StudentManagement
                 comboBoxId[i] = dataTable.Rows[i]["Id"].ToString();
             }
             courseComboBox.DataSource = accounts;//设置数据源，用于填充控件
-        }
-
-        /// <summary>
-        /// 关闭窗体事件
-        /// </summary>
-        private void StudentgrademangeForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            TeacherForm.isshow = false;
         }
 
         /// <summary>
@@ -102,6 +97,8 @@ namespace StudentManagement
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxIndex = courseComboBox.SelectedIndex;
+            courseid = comboBoxId[comboBoxIndex];
+            DataListBind();
         }
 
         /// <summary>
@@ -112,7 +109,7 @@ namespace StudentManagement
             if (dataGridView1.CurrentRow != null)
             {
                 studenid = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                studentIdLabel.Text = "学生ID： "+studenid;
+                studentIdLabel.Text = "学生ID： " + studenid;
             }
         }
     }

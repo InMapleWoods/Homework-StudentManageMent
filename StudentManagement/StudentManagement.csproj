@@ -89,6 +89,18 @@
     <Compile Include="Main\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Student\CourseAddControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Student\CourseAddControl.Designer.cs">
+      <DependentUpon>CourseAddControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Student\GradeManageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Student\GradeManageControl.Designer.cs">
+      <DependentUpon>GradeManageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Student\StudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,17 +152,29 @@
     <Compile Include="Admin\TableForm.Designer.cs">
       <DependentUpon>TableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Teacher\CourseAddForm.cs">
+    <Compile Include="Student\TableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Teacher\CourseAddForm.Designer.cs">
-      <DependentUpon>CourseAddForm.cs</DependentUpon>
+    <Compile Include="Student\TableForm.Designer.cs">
+      <DependentUpon>TableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Teacher\StudentGradeMngForm.cs">
+    <Compile Include="Teacher\CourseAddControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Teacher\CourseAddControl.Designer.cs">
+      <DependentUpon>CourseAddControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\GradeManageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Teacher\GradeManageControl.Designer.cs">
+      <DependentUpon>GradeManageControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\TableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Teacher\StudentGradeMngForm.Designer.cs">
-      <DependentUpon>StudentGradeMngForm.cs</DependentUpon>
+    <Compile Include="Teacher\TableForm.Designer.cs">
+      <DependentUpon>TableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Teacher\TeacherForm.cs">
       <SubType>Form</SubType>
@@ -191,6 +215,12 @@
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Student\CourseAddControl.resx">
+      <DependentUpon>CourseAddControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Student\GradeManageControl.resx">
+      <DependentUpon>GradeManageControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Student\StudentForm.resx">
       <DependentUpon>StudentForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,11 +236,17 @@
     <EmbeddedResource Include="Admin\TableForm.resx">
       <DependentUpon>TableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Teacher\CourseAddForm.resx">
-      <DependentUpon>CourseAddForm.cs</DependentUpon>
+    <EmbeddedResource Include="Student\TableForm.resx">
+      <DependentUpon>TableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Teacher\StudentGradeMngForm.resx">
-      <DependentUpon>StudentGradeMngForm.cs</DependentUpon>
+    <EmbeddedResource Include="Teacher\CourseAddControl.resx">
+      <DependentUpon>CourseAddControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher\GradeManageControl.resx">
+      <DependentUpon>GradeManageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher\TableForm.resx">
+      <DependentUpon>TableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Teacher\TeacherForm.resx">
       <DependentUpon>TeacherForm.cs</DependentUpon>
@@ -233,7 +269,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="StudentManagement.ico" />
-    <Content Include="Student\GradeChoose.html" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
