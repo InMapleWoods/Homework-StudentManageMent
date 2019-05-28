@@ -12,8 +12,8 @@ StudentManageMent┬MainForm┬StudentForm┬CourseChooseForm
                  │        │           └GradeChangeForm
                  │        │
                  │        └AdminForm┬UserChangeForm
-                 │                   │
-                 │                   └UserCheckForm
+                 │                  │
+                 │                  └UserCheckForm
                  │
                  │
                  ├LoginForm
