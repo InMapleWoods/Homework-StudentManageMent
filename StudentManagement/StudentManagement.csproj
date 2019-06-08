@@ -282,6 +282,15 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ASP.NET\StudentsManagement\Bll\Bll.csproj">
+      <Project>{6d3bbb63-49f8-46eb-b15c-cc971d2566d4}</Project>
+      <Name>Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ASP.NET\StudentsManagement\Model\Model.csproj">
+      <Project>{fc015ee2-21a4-4153-9c74-e835384018f2}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

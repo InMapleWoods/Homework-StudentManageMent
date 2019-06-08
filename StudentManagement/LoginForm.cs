@@ -137,25 +137,25 @@ namespace StudentManagement
                 }
                 else
                 {
-                    MainForm mainForm = null;
+                    MainForm mainForm;
                     t = new User(userId, name, password, Role);//将用户信息保存到变量t中
                     if (Role == 3)
                     {
                         MessageBox.Show("欢迎你，管理员");
                         mainForm = new AdminForm(t);
-                        mainForm.Text = mainForm.Text + ":管理员";
+                        mainForm.Text += ":管理员";
                     }
                     else if (Role == 2)
                     {
                         MessageBox.Show("老师你好，登陆成功");
                         mainForm = new TeacherForm(t);
-                        mainForm.Text = mainForm.Text + ":老师";
+                        mainForm.Text += ":老师";
                     }
                     else
                     {
                         MessageBox.Show("同学你好，登陆成功");
                         mainForm = new StudentForm(t);
-                        mainForm.Text = mainForm.Text + ":学生";
+                        mainForm.Text += ":学生";
                     }
                     mainForm.Show();
                     return true;
@@ -213,8 +213,10 @@ namespace StudentManagement
             try
             {
                 Ping objPingSender = new Ping();
-                PingOptions objPinOptions = new PingOptions();
-                objPinOptions.DontFragment = true;
+                PingOptions objPinOptions = new PingOptions
+                {
+                    DontFragment = true
+                };
                 string data = "";
                 byte[] buffer = Encoding.UTF8.GetBytes(data);
                 int intTimeout = 1000;
