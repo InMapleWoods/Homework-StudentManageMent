@@ -36,6 +36,14 @@ namespace Dal
 
         public bool LoginSystem(string id, string password)
         {
+            try
+            {
+                int _id = Int32.Parse(id);
+            }
+            catch
+            {
+                throw new Exception("账号格式不正确");
+            }
             //MD5加密密码
             string pwd = helper.GetMD5(password);
             //编写SQL语句
@@ -212,10 +220,17 @@ namespace Dal
         /// 获取账号密码对应的用户
         /// </summary>
         /// <param name="account">账号</param>
-        /// <param name="password">密码</param>
         /// <returns>用户</returns>
         public User GetUserLogin(string account)
         {
+            try
+            {
+                int _id = Int32.Parse(account);
+            }
+            catch
+            {
+                throw new Exception("账号格式不正确");
+            }
             //编写SQL语句
             string sqlstr = "SELECT * FROM tb_Users where Id='" + account + "'";
             //将返回的结果保存在datatable中
@@ -227,27 +242,8 @@ namespace Dal
                 string name = dr["Name"].ToString();
                 string psw = dr["Password"].ToString();
                 int Role = (int)dr["Role"];
-                if (Role == 0)//未审核人员无法访问
-                {
-                    throw new Exception("注册未审核，请联系管理员");
-                }
-                else
-                {
-                    t = new User(userId, name, psw, Role);//将用户信息保存到变量t中
-                    if (Role == 3)
-                    {
-                        this.Role = "管理员";
-                    }
-                    else if (Role == 2)
-                    {
-                        this.Role = "老师";
-                    }
-                    else
-                    {
-                        this.Role = "学生";
-                    }
-                    return t;
-                }
+                t = new User(userId, name, psw, Role);//将用户信息保存到变量t中
+                return t;
             }
             else if (dataTable.Rows.Count > 1)//返回结果不止一个
             {
@@ -255,9 +251,31 @@ namespace Dal
             }
             else//返回结果为0个
             {
-                throw new Exception("用户名或密码不正确，请重新输入");
+                return null;
             }
         }
+
+        /// <summary>
+        /// 用户名是否存在
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>是否存在</returns>
+        public bool UserNameCheck(string userName)
+        {
+            //编写SQL语句
+            string sqlstr = "SELECT * FROM tb_Users where Name='" + userName + "'";
+            //将返回的结果保存在datatable中
+            System.Data.DataTable dataTable = helper.reDt(sqlstr);
+            if (dataTable.Rows.Count >= 1)//返回结果不止一个
+            {
+                return false;
+            }
+            else//返回结果为0个
+            {
+                return true;
+            }
+        }
+
         /// <summary>
         /// 获取验证码
         /// </summary>

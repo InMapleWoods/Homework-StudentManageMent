@@ -150,11 +150,11 @@ namespace StudentsManagement_Web.Controllers
         /// </summary>
         /// <returns>注册者ID</returns>
         //GET: api/Login/GetRegisterId
-        public int GetRegisterId()
+        public string GetRegisterId()
         {
             try
             {
-                return userBll.GetRegisterId();
+                return userBll.GetRegisterId().ToString().PadLeft(8,'0');
             }
             catch (Exception ex)
             {
