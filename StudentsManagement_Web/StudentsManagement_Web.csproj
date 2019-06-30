@@ -176,6 +176,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logo_big.png" />
+    <Content Include="images\logo_small.png" />
     <Content Include="Scripts\AjaxAbout.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

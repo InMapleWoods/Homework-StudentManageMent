@@ -183,7 +183,7 @@
                                     'Role': t.Role
                                 };
                                 alert(UserRoleArray[t.Role - 1] + "你好，欢迎登录");
-                                resetJSONCookie('User', UserArray);
+                                resetJSONCookieExpires('User', UserArray, 3);
                                 resetCookieExpires('islogin', 'true', 3);
                                 location = 'Main.html';
                             } else {

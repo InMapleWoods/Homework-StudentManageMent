@@ -77,3 +77,16 @@ function resetJSONCookie(cname, cvalue) {
     }
     setJSONCookie(cname, cvalue);
 }
+
+function resetJSONCookieExpires(cname, cvalue, expires) {
+    if (isExistCookie(cname)) {
+        deleteCookie(cname);
+    }
+    var d1 = new Date();
+    var d2 = new Date(d1);
+    d2.setDate(d1.getDate() + expires);
+    if (cvalue instanceof Array) {
+        cvalue = escape(cvalue);
+    }
+    document.cookie = cname + "=" + JSON.stringify(cvalue) + "; expires=" + d2 + ";path=/";
+}
