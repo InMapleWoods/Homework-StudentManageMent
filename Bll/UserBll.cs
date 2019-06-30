@@ -188,6 +188,22 @@ namespace Bll
             catch (Exception e) { throw e; }
             return result;
         }
+
+        /// <summary>
+        /// 用户名是否存在
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>是否存在</returns>
+        public bool UserNameCheck(string userName)
+        {
+            bool result;
+            try
+            {
+                result = userDal.UserNameCheck(userName);
+            }
+            catch (Exception e) { throw e; }
+            return result;
+        }
         /// <summary>
         /// 注册操作
         /// </summary>

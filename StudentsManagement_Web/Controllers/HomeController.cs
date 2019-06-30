@@ -11,7 +11,7 @@ namespace StudentsManagement_Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            Response.Redirect("~/View/Login.html");
             return View();
         }
     }

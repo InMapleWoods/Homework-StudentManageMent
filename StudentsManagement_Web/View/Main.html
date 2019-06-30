@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学生信息管理系统</title>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="../Scripts/jquery-3.3.1.js">
+    </script>
+    <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../Scripts/CookieAbout.js"></script>
+    <script type="text/javascript" src="../Scripts/AjaxAbout.js"></script>
+    <style type="text/css">
+        .logobg a {
+            margin: 0 auto;
+            text-align: center;
+            background-image: url('../images/logo.png');
+            background-repeat: no-repeat;
+            display: block;
+            color: #fbfaf5;
+            height: 80px;
+            width: 520px;
+            line-height: 80px;
+            text-indent: -9999px;
+        }
+        
+        .logobg a:hover {
+            opacity: 0.7;
+        }
+        
+        .divtrans {
+            background-color: transparent;
+            border-color: transparent;
+        }
+        
+        @media (min-width: 0px) {
+            .logobg a {
+                background: url(../images/logo_small.png);
+                background-repeat: no-repeat;
+                width: 320px;
+                height: 110px;
+                background-size: 320px;
+            }
+        }
+        
+        @media (min-width: 530px) {
+            .logobg a {
+                background: url(../images/logo.png);
+                background-repeat: no-repeat;
+                width: 470px;
+                background-size: 470px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .logobg a {
+                background: url(../images/logo_big.png);
+                background-repeat: no-repeat;
+                display: block;
+                color: #fbfaf5;
+                height: 110px;
+                width: 620px;
+                line-height: 80px;
+                text-indent: -9999px;
+            }
+            .navbar-nav {
+                float: right;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-7 col-md-7 col-sm-7">
+                <div class="logobg">
+                    <a>学生信息管理系统</a>
+                </div>
+            </div>
+            <div class="col-xs-5 col-md-5 col-sm-5">
+                <nav class="divtrans navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#option">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="option" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">用户资料</a></li>
+                            <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                    操作
+                                                                    <b class="caret"></b>
+                                                        </a>
+                                <ul class="dropdown-menu">
+                                    <li><a id="changeName" href="#">修改用户名</a></li>
+                                    <li><a id="changePwd" href="#">修改密码</a></li>
+                                    <li class="divider"></li>
+                                    <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+
+        }
+
+        function closePageForm() {
+            if (confirm("确定要退出吗？")) {                
+                location = "http://jw.ncepu.edu.cn/jiaowuchu";
+            }
+        }
+
+        function ReLogin() {
+            deleteCookie("islogin");
+            deleteCookie("User");
+            location = "../"
+        }
+    </script>
+
+</body>
+
+</html>

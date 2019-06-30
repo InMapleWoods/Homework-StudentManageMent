@@ -104,7 +104,31 @@ namespace StudentsManagement_Web.Controllers
                 throw new HttpResponseException(response);
             }
         }
-
+        /// <summary>
+        /// 用户名是否存在
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>是否存在</returns>
+        //Get: api/User/UserNameCheck?userName={userName}
+        //Get: api/User?userName={userName}
+        [HttpGet]
+        public bool UserNameCheck(string userName)
+        {
+            try
+            {
+                return userBll.UserNameCheck(userName);
+            }
+            catch (Exception ex)
+            {
+                //在webapi中抛出异常
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(ex.Message),
+                    ReasonPhrase = "error"
+                };
+                throw new HttpResponseException(response);
+            }
+        }
         /// <summary>
         /// 修改密码
         /// </summary>
