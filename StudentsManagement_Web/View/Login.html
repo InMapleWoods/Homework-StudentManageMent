@@ -75,17 +75,18 @@
         window.onload = function() {
             if (getCookie('islogin') == 'true') {
                 location = 'Main.html';
-            }
-            if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
-                if (getCookie('times') >= 5) {
-                    $('#ValidateNum1').css('display', 'block');
-                    $('#ValidateNum2').css('display', 'block');
-                    getRandom();
-                }
             } else {
-                setCookie('times', 0);
-                $('#ValidateNum1').css('display', 'none');
-                $('#ValidateNum2').css('display', 'none');
+                if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
+                    if (getCookie('times') >= 5) {
+                        $('#ValidateNum1').css('display', 'block');
+                        $('#ValidateNum2').css('display', 'block');
+                        getRandom();
+                    }
+                } else {
+                    setCookie('times', 0);
+                    $('#ValidateNum1').css('display', 'none');
+                    $('#ValidateNum2').css('display', 'none');
+                }
             }
             $('#txtAccount').bind('keyup', function(event) {　　
                 if (event.keyCode == "13") {　　　　

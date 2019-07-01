@@ -38,9 +38,19 @@
             .logobg a {
                 background: url(../images/logo_small.png);
                 background-repeat: no-repeat;
-                width: 320px;
+                margin: 0 auto;
+                text-align: center;
+                width: 100%;
                 height: 110px;
-                background-size: 320px;
+                background-size: contain
+            }
+            #big_op {
+                display: none;
+            }
+            #small_op {
+                display: block;
+                font-size: 11px;
+                text-align: center;
             }
         }
         
@@ -48,8 +58,17 @@
             .logobg a {
                 background: url(../images/logo.png);
                 background-repeat: no-repeat;
+                margin: 0 auto;
+                text-align: center;
                 width: 470px;
                 background-size: 470px;
+            }
+            #small_op {
+                display: none;
+            }
+            #big_op {
+                display: block;
+                text-align: center;
             }
         }
         
@@ -57,6 +76,8 @@
             .logobg a {
                 background: url(../images/logo_big.png);
                 background-repeat: no-repeat;
+                margin: 0 auto;
+                text-align: center;
                 display: block;
                 color: #fbfaf5;
                 height: 110px;
@@ -67,6 +88,13 @@
             .navbar-nav {
                 float: right;
             }
+            #small_op {
+                display: none;
+            }
+            #big_op {
+                display: block;
+                text-align: center;
+            }
         }
     </style>
 
@@ -75,12 +103,12 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-7 col-md-7 col-sm-7">
+            <div class="col-xs-8 col-md-8 col-sm-8">
                 <div class="logobg">
                     <a>学生信息管理系统</a>
                 </div>
             </div>
-            <div class="col-xs-5 col-md-5 col-sm-5">
+            <div class="col-xs-4 col-md-4 col-sm-4">
                 <nav class="divtrans navbar navbar-default">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#option">
@@ -90,21 +118,30 @@
                         </button>
                     </div>
                     <div id="option" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">用户资料</a></li>
+                        <ul id='small_op' class="nav navbar-nav">
+                            <li class="dropdown">
+                                <li><a href="#">用户资料</a></li>
+                                <li><a id="changeName" href="#">修改用户名</a></li>
+                                <li><a id="changePwd" href="#">修改密码</a></li>
+                                <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
+                            </li>
                             <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
+                        </ul>
+                        <ul id='big_op' class="nav navbar-nav">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                     操作
                                                                     <b class="caret"></b>
                                                         </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:100%;">
                                     <li><a id="changeName" href="#">修改用户名</a></li>
                                     <li><a id="changePwd" href="#">修改密码</a></li>
                                     <li class="divider"></li>
                                     <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
                                 </ul>
                             </li>
+                            <li><a href="#">用户资料</a></li>
+                            <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -113,7 +150,11 @@
     </div>
     <script>
         window.onload = function() {
-
+            if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
+                location = 'Login.html';
+            } else {
+                deleteCookie('times');
+            }
         }
 
         function closePageForm() {
