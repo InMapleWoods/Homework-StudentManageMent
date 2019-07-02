@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Model;
 using System.Windows.Forms;
 using Bll;
+using System.Security.Cryptography;
 
 namespace StudentsManagement_winForm
 {
@@ -75,7 +76,7 @@ namespace StudentsManagement_winForm
             string npwd = NewPassWordtextBox.Text;
             if (userBll.ChangePassword(opwd,npwd))
             {
-                Login_user.PassWord = new SQLHelper().GetMD5(NewPassWordtextBox.Text);
+                Login_user.PassWord = GetMD5(NewPassWordtextBox.Text);
                 userBll.SetUser(Login_user);
                 MessageBox.Show("修改成功");
                 return true;
@@ -86,5 +87,20 @@ namespace StudentsManagement_winForm
                 return false;
             }
         }
+
+        public string GetMD5(string strPwd)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] data = System.Text.Encoding.Default.GetBytes(strPwd);
+            byte[] MD5data = md5.ComputeHash(data);
+            md5.Clear();
+            string str = "";
+            for (int i = 0; i < MD5data.Length - 1; i++)
+            {
+                str += MD5data[i].ToString("X").PadLeft('1', '0');
+            }
+            return str;
+        }
+
     }
 }
