@@ -121,21 +121,18 @@
                         <ul id='small_op' class="nav navbar-nav">
                             <li class="dropdown">
                                 <li><a href="#">用户资料</a></li>
-                                <li><a id="changeName" href="#">修改用户名</a></li>
-                                <li><a id="changePwd" href="#">修改密码</a></li>
+                                <li><a href="#">修改用户名</a></li>
+                                <li><a href="#">修改密码</a></li>
                                 <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
                             </li>
                             <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
                         </ul>
                         <ul id='big_op' class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                    操作
-                                                                    <b class="caret"></b>
-                                                        </a>
+                                <a id="option_drop" href="#" class="dropdown-toggle" data-toggle="dropdown"></a>
                                 <ul class="dropdown-menu" style="min-width:100%;">
-                                    <li><a id="changeName" href="#">修改用户名</a></li>
-                                    <li><a id="changePwd" href="#">修改密码</a></li>
+                                    <li><a href="#">修改用户名</a></li>
+                                    <li><a href="#">修改密码</a></li>
                                     <li class="divider"></li>
                                     <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
                                 </ul>
@@ -147,6 +144,9 @@
                 </nav>
             </div>
         </div>
+        <div class="row">
+
+        </div>
     </div>
     <script>
         window.onload = function() {
@@ -155,12 +155,18 @@
             } else {
                 deleteCookie('times');
             }
+            UserName();
         }
 
         function closePageForm() {
             if (confirm("确定要退出吗？")) {                
                 location = "http://jw.ncepu.edu.cn/jiaowuchu";
             }
+        }
+
+        function UserName() {
+            var User = getJSONCookie('User');
+            $("#option_drop").append(User.UserName + '<b class="caret"></b>');
         }
 
         function ReLogin() {
