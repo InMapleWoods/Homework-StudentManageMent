@@ -127,7 +127,7 @@
                     }
                 }
             });
-            $('#txtPwd').bind('keyup', function(event) {　
+            $('#txtPwd').bind('keyup', function(event) {
                 if (event.keyCode == "13") {
                     if (PasswordCheck()) {
                         $('#txtRepwd').focus();
@@ -135,7 +135,7 @@
                 }
             });
             $('#txtRepwd').bind('keyup', function(event) {
-                if (event.keyCode == "13") {　
+                if (event.keyCode == "13") {
                     if (PasswordReCheck()) {
                         $('#selectRole').focus();
                     }
@@ -145,7 +145,7 @@
                 $('#btnOK').focus();
             });
             $('#btnOK').bind('keyup', function(event) {
-                if (event.keyCode == "13") {　
+                if (event.keyCode == "13") {
                     Register();
                 }
             });
@@ -213,7 +213,8 @@
             if (UserNameCheck() && PasswordCheck() && PasswordReCheck()) {
                 $.ajax({
                     type: "post",
-                    url: '../api/Login?name=' + $('#txtUserName').val() + '&password=' + $('#txtPwd').val() + '&repeat=' + $('#txtRepwd').val() + '&role=' + $('#selectRole').val(),
+                    url: '../api/Login?name=' + $('#txtUserName').val() + '&password=' + $('#txtPwd').val() +
+                        '&repeat=' + $('#txtRepwd').val() + '&role=' + $('#selectRole').val(),
                     success: function(data) {
                         if (data) {
                             alert('注册成功');

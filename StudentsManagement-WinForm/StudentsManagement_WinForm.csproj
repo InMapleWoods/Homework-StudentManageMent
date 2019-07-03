@@ -247,6 +247,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="UML\StudentsManagement.vpp" />
+    <None Include="UML\StudentsManagement.vpp.bak_000f" />
     <None Include="UML\StudentsManagement.vux" />
   </ItemGroup>
   <ItemGroup>

@@ -88,22 +88,22 @@
                     $('#ValidateNum2').css('display', 'none');
                 }
             }
-            $('#txtAccount').bind('keyup', function(event) {　　
-                if (event.keyCode == "13") {　　　　
-                    $('#txtPwd').focus();　　
+            $('#txtAccount').bind('keyup', function(event) {
+                if (event.keyCode == "13") {
+                    $('#txtPwd').focus();
                 }
             });
-            $('#txtPwd').bind('keyup', function(event) {　　
+            $('#txtPwd').bind('keyup', function(event) {
                 if (event.keyCode == "13") {
-                    if ($('#ValidateNum1').css('display') != 'none') {　　　　
-                        $('#txtValidateNum').focus();　　
+                    if ($('#ValidateNum1').css('display') != 'none') {
+                        $('#txtValidateNum').focus();
                     } else {
                         Login();
                     }
                 }
             });
-            $('#txtValidateNum').bind('keyup', function(event) {　　
-                if (event.keyCode == "13") {　
+            $('#txtValidateNum').bind('keyup', function(event) {
+                if (event.keyCode == "13") {
                     Login();
                 }
             });
