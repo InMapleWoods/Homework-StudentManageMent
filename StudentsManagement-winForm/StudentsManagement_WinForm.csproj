@@ -117,7 +117,6 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqlHelper.cs" />
     <Compile Include="Student\CourseAddControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,8 +247,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="UML\StudentsManagement.vpp" />
+    <None Include="UML\StudentsManagement.vpp.bak_000f" />
     <None Include="UML\StudentsManagement.vux" />
-    <None Include="UML\类图.eapx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
