@@ -481,6 +481,65 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="F:StudentsManagement_Web.Controllers.AdminController.choose_Teacher">
+            <summary>
+            表单选择教师
+            </summary>
+        </member>
+        <member name="F:StudentsManagement_Web.Controllers.AdminController.choose_Student">
+            <summary>
+            表单选择学生
+            </summary>
+        </member>
+        <member name="F:StudentsManagement_Web.Controllers.AdminController.choose_Unchecked">
+            <summary>
+            表单选择未审核
+            </summary>
+        </member>
+        <member name="F:StudentsManagement_Web.Controllers.AdminController.adminBll">
+            <summary>
+            管理员操作对象
+            </summary>
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.AdminController.AcceptLog(System.String,System.String)">
+            <summary>
+            接收申请
+            </summary>
+            <param name="id">申请用户ID</param>
+            <param name="tobe">申请角色</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.AdminController.RejectionLog(System.String)">
+            <summary>
+            拒绝申请
+            </summary>
+            <param name="id">申请用户ID</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.AdminController.DeleteUser(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id">用户ID</param>
+            <returns>成功与否</returns>       
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.AdminController.GetPaperUsersArray(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取分页后的用户名单
+            </summary>
+            <param name="index">索引</param>
+            <param name="size">分页大小</param>
+            <param name="choose">分页选项</param>
+            <returns>分页后名单</returns>
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.AdminController.GetAllPageNum(System.Int32,System.Int32)">
+            <summary>
+            获取未审核用户分页总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <param name="choose">分页选项</param>
+            <returns>分页数</returns>
+        </member>
         <member name="T:StudentsManagement_Web.Controllers.CourseController">
             <summary>
             课程控制器
@@ -519,8 +578,21 @@
             <param name="CourseId">课程Id</param>
             <returns>选课成功与否</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:StudentsManagement_Web.Controllers.CourseController.DeleteStudentCourse(System.String,System.String)" -->
-        <!-- Badly formed XML comment ignored for member "M:StudentsManagement_Web.Controllers.CourseController.DeleteCourse(System.String)" -->
+        <member name="M:StudentsManagement_Web.Controllers.CourseController.DeleteStudentCourse(System.String,System.String)">
+            <summary>
+            删除选择课程
+            </summary>
+            <param name="UserId">学生Id</param>
+            <param name="CourseId">课程Id</param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:StudentsManagement_Web.Controllers.CourseController.DeleteCourse(System.String)">
+            <summary>
+            删除课程
+            </summary>
+            <param name="CourseId">课程Id</param>
+            <returns>删除成功与否</returns>
+        </member>
         <member name="T:StudentsManagement_Web.Controllers.GradeController">
             <summary>
             成绩控制器
@@ -562,13 +634,17 @@
             用户操作对象
             </summary>
         </member>
+        <member name="F:StudentsManagement_Web.Controllers.LoginController.captcha">
+            <summary>
+            验证码对象
+            </summary>
+        </member>
         <member name="M:StudentsManagement_Web.Controllers.LoginController.Login(System.String,System.String)">
             <summary>
             登录
             </summary>
             <param name="account">账号</param>
             <param name="password">密码</param>
-            <param name="validate">验证码</param>
             <returns>登录成功与否</returns>
         </member>
         <member name="M:StudentsManagement_Web.Controllers.LoginController.GetLoginUser(System.String)">
@@ -611,21 +687,6 @@
             用户控制器
             </summary>
         </member>
-        <member name="F:StudentsManagement_Web.Controllers.UserController.choose_Teacher">
-            <summary>
-            表单选择教师
-            </summary>
-        </member>
-        <member name="F:StudentsManagement_Web.Controllers.UserController.choose_Student">
-            <summary>
-            表单选择学生
-            </summary>
-        </member>
-        <member name="F:StudentsManagement_Web.Controllers.UserController.choose_Unchecked">
-            <summary>
-            表单选择未审核
-            </summary>
-        </member>
         <member name="F:StudentsManagement_Web.Controllers.UserController.userBll">
             <summary>
             用户操作对象
@@ -665,45 +726,6 @@
             <param name="opwd">旧密码</param>
             <param name="npwd">新密码</param>
             <returns>成功与否</returns>
-        </member>
-        <member name="M:StudentsManagement_Web.Controllers.UserController.AcceptLog(System.String,System.String)">
-            <summary>
-            接收申请
-            </summary>
-            <param name="id">申请用户ID</param>
-            <param name="tobe">申请角色</param>
-            <returns>成功与否</returns>
-        </member>
-        <member name="M:StudentsManagement_Web.Controllers.UserController.RejectionLog(System.String)">
-            <summary>
-            拒绝申请
-            </summary>
-            <param name="id">申请用户ID</param>
-            <returns>成功与否</returns>
-        </member>
-        <member name="M:StudentsManagement_Web.Controllers.UserController.DeleteUser(System.String)">
-            <summary>
-            删除用户
-            </summary>
-            <param name="id">用户ID</param>
-            <returns>成功与否</returns>       
-        </member>
-        <member name="M:StudentsManagement_Web.Controllers.UserController.GetPaperUsersArray(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            获取分页后的用户名单
-            </summary>
-            <param name="index">索引</param>
-            <param name="size">分页大小</param>
-            <param name="choose">分页选项</param>
-            <returns>分页后名单</returns>
-        </member>
-        <member name="M:StudentsManagement_Web.Controllers.UserController.GetAllPageNum(System.Int32,System.Int32)">
-            <summary>
-            获取未审核用户分页总页数
-            </summary>
-            <param name="size">分页大小</param>
-            <param name="choose">分页选项</param>
-            <returns>分页数</returns>
         </member>
     </members>
 </doc>

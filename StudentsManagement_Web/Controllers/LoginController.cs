@@ -19,13 +19,16 @@ namespace StudentsManagement_Web.Controllers
         /// </summary>
         static UserBll userBll = new UserBll();
         /// <summary>
+        /// 验证码对象
+        /// </summary>
+        static public Captcha captcha = new Captcha();
+        /// <summary>
         /// 登录
         /// </summary>
         /// <param name="account">账号</param>
         /// <param name="password">密码</param>
-        /// <param name="validate">验证码</param>
         /// <returns>登录成功与否</returns>
-        // POST: api/Login?account={account}&validate={validate}
+        // POST: api/Login?account={account}
         public bool Login(string account, [FromBody]string password)
         {
             try
@@ -76,7 +79,7 @@ namespace StudentsManagement_Web.Controllers
         {
             try
             {
-                return userBll.GetValidateNum();
+                return captcha.GetValidateNum();
             }
             catch (Exception ex)
             {
@@ -89,13 +92,18 @@ namespace StudentsManagement_Web.Controllers
                 throw new HttpResponseException(response);
             }
         }
+        /// <summary>
+        /// 获取验证码图片
+        /// </summary>
+        /// <param name="validate">验证码</param>
+        /// <returns>验证码图片</returns>
         [HttpGet]
         public IHttpActionResult ValidatePic(string validate)
         {
             try
             {
-                userBll.GetValidate(4);
-                Bitmap image = userBll.GetValidatePicture();
+                captcha.GetValidate(4);
+                Bitmap image = captcha.GetValidatePicture();
                 MemoryStream mstream = new MemoryStream();
                 image.Save(mstream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 //从图片中读取流
@@ -177,7 +185,7 @@ namespace StudentsManagement_Web.Controllers
         {
             try
             {
-                return userBll.ChangeValidate();
+                return captcha.ChangeValidate();
             }
             catch (Exception ex)
             {

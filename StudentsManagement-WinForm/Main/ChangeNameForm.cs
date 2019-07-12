@@ -21,7 +21,7 @@ namespace StudentsManagement_winForm
         public ChangeNameForm(User user)
         {
             Login_user = user;
-            userBll.SetUser(Login_user);
+            userBll.t=Login_user;
             InitializeComponent();
             OldNameLabel.Text = user.UserName + ":";
         }
@@ -73,7 +73,7 @@ namespace StudentsManagement_winForm
             if(userBll.ChangedName(Login_user.UserID.ToString(), NewNametextBox.Text))
             {
                 Login_user.UserName = NewNametextBox.Text;
-                userBll.SetUser(Login_user);
+                userBll.t=Login_user;
                 MessageBox.Show("修改成功");
                 return true;
             }

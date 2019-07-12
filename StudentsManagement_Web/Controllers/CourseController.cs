@@ -122,6 +122,7 @@ namespace StudentsManagement_Web.Controllers
 
         /// <summary>
         /// 删除选择课程
+        /// </summary>
         /// <param name="UserId">学生Id</param>
         /// <param name="CourseId">课程Id</param>
         /// <returns>删除成功与否</returns>
@@ -148,6 +149,7 @@ namespace StudentsManagement_Web.Controllers
 
         /// <summary>
         /// 删除课程
+        /// </summary>
         /// <param name="CourseId">课程Id</param>
         /// <returns>删除成功与否</returns>
         //DELETE: api/Course?CourseId={CourseId}

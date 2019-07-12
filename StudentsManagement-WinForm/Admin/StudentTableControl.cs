@@ -18,6 +18,10 @@ namespace StudentsManagement_winForm
     public partial class StudentTableControl : UserControl
     {
         /// <summary>
+        /// 管理员操作对象
+        /// </summary>
+        AdminBll adminBll = new AdminBll();
+        /// <summary>
         /// 用户操作对象
         /// </summary>
         UserBll userBll = new UserBll();
@@ -47,8 +51,8 @@ namespace StudentsManagement_winForm
         /// </summary>
         private void TableShow()
         {
-            num = userBll.GetAllPageNum(size, UserBll.choose_Student);
-            DataTable dataTable = userBll.GetPaperUsers(index, size, UserBll.choose_Student);//储存Datatable
+            num = adminBll.GetAllPageNum(size, AdminBll.choose_Student);
+            DataTable dataTable = adminBll.GetPaperUsers(index, size, AdminBll.choose_Student);//储存Datatable
             StudentTableView.DataSource = dataTable;
             DataGridViewButtonColumn btn = new DataGridViewButtonColumn
             {
@@ -72,7 +76,7 @@ namespace StudentsManagement_winForm
         /// <param name="id">用户ID</param>
         private void DeleteUser(string id)
         {
-            if (userBll.DeleteUser(id))
+            if (adminBll.DeleteUser(id))
             {
                 MessageBox.Show("删除成功");
                 TableShow();

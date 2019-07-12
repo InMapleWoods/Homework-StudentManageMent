@@ -23,7 +23,7 @@ namespace StudentsManagement_winForm
         public ChangePasswordForm(User user)
         {
             Login_user = user;
-            userBll.SetUser(user);
+            userBll.t=user;
             InitializeComponent();
         }
 
@@ -77,7 +77,7 @@ namespace StudentsManagement_winForm
             if (userBll.ChangePassword(opwd,npwd))
             {
                 Login_user.PassWord = GetMD5(NewPassWordtextBox.Text);
-                userBll.SetUser(Login_user);
+                userBll.t=Login_user;
                 MessageBox.Show("修改成功");
                 return true;
             }

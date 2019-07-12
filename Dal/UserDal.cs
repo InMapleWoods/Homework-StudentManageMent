@@ -21,18 +21,28 @@ namespace Dal
         /// 登录用户
         /// </summary>
         public User t = null;
-        /// <summary>
-        /// 验证码图片
-        /// </summary>
-        public Bitmap validatePicture = null;
-        /// <summary>
-        /// 验证码
-        /// </summary>
-        public string validateNum = "";
+        
         /// <summary>
         /// 登录角色
         /// </summary>
         public string Role = null;
+
+        /// <summary>
+        /// SQL帮助类
+        /// </summary>
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+
+        /// <summary>
+        /// 登录操作
+        /// </summary>
+        /// <param name="account">账号</param>
+        /// <param name="password">密码</param>
+        /// <param name="validate">验证码</param>
+        /// <returns>登录成功与否</returns>
+        public bool Login(string account, string password)
+        {
+            return LoginSystem(account, password);
+        }
 
         public bool LoginSystem(string id, string password)
         {
@@ -90,134 +100,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// 获得n位验证码
-        /// </summary>
-        /// <param name="num">验证码位数</param>
-        /// <returns>返回num位的验证码图片</returns>
-        public Bitmap GetValidate(int num)
-        {
-            return CreateImage(CreateRandomNum(num));
-        }
-
-        /// <summary>
-        /// 获得n位验证码
-        /// </summary>
-        /// <param name="NumCount">位数</param>
-        /// <returns>验证码字符串</returns>
-        public string CreateRandomNum(int NumCount)
-        {
-            string allChar = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
-            string[] allCharArray = allChar.Split(',');
-            string RandomNum = "";
-            int temp = -1;//避免重复随机数
-            Random random = new Random();
-            for (int i = 0; i < NumCount; i++)
-            {
-                if (temp != -1)
-                {
-                    random = new Random(i * temp * ((int)DateTime.Now.Millisecond));
-                }
-                int t = random.Next(35);
-                if (t == temp)
-                {
-                    return CreateRandomNum(NumCount);
-                }
-                temp = t;
-                RandomNum += allCharArray[t];
-            }
-            validateNum = RandomNum;
-            return RandomNum;
-        }
-
-        /// <summary>
-        /// 获得验证码图片
-        /// </summary>
-        /// <param name="validateNum">验证码字符串</param>
-        /// <returns>返回验证码图片</returns>
-        public Bitmap CreateImage(string validateNum)
-        {
-            if (validateNum == null || validateNum.Trim() == string.Empty)
-            {
-                return null;
-            }
-            Color[] colors = new Color[] { Color.Silver, Color.SlateGray, Color.Wheat, Color.YellowGreen, Color.Pink };
-            Bitmap image = new Bitmap(100, 40);
-            Graphics graphics = Graphics.FromImage(image);
-            try
-            {
-                Random random = new Random();
-                graphics.Clear(Color.White);//清空背景色
-                //绘制背景
-                for (int i = 0; i < 15; i++)
-                {
-                    int RandomColor = random.Next(colors.Length - 1);
-                    int x1 = random.Next(image.Width);
-                    int x2 = random.Next(image.Width);
-                    int y1 = random.Next(image.Height);
-                    int y2 = random.Next(image.Height);
-                    graphics.DrawLine(new Pen(colors[RandomColor]), x1, y1, x2, y2);
-                }
-                //绘制文字
-                Font font = new Font("Arial", 20, FontStyle.Bold | FontStyle.Strikeout | FontStyle.Italic);
-                LinearGradientBrush brush = new LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.DarkBlue, Color.Red, 1.2f, true);
-                graphics.DrawString(validateNum, font, brush, 2, 2);
-                //绘制前景
-                for (int i = 0; i < 25; i++)
-                {
-                    int x = random.Next(image.Width);
-                    int y = random.Next(image.Height);
-                    image.SetPixel(x, y, Color.FromArgb(random.Next()));
-                }
-                //绘制边框
-                graphics.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                graphics.Dispose();
-            }
-            validatePicture = image;
-            return image;
-        }
-
-        /// <summary>
-        /// SQL帮助类
-        /// </summary>
-        readonly SQLHelper helper = new SQLHelper(sqlConnect);
-
-        /// <summary>
-        /// 获取User
-        /// </summary>
-        /// <returns>用户对象</returns>
-        public User GetUser()
-        {
-            return t;
-        }
-        /// <summary>
-        /// 设置User
-        /// </summary>
-        /// <param name="user">用户对象</param>
-        public void SetUser(User user)
-        {
-            t=user;
-        }
-        /// <summary>
-        /// 登录操作
-        /// </summary>
-        /// <param name="account">账号</param>
-        /// <param name="password">密码</param>
-        /// <param name="validate">验证码</param>
-        /// <returns>登录成功与否</returns>
-        public bool Login(string account, string password)
-        {
-            return LoginSystem(account, password);
-        }
-
-        /// <summary>
-        /// 获取账号密码对应的用户
+        /// 获取账号对应的用户
         /// </summary>
         /// <param name="account">账号</param>
         /// <returns>用户</returns>
@@ -276,36 +159,6 @@ namespace Dal
             }
         }
 
-        /// <summary>
-        /// 获取验证码
-        /// </summary>
-        /// <returns>验证码</returns>
-        public string GetValidateNum()
-        {
-            return validateNum;
-        }
-        /// <summary>
-        /// 获取验证码图片
-        /// </summary>
-        /// <returns>验证码图片</returns>
-        public Bitmap GetValidatePicture()
-        {
-            return validatePicture;
-        }
-
-        /// <summary>
-        /// 更换验证码
-        /// </summary>
-        /// <returns>更换验证码成功与否</returns>
-        public bool ChangeValidate()
-        {
-            Bitmap bitmap = validatePicture;
-            if (GetValidate(4) != bitmap)
-            {
-                return true;
-            }
-            return false;
-        }
 
         /// <summary>
         /// 注册操作
@@ -374,57 +227,6 @@ namespace Dal
         }
 
         /// <summary>
-        /// 接收申请
-        /// </summary>
-        /// <param name="id">申请用户ID</param>
-        /// <param name="tobe">申请角色</param>
-        /// <returns>成功与否</returns>
-        public bool AcceptLog(string id, string tobe)
-        {
-            string sqlStr = "update tb_Log set IsChecked=@isChecked where UserId=@userId;  " +
-                "update tb_Users set Role=@tobe where Id=@userId;";
-            SqlParameter[] para = new SqlParameter[]
-             {
-                new SqlParameter("@isChecked",true),
-                new SqlParameter("@tobe",tobe),
-                new SqlParameter("@userId",id)
-             };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
-            if (count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        /// <summary>
-        /// 拒绝申请
-        /// </summary>
-        /// <param name="id">申请用户ID</param>
-        /// <returns>成功与否</returns>
-        public bool RejectionLog(string id)
-        {
-            string sqlStr = "update tb_Log set IsChecked=@isChecked where UserId=@userId  " +
-                "update tb_Users set Role=0 where Id=@userId;";
-            SqlParameter[] para = new SqlParameter[]
-             {
-                new SqlParameter("@isChecked",true),
-                new SqlParameter("@userId",id)
-             };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
-            if (count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// 获取全部用户
         /// </summary>
         /// <returns>用户表</returns>
@@ -433,29 +235,6 @@ namespace Dal
             string sqlstr = "select * from tb_Users";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             return dataTable;
-        }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <returns>成功与否</returns>
-        public bool DeleteUser(string id)
-        {
-            string sqlStr = "delete from tb_Users where Id=@Id";
-            SqlParameter[] para = new SqlParameter[]
-             {
-                new SqlParameter("@Id",id)
-             };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
-            if (count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         /// <summary>
@@ -514,80 +293,5 @@ namespace Dal
             }
         }
 
-        /// <summary>
-        /// 获取分页后的未审核用户名单
-        /// </summary>
-        /// <param name="index">索引</param>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Check(int index, int size)
-        {
-            string sqlstr = "select dbo.PadLeft(UserId,8,'0') 账号,Name 昵称,WantToBe 申请角色 from tb_Log where IsChecked=0 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
-            return dataTable;
-        }
-
-
-        /// <summary>
-        /// 获取分页后的学生名单
-        /// </summary>
-        /// <param name="index">索引</param>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Student(int index, int size)
-        {
-            string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=1 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
-            return dataTable;
-        }
-
-        /// <summary>
-        /// 获取分页后的教师名单
-        /// </summary>
-        /// <param name="index">索引</param>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Teacher(int index, int size)
-        {
-            string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=2 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
-            return dataTable;
-        }
-
-        /// <summary>
-        /// 获取未审核用户分页总页数
-        /// </summary>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页数</returns>
-        public int GetAllPageNum_UnChecked(int size)
-        {
-            int num = helper.sqlNum("tb_Log where IsChecked=0");
-            num = num / size + (num % size == 0 ? 0 : 1);
-            return num;
-        }
-
-        /// <summary>
-        /// 获取老师分页总页数
-        /// </summary>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页数</returns>
-        public int GetAllPageNum_Teacher(int size)
-        {
-            int num = helper.sqlNum("tb_Users where Role=2");
-            num = num / size + (num % size == 0 ? 0 : 1);
-            return num;
-        }
-
-        /// <summary>
-        /// 获取学生分页总页数
-        /// </summary>
-        /// <param name="size">分页大小</param>
-        /// <returns>分页数</returns>
-        public int GetAllPageNum_Student(int size)
-        {
-            int num = helper.sqlNum("tb_Users where Role=1");
-            num = num / size + (num % size == 0 ? 0 : 1);
-            return num;
-        }
     }
 }

@@ -15,18 +15,6 @@ namespace StudentsManagement_Web.Controllers
     public class UserController : ApiController
     {
         /// <summary>
-        /// 表单选择教师
-        /// </summary>
-        static public int choose_Teacher = 0x001;
-        /// <summary>
-        /// 表单选择学生
-        /// </summary>
-        static public int choose_Student = 0x002;
-        /// <summary>
-        /// 表单选择未审核
-        /// </summary>
-        static public int choose_Unchecked = 0x003;
-        /// <summary>
         /// 用户操作对象
         /// </summary>
         UserBll userBll = new UserBll();
@@ -64,7 +52,7 @@ namespace StudentsManagement_Web.Controllers
         {
             try
             {
-                return userBll.GetUser();
+                return userBll.t;
             }
             catch (Exception ex)
             {
@@ -143,139 +131,6 @@ namespace StudentsManagement_Web.Controllers
             try
             {
                 return userBll.ChangePassword(opwd, npwd);
-            }
-            catch (Exception ex)
-            {
-                //在webapi中抛出异常
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-
-        /// <summary>
-        /// 接收申请
-        /// </summary>
-        /// <param name="id">申请用户ID</param>
-        /// <param name="tobe">申请角色</param>
-        /// <returns>成功与否</returns>
-        //PUT: api/User/{id}?tobe={tobe}
-        //PUT: api/User/AcceptLog/{id}?tobe={tobe}
-        [HttpPut]
-        public bool AcceptLog(string id, string tobe)
-        {
-            try
-            {
-                return userBll.AcceptLog(id, tobe);
-            }
-            catch (Exception ex)
-            {
-                //在webapi中抛出异常
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-
-        /// <summary>
-        /// 拒绝申请
-        /// </summary>
-        /// <param name="id">申请用户ID</param>
-        /// <returns>成功与否</returns>
-        //PUT: api/User/{id}
-        //PUT: api/User/RejectionLog/{id}
-        [HttpPut]
-        public bool RejectionLog(string id)
-        {
-            try
-            {
-                return userBll.RejectionLog(id);
-            }
-            catch (Exception ex)
-            {
-                //在webapi中抛出异常
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <returns>成功与否</returns>       
-        //DELETE: api/User/{id}
-        //DELETE: api/User/DeleteUser/{id}
-        [HttpDelete]
-        public bool DeleteUser(string id)
-        {
-            try
-            {
-                return userBll.DeleteUser(id);
-            }
-            catch (Exception ex)
-            {
-                //在webapi中抛出异常
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-
-        /// <summary>
-        /// 获取分页后的用户名单
-        /// </summary>
-        /// <param name="index">索引</param>
-        /// <param name="size">分页大小</param>
-        /// <param name="choose">分页选项</param>
-        /// <returns>分页后名单</returns>
-        //GET: api/User?index={index}&size={size}&choose={choose}
-        //GET: api/User/GetPaperUsersArray?index={index}&size={size}&choose={choose}
-        [HttpGet]
-        public IEnumerable<User> GetPaperUsersArray(int index, int size, int choose)
-        {
-            try
-            {
-                return userBll.GetPaperUsersArray(index, size, choose);
-            }
-            catch (Exception ex)
-            {
-                //在webapi中抛出异常
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message),
-                    ReasonPhrase = "error"
-                };
-                throw new HttpResponseException(response);
-            }
-        }
-        /// <summary>
-        /// 获取未审核用户分页总页数
-        /// </summary>
-        /// <param name="size">分页大小</param>
-        /// <param name="choose">分页选项</param>
-        /// <returns>分页数</returns>
-        //GET: api/User?size={size}&choose={choose}
-        //GET: api/User/GetAllPageNum?size={size}&choose={choose}
-        [HttpGet]
-        public int GetAllPageNum(int size, int choose)
-        {
-            try
-            {
-                return userBll.GetAllPageNum(size, choose);
             }
             catch (Exception ex)
             {

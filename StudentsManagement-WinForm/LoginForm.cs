@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bll;
+using Model;
 
 namespace StudentsManagement_winForm
 {
@@ -23,6 +24,10 @@ namespace StudentsManagement_winForm
         /// 用户操作对象
         /// </summary>
         public UserBll userBll = new UserBll();
+        /// <summary>
+        /// 验证码对象
+        /// </summary>
+        public Captcha captcha = new Captcha();
         /// <summary>
         /// 登录失败次数
         /// </summary>
@@ -161,8 +166,8 @@ namespace StudentsManagement_winForm
                 LoginButton.Location = new Point(LoginButton.Location.X, LoginButton.Location.Y + 40);
                 cancelButton.Location = new Point(cancelButton.Location.X, cancelButton.Location.Y + 40);
             }
-            ValidatePanel.BackgroundImage = userBll.GetValidate(4);//获取验证码图片            
-            validateNum = userBll.validateNum;//获取验证码字符串
+            ValidatePanel.BackgroundImage = captcha.GetValidate(4);//获取验证码图片            
+            validateNum = captcha.validateNum;//获取验证码字符串
             #region 显示验证码相关控件
             ValidatePanel.Visible = true;
             ValidateTextBox.Visible = true;

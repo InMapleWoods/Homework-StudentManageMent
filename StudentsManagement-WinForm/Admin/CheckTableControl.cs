@@ -11,6 +11,10 @@ namespace StudentsManagement_winForm
     public partial class CheckTableControl : UserControl
     {
         /// <summary>
+        /// 管理员操作对象
+        /// </summary>
+        AdminBll adminBll = new AdminBll();
+        /// <summary>
         /// 用户操作对象
         /// </summary>
         UserBll userBll = new UserBll();
@@ -40,8 +44,8 @@ namespace StudentsManagement_winForm
         /// </summary>
         private void TableShow()
         {
-            num = userBll.GetAllPageNum(size,UserBll.choose_Unchecked);
-            DataTable dataTable = userBll.GetPaperUsers(index, size, UserBll.choose_Unchecked);//储存Datatable
+            num = adminBll.GetAllPageNum(size, AdminBll.choose_Unchecked);
+            DataTable dataTable = adminBll.GetPaperUsers(index, size, AdminBll.choose_Unchecked);//储存Datatable
             CheckTableView.DataSource = dataTable;
             DataGridViewButtonColumn btn = new DataGridViewButtonColumn
             {
@@ -75,7 +79,7 @@ namespace StudentsManagement_winForm
         /// <param name="id">申请用户ID</param>
         private void AcceptLog(string id, string tobe)
         {
-            if(userBll.AcceptLog(id, tobe))
+            if(adminBll.AcceptLog(id, tobe))
             {
                 TableShow();
             }
@@ -91,7 +95,7 @@ namespace StudentsManagement_winForm
         /// <param name="id">申请用户ID</param>
         private void RejectionLog(string id)
         {
-            if (userBll.RejectionLog(id))
+            if (adminBll.RejectionLog(id))
             {
                 TableShow();
             }
