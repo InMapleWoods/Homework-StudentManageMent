@@ -30,7 +30,7 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetStudentGrade(string Id)
         {
-            string sqlstr = "select tb_Course.Name as 课程名,tb_Grade.Score as 课程分数 from tb_Grade ,tb_Course where SId='" + Id + "' and tb_Grade.CId=tb_Course.Id";//SQL执行字符串
+            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名  from tb_Course inner join tb_Grade on tb_Grade.SId='" + Id + "'  and tb_Grade.CId=tb_Course.Id";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             return dataTable;
         }
@@ -41,7 +41,7 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetCourseGrade(string Id)
         {
-            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Score as 课程分数 from tb_Grade ,tb_Users where CId='" + Id + "' and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
+            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Score as 课程分数 from tb_Grade inner join tb_Users on CId='" + Id + "' and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             return dataTable;
         }
