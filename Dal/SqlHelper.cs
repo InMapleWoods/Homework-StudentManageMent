@@ -179,6 +179,40 @@ namespace Dal
         }
 
         /// <summary>
+        /// 执行带参数查询SQL语句或存储过程
+        /// </summary>
+        /// <param name="cmdtext">查询SQL语句或存储过程</param>
+        /// <param name="paras">参数集合</param>
+        /// <param name="ct">命令类型（SQL语句或存储过程）</param>
+        /// <returns></returns>
+        public DataTable ExcuteQuery(string cmdtext, SqlParameter[] paras, CommandType ct)
+        {//执行查询
+            cmdtext = protectsql(cmdtext);
+            DataTable dt = new DataTable();
+            try
+            {
+                cmd = new SqlCommand(cmdtext, getconn());
+                cmd.CommandType = ct;
+                cmd.Parameters.AddRange(paras);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                dt.Load(sdr);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return dt;
+        }
+
+        /// <summary>
         ///  MD5加密
         /// </summary>
         /// <param name="strPwd">要加密的字符串</param>

@@ -20,6 +20,10 @@ namespace StudentsManagement_winForm.Student
         /// </summary>
         GradeBll gradeBll = new GradeBll();
         /// <summary>
+        /// 数据表
+        /// </summary>
+        DataTable dataTable = null;
+        /// <summary>
         /// 用户对象
         /// </summary>
         User t = null;
@@ -42,7 +46,7 @@ namespace StudentsManagement_winForm.Student
         /// </summary>
         public void DataListBind()
         {
-            DataTable dataTable = gradeBll.GetStudentGrade(t.UserID.ToString());
+            dataTable = gradeBll.GetStudentGrade(t.UserID.ToString());
             myGradeDataGridView.DataSource = dataTable;//设置数据源，用于填充控件
         }
 
@@ -53,6 +57,16 @@ namespace StudentsManagement_winForm.Student
                 coursename = myGradeDataGridView.CurrentRow.Cells[0].Value.ToString();
                 courseIdLabel.Text = "课程名： " + coursename;
                 gradeLabel.Text = "成绩: " + myGradeDataGridView.CurrentRow.Cells[1].Value.ToString();
+            }
+        }
+
+        private void MyGradeDataGridView_DoubleClick(object sender, EventArgs e)
+        {
+            if (myGradeDataGridView.CurrentRow != null)
+            {
+                coursename = myGradeDataGridView.CurrentRow.Cells[0].Value.ToString();
+                dataTable = gradeBll.GetStudentGrade(t.UserID.ToString());
+                myGradeDataGridView.DataSource = dataTable;//设置数据源，用于填充控件
             }
         }
     }

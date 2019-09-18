@@ -33,6 +33,7 @@
             this.myGradeDataGridView = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.courseIdLabel = new System.Windows.Forms.Label();
+            this.tipLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myGradeDataGridView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -76,14 +77,17 @@
             this.myGradeDataGridView.Name = "myGradeDataGridView";
             this.myGradeDataGridView.ReadOnly = true;
             this.myGradeDataGridView.RowHeadersVisible = false;
+            this.myGradeDataGridView.RowHeadersWidth = 51;
             this.myGradeDataGridView.RowTemplate.Height = 23;
             this.myGradeDataGridView.Size = new System.Drawing.Size(413, 543);
             this.myGradeDataGridView.TabIndex = 26;
             this.myGradeDataGridView.CurrentCellChanged += new System.EventHandler(this.MyGradeDataGridView_CurrentCellChanged);
+            this.myGradeDataGridView.DoubleClick += new System.EventHandler(this.MyGradeDataGridView_DoubleClick);
             // 
             // panel2
             // 
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel2.Controls.Add(this.tipLabel);
             this.panel2.Controls.Add(this.courseIdLabel);
             this.panel2.Controls.Add(this.gradeLabel);
             this.panel2.Location = new System.Drawing.Point(443, 158);
@@ -98,6 +102,16 @@
             this.courseIdLabel.Name = "courseIdLabel";
             this.courseIdLabel.Size = new System.Drawing.Size(0, 15);
             this.courseIdLabel.TabIndex = 21;
+            // 
+            // tipLabel
+            // 
+            this.tipLabel.AutoSize = true;
+            this.tipLabel.Location = new System.Drawing.Point(28, 25);
+            this.tipLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tipLabel.Name = "tipLabel";
+            this.tipLabel.Size = new System.Drawing.Size(232, 15);
+            this.tipLabel.TabIndex = 22;
+            this.tipLabel.Text = "提示：双击课程查看单次考试成绩";
             // 
             // GradeManageControl
             // 
@@ -120,5 +134,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label courseIdLabel;
         private System.Windows.Forms.DataGridView myGradeDataGridView;
+        private System.Windows.Forms.Label tipLabel;
     }
 }

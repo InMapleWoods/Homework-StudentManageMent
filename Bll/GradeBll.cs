@@ -22,13 +22,15 @@ namespace Bll
         /// <summary>
         /// 获取学生成绩
         /// </summary>
+        /// <param name="studentid">学生Id</param>
+        /// <param name="examid">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public DataTable GetStudentGrade(string Id)
+        public DataTable GetStudentGrade(string studentid, string examid = "0")
         {
             DataTable dataTable = null;
             try
             {
-                dataTable = gradeDal.GetStudentGrade(Id);
+                dataTable = gradeDal.GetStudentGrade(studentid, examid);
             }
             catch (Exception e)
             {
@@ -39,21 +41,24 @@ namespace Bll
         /// <summary>
         /// 获取学生成绩
         /// </summary>
+        /// <param name="studentid">学生Id</param>
+        /// <param name="examid">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public List<Grade> GetStudentGradeArray(string Id)
+        public List<Grade> GetStudentGradeArray(string studentid, string examid = "0")
         {
             List<Grade> temp = null;
             try
             {
-                DataTable dataTable = gradeDal.GetStudentGrade(Id);
+                DataTable dataTable = gradeDal.GetStudentGrade(studentid, examid);
                 temp = new List<Grade>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
                     int GradeId = (int)dr["Id"];
                     int CId = (int)dr["CId"];
                     int SId = (int)dr["SId"];
+                    int EId = (int)dr["EId"];
                     int Score = (int)dr["Score"];
-                    Grade t = new Grade(GradeId, CId, SId, Score);
+                    Grade t = new Grade(GradeId, CId, SId,EId, Score);
                     temp.Add(t);
                 }
                 return temp;
@@ -67,13 +72,15 @@ namespace Bll
         /// <summary>
         /// 教师获取学生成绩
         /// </summary>
+        /// <param name="courseid">课程Id</param>
+        /// <param name="examid">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public DataTable GetCourseGrade(string Id)
+        public DataTable GetCourseGrade(string courseid, string examid = "0")
         {
             DataTable dataTable = null;
             try
             {
-                dataTable = gradeDal.GetCourseGrade(Id);
+                dataTable = gradeDal.GetCourseGrade(courseid, examid);
             }
             catch (Exception e)
             {
@@ -84,21 +91,24 @@ namespace Bll
         /// <summary>
         /// 教师获取学生成绩
         /// </summary>
+        /// <param name="courseid">课程Id</param>
+        /// <param name="examid">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public List<Grade> GetCourseGradeArray(string Id)
+        public List<Grade> GetCourseGradeArray(string courseid, string examid = "0")
         {
             List<Grade> temp = null;
             try
             {
-                DataTable dataTable = gradeDal.GetCourseGrade(Id);
+                DataTable dataTable = gradeDal.GetCourseGrade(courseid, examid);
                 temp = new List<Grade>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
                     int GradeId = (int)dr["Id"];
                     int CId = (int)dr["CId"];
                     int SId = (int)dr["SId"];
+                    int EId = (int)dr["EId"];
                     int Score = (int)dr["Score"];
-                    Grade t = new Grade(GradeId, CId, SId, Score);
+                    Grade t = new Grade(GradeId, CId, SId, EId, Score);
                     temp.Add(t);
                 }
                 return temp;
@@ -116,13 +126,14 @@ namespace Bll
         /// <param name="score">成绩</param>
         /// <param name="studenid">学生Id</param>
         /// <param name="courseid">课程Id</param>
+        /// <param name="examid">考试Id</param>
         /// <returns>修改是否成功</returns>
-        public bool ChangeCourseGrade(string score, string studenid, string courseid)
+        public bool ChangeCourseGrade(string score, string studenid, string courseid, string examid = "0")
         {
             bool result = false;
             try
             {
-                result = gradeDal.ChangeCourseGrade(score, studenid, courseid);
+                result = gradeDal.ChangeCourseGrade(score, studenid, courseid, examid);
             }
             catch (Exception e)
             {

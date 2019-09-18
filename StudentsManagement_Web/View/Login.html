@@ -113,7 +113,9 @@
 
         function getRandom() {
             var pic = $('#NumImage');
-            $.ajax({
+            pic.attr("src", "../api/Login/ValidatePic?validate="+ (new Date()).getTime());
+            
+            /*$.ajax({
                 type: "get",
                 url: "../api/Login?validate=0",
                 success: function(sdata) {
@@ -127,7 +129,7 @@
                     setCookie('times', temp);
                     location = 'Login.html';
                 }
-            });
+            });*/
         }
 
         function Login() {

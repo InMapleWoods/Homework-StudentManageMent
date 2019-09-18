@@ -77,6 +77,8 @@ namespace StudentsManagement_winForm
             tableForm.MdiParent = this;
             tableForm.Controls.Add(tableForm.gradeManageControl);
             tableForm.StartPosition = FormStartPosition.CenterParent;
+            tableForm.courseAddControl.DataListBind();
+            tableForm.gradeManageControl.DataListBind();
             tableForm.Show();
 
         }

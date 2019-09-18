@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace StudentsManagement_Web.Controllers
@@ -98,7 +99,7 @@ namespace StudentsManagement_Web.Controllers
         /// <param name="validate">验证码</param>
         /// <returns>验证码图片</returns>
         [HttpGet]
-        public IHttpActionResult ValidatePic(string validate)
+        public HttpResponseMessage ValidatePic(string validate)
         {
             try
             {
@@ -111,7 +112,11 @@ namespace StudentsManagement_Web.Controllers
                 mstream.Position = 0;
                 mstream.Read(arr, 0, (int)mstream.Length);
                 mstream.Close();
-                return Json(Convert.ToBase64String(arr));
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new ByteArrayContent(arr);  //data为二进制图片数据
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+                return response;
             }
             catch (Exception ex)
             {

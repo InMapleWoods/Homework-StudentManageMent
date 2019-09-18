@@ -45,10 +45,10 @@
             // Account
             // 
             this.Account.AutoSize = true;
-            this.Account.Font = new System.Drawing.Font("华文新魏", 20F);
+            this.Account.Font = new System.Drawing.Font("楷体", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Account.Location = new System.Drawing.Point(87, 120);
             this.Account.Name = "Account";
-            this.Account.Size = new System.Drawing.Size(117, 35);
+            this.Account.Size = new System.Drawing.Size(117, 34);
             this.Account.TabIndex = 1;
             this.Account.Text = "账号：";
             // 
@@ -65,16 +65,16 @@
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Font = new System.Drawing.Font("华文新魏", 20F);
+            this.PasswordLabel.Font = new System.Drawing.Font("楷体", 20F);
             this.PasswordLabel.Location = new System.Drawing.Point(87, 170);
             this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(117, 35);
+            this.PasswordLabel.Size = new System.Drawing.Size(119, 39);
             this.PasswordLabel.TabIndex = 3;
             this.PasswordLabel.Text = "密码：";
             // 
             // LoginButton
             // 
-            this.LoginButton.Font = new System.Drawing.Font("华文楷体", 17F, System.Drawing.FontStyle.Bold);
+            this.LoginButton.Font = new System.Drawing.Font("楷体", 17F, System.Drawing.FontStyle.Bold);
             this.LoginButton.Location = new System.Drawing.Point(204, 220);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(100, 42);
@@ -86,7 +86,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Font = new System.Drawing.Font("华文楷体", 17F, System.Drawing.FontStyle.Bold);
+            this.cancelButton.Font = new System.Drawing.Font("楷体", 17F, System.Drawing.FontStyle.Bold);
             this.cancelButton.Location = new System.Drawing.Point(342, 220);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 42);
@@ -139,10 +139,10 @@
             // ValidateLabel
             // 
             this.ValidateLabel.AutoSize = true;
-            this.ValidateLabel.Font = new System.Drawing.Font("华文新魏", 20F);
+            this.ValidateLabel.Font = new System.Drawing.Font("楷体", 20F);
             this.ValidateLabel.Location = new System.Drawing.Point(53, 220);
             this.ValidateLabel.Name = "ValidateLabel";
-            this.ValidateLabel.Size = new System.Drawing.Size(151, 35);
+            this.ValidateLabel.Size = new System.Drawing.Size(153, 39);
             this.ValidateLabel.TabIndex = 10;
             this.ValidateLabel.Text = "验证码：";
             this.ValidateLabel.Visible = false;
