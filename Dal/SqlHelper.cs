@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Security.Cryptography;
 
 namespace Dal
@@ -57,7 +57,6 @@ namespace Dal
             {
                 using (cmd = new SqlCommand(sqltext, conn))
                 {
-
                     cmd.CommandType = CommandType.Text;
                     res = (int)cmd.ExecuteScalar();
                 }
@@ -162,14 +161,18 @@ namespace Dal
             DataSet ds;
             try
             {
-                da = new SqlDataAdapter(cmdtext, conn);
-                ds = new DataSet();
-                da.Fill(ds);
-                return (ds.Tables[0]);
+                using (da = new SqlDataAdapter(cmdtext, conn))
+                {
+                    using (ds = new DataSet())
+                    {
+                        da.Fill(ds);
+                        return (ds.Tables[0]);
+                    }
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -227,16 +230,19 @@ namespace Dal
             DataTable dt = new DataTable();
             try
             {
-                cmd = new SqlCommand(cmdtext, getconn());
-                cmd.CommandType = ct;
-                cmd.Parameters.AddRange(paras);
-                SqlDataReader sdr = cmd.ExecuteReader();
-                dt.Load(sdr);
-
+                using (cmd = new SqlCommand(cmdtext, getconn()))
+                {
+                    cmd.CommandType = ct;
+                    cmd.Parameters.AddRange(paras);
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        dt.Load(sdr);
+                    }
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
             finally
             {

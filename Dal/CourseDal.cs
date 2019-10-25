@@ -29,7 +29,7 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetAllCourse()
         {
-            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名, tb_Users.Name as 教师名 from tb_Course LEFT OUTER JOIN tb_Users  on tb_Users.Id=tb_Course.TeacherId";//SQL执行字符串
+            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名, tb_Users.Name as 教师名 from tb_Course LEFT OUTER JOIN tb_Users on tb_Users.Id=tb_Course.TeacherId";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);
             return dataTable;
         }

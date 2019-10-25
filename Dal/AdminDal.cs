@@ -29,17 +29,14 @@ namespace Dal
         /// <param name="id">申请用户ID</param>
         /// <param name="tobe">申请角色</param>
         /// <returns>成功与否</returns>
-        public bool AcceptLog(string id, string tobe)
+        public bool AcceptLog(string id)
         {
-            string sqlStr = "update tb_Log set IsChecked=@isChecked where UserId=@userId;  " +
-                "update tb_Users set Role=@tobe where Id=@userId;";
+            string sqlStr = "AccpetLog";
             SqlParameter[] para = new SqlParameter[]
              {
-                new SqlParameter("@isChecked",true),
-                new SqlParameter("@tobe",tobe),
                 new SqlParameter("@userId",id)
              };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)
             {
                 return true;
@@ -56,14 +53,12 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool RejectionLog(string id)
         {
-            string sqlStr = "update tb_Log set IsChecked=@isChecked where UserId=@userId  " +
-                "update tb_Users set Role=0 where Id=@userId;";
+            string sqlStr = "RejectionLog";
             SqlParameter[] para = new SqlParameter[]
              {
-                new SqlParameter("@isChecked",true),
                 new SqlParameter("@userId",id)
              };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)
             {
                 return true;
@@ -198,6 +193,32 @@ namespace Dal
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 更改是否开启注册功能
+        /// </summary>
+        /// <returns>更改结果</returns>
+        public string ReverseRegisterOpenState()
+        {
+            string str = "Execute ReverseRegisterOpenState";
+            SqlParameter[] para = Array.Empty<SqlParameter>();
+            using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.StoredProcedure))
+            {
+                string result = dataTable.Rows[0]["Result"].ToString();
+                if (result == "OpenStateBecomeFalse")
+                {
+                    return "注册功能关闭";
+                }
+                else if (result == "OpenStateBecomeTrue")
+                {
+                    return "注册功能开启";
+                }
+                else
+                {
+                    return "状态更改失败";
+                }
+            }
         }
     }
 }

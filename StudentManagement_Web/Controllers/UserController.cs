@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bll;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace StudentManagement_Web.Controllers
 {
+    /// <summary>
+    /// 用户控制器
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
+        /// <summary>
+        /// 用户操作对象
+        /// </summary>
+        UserBll userBll = new UserBll();
         // GET: api/User
         [HttpGet]
         public IEnumerable<string> Get()

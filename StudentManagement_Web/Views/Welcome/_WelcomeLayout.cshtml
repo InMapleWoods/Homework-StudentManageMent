@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,54 +16,67 @@
     <script type="text/javascript" src="~/js/@ViewData["JsFunction"]"></script>
 
 </head>
+
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-8 col-md-8 col-sm-8">
-                <div class="logobg">
-                    <a>学生信息管理系统</a>
-                </div>
-            </div>
-            <div class="col-xs-4 col-md-4 col-sm-4">
-                <nav class="divtrans navbar navbar-default">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#option">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+        <div class="divtrans">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="row">
+                    <div class="col-xs-8 col-md-8 col-sm-8">
+                        <div class="navbar-brand logobg">
+                            <a>学生信息管理系统</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4 col-sm-4">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#option"
+                                aria-controls="option" aria-expanded="true" aria-label="切换导航">
+                            <span class="navbar-toggler-icon"></span>
                         </button>
+                        <div id="option" class="navbar-collapse collapse">
+                            <ul id='small_op' class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">用户资料</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">修改用户名</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">修改密码</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="reLogin" onclick="ReLogin()" href="#">重新登录</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="exitSystem" onclick="closePageForm()" href="#">退出系统</a>
+                                </li>
+                            </ul>
+                            <ul id='big_op' class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="option_drop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="option_drop">
+                                        <a class="dropdown-item" href="#">修改用户名</a>
+                                        <a class="dropdown-item" href="#">修改密码</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" id="reLogin" onclick="ReLogin()" href="#">重新登录</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">用户资料</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="exitSystem" onclick="closePageForm()" href="#">退出系统</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id="option" class="navbar-collapse collapse">
-                        <ul id='small_op' class="nav navbar-nav">
-                            <li class="dropdown">
-                            <li><a href="#">用户资料</a></li>
-                            <li><a href="#">修改用户名</a></li>
-                            <li><a href="#">修改密码</a></li>
-                            <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
-                            </li>
-                            <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
-                        </ul>
-                        <ul id='big_op' class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a id="option_drop" href="#" class="dropdown-toggle" data-toggle="dropdown"></a>
-                                <ul class="dropdown-menu" style="min-width:100%;">
-                                    <li><a href="#">修改用户名</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                    <li class="divider"></li>
-                                    <li><a id="reLogin" onclick="ReLogin()" href="#">重新登录</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">用户资料</a></li>
-                            <li><a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </div>
     </div>
-
     <div>
         @RenderBody()
     </div>
 </body>
+
 </html>

@@ -196,37 +196,23 @@ namespace Dal
             int numid = helper.sqlNum("tb_Users");//获取表中数据条数
             string account = helper.sqlMaxID("Number", "tb_Users").ToString().PadLeft(8, '0');//获取用户编号
             accountResult = account;
-            t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role,account);//将用户信息保存到变量t中
-            user = t;
             if (numid == 0)//如果是第一个注册默认成为管理员
             {
                 Role = 3;
             }
-            else//否则将其希望成为的角色发送到Log表等待审核
-            {
-                string sqlStr1 = "INSERT INTO tb_Log(Time,UserId,WantToBe,Name) VALUES(@time,@id,@role,@name)";
-                //储存Datatable
-                SqlParameter[] para1 = new SqlParameter[]//存储相应参数的容器
-                {
-                new SqlParameter("@time",DateTime.Now),
-                new SqlParameter("@id",t.UserID),
-                new SqlParameter("@name",name),
-                new SqlParameter("@role",role),
-                };
-                helper.ExecuteNonQuery(sqlStr1, para1, CommandType.Text);
-            }
             //向User表中插入数据
-            string sqlStr = "INSERT INTO tb_Users(Id,Name,Password,Role,Number) VALUES(@id,@name,@password,@role,@number)";
+            string sqlStr = "Register";
             //储存Datatable
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@id",t.UserID),
                 new SqlParameter("@name",name),
                 new SqlParameter("@passWord",helper.GetMD5(password)),
+                new SqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
                 new SqlParameter("@role",Role),
-                new SqlParameter("@number",t.Number),
             };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
+            t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role, account);//将用户信息保存到变量t中
+            user = t;
             if (count > 0)
             {
                 return true;

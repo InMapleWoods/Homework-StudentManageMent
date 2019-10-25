@@ -28,19 +28,19 @@ namespace StudentManagement_Web.Controllers
                     switch (role)
                     {
                         case 0:
-                            return Redirect("~/");
+                            return Redirect("~/Welcome/");
                         case 1:
-                            return Redirect("/Student");
+                            return Redirect("~/Welcome/Student");
                         case 2:
-                            return Redirect("/Teacher");
+                            return Redirect("~/Welcome/Teacher");
                         case 3:
-                            return Redirect("/Administrator");
+                            return Redirect("~/Welcome/Administrator");
                         default: break;
                     }
                 }
                 else
                 {
-                    return Redirect("~/");
+                    return Redirect("~/Welcome/");
                 }
             }
             catch (Exception e)
