@@ -16,12 +16,12 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        static readonly string sqlConnect = "server=152.136.73.240;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        const string sqlConnect = "server=152.136.73.240;database=db_StudentManage;uid=Lsa;pwd=llfllf";
 
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+        SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 接收申请
@@ -102,7 +102,7 @@ namespace Dal
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Check(int index, int size)
+        public DataTable GetPaperUsersWaitingToCheck(int index, int size)
         {
             string sqlstr = "select dbo.PadLeft(UserId,8,'0') 账号,Name 昵称,WantToBe 申请角色 from tb_Log where IsChecked=0 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
@@ -116,7 +116,7 @@ namespace Dal
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Student(int index, int size)
+        public DataTable GetPaperUsersStudent(int index, int size)
         {
             string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=1 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
@@ -129,7 +129,7 @@ namespace Dal
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers_Teacher(int index, int size)
+        public DataTable GetPaperUsersTeacher(int index, int size)
         {
             string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=2 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
@@ -141,7 +141,7 @@ namespace Dal
         /// </summary>
         /// <param name="size">分页大小</param>
         /// <returns>分页数</returns>
-        public int GetAllPageNum_UnChecked(int size)
+        public int GetAllPageNumUnChecked(int size)
         {
             int num = helper.sqlNum("tb_Log where IsChecked=0");
             num = num / size + (num % size == 0 ? 0 : 1);
@@ -172,5 +172,32 @@ namespace Dal
             return num;
         }
 
+        /// <summary>
+        /// 增加用户
+        /// </summary>
+        /// <param name="account">用户账号</param>
+        /// <param name="name">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="role">用户角色</param>
+        /// <returns>增加成功与否</returns>
+        public bool AddUser(string account, string name, string password, int role)
+        {
+            //向User表中插入数据
+            string sqlStr = "INSERT INTO tb_Users(Name,Password,Role,Number) VALUES(@name,@password,@role,@number)";
+            //储存Datatable
+            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            {
+                new SqlParameter("@number",account),
+                new SqlParameter("@name",name),
+                new SqlParameter("@passWord",helper.GetMD5(password)),
+                new SqlParameter("@role",role),
+            };
+            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            if (count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

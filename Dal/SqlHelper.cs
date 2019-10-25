@@ -37,10 +37,10 @@ namespace Dal
                     conn.Open();
                 }
             }
-            catch { }
+            catch (Exception) { throw; }
             return conn;
-
         }
+        
 
         /// <summary>
         /// 查询表中数据条数
@@ -51,6 +51,42 @@ namespace Dal
         {
             cmdtext = protectsql(cmdtext);
             string sqltext = "SELECT COUNT(*) from " + cmdtext;
+            getconn();
+            int res = 0;
+            try
+            {
+                using (cmd = new SqlCommand(sqltext, conn))
+                {
+
+                    cmd.CommandType = CommandType.Text;
+                    res = (int)cmd.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                res = -1;
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// 查询表中数据最大值
+        /// </summary>
+        /// <param name="cmdCol">要查询的列名称</param>
+        /// <param name="cmdtext">要查询的表</param>
+        /// <returns>表中数据最大值</returns>
+        public int sqlMaxColValue(string cmdCol, string cmdtext)
+        {
+            cmdtext = protectsql(cmdtext);
+            string sqltext = "SELECT Max(" + cmdCol + ") from " + cmdtext;
             getconn();
             int res = 0;
             try
@@ -228,6 +264,7 @@ namespace Dal
             {
                 str += MD5data[i].ToString("X").PadLeft('1', '0');
             }
+            md5.Dispose();
             return str;
         }
 

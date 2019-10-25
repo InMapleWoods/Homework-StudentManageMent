@@ -1,11 +1,8 @@
 ﻿using Dal;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
 namespace Bll
 {
     /// <summary>
@@ -31,7 +28,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return dataTable;
         }
@@ -52,14 +49,14 @@ namespace Bll
                     int Id = (int)dr["Id"];
                     string Name = dr["Name"].ToString();
                     int TeacherId = (int)dr["TeacherId"];
-                    Course t = new Course(Id,Name,TeacherId);
+                    Course t = new Course(Id, Name, TeacherId);
                     temp.Add(t);
                 }
                 return temp;
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return temp;
         }
@@ -76,7 +73,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return dataTable;
         }
@@ -104,7 +101,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return temp;
         }
@@ -123,7 +120,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return result;
         }
@@ -142,7 +139,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e.Message); throw e;
             }
             return result;
         }
@@ -159,7 +156,7 @@ namespace Bll
             {
                 result = courseDal.DeleteStudentCourse(UserId, CourseId);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -174,7 +171,7 @@ namespace Bll
             {
                 result = courseDal.DeleteCourse(CourseId);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -192,7 +189,7 @@ namespace Bll
             {
                 result = courseDal.GetPaperCourse(index, size);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -219,7 +216,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return temp;
         }
@@ -237,7 +234,7 @@ namespace Bll
             {
                 result = courseDal.GetAllPageNum(size);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
     }

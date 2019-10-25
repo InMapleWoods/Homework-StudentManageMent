@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Model
 {
@@ -21,6 +18,21 @@ namespace Model
         /// 验证码
         /// </summary>
         public string validateNum = "";
+
+        /// <summary>
+        /// 获得n位验证码bytes
+        /// </summary>
+        /// <param name="num">验证码位数</param>
+        /// <returns>返回num位的验证码图片</returns>
+        public byte[] GetValidateBytes(int num)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            GetValidate(num).Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+            byte[] bytes = memoryStream.GetBuffer();
+            memoryStream.Close();
+            return bytes;
+        }
+
         /// <summary>
         /// 获得n位验证码
         /// </summary>
@@ -59,6 +71,20 @@ namespace Model
             }
             validateNum = RandomNum;
             return RandomNum;
+        }
+
+        /// <summary>
+        /// 获得验证码图片bytes
+        /// </summary>
+        /// <param name="validateNum">验证码字符串</param>
+        /// <returns>返回验证码图片</returns>
+        public byte[] CreateImageBytes(string validateNum)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            CreateImage(validateNum).Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+            byte[] bytes = memoryStream.GetBuffer();
+            memoryStream.Close();
+            return bytes;
         }
 
         /// <summary>
@@ -124,6 +150,20 @@ namespace Model
         {
             return validateNum;
         }
+
+        /// <summary>
+        /// 获得验证码图片bytes
+        /// </summary>
+        /// <returns>返回验证码图片</returns>
+        public byte[] GetValidatePictureBytes()
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            validatePicture.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+            byte[] bytes = memoryStream.GetBuffer();
+            memoryStream.Close();
+            return bytes;
+        }
+
         /// <summary>
         /// 获取验证码图片
         /// </summary>

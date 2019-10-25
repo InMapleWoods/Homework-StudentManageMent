@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -45,13 +40,28 @@ namespace Model
             Score = 0;
         }
         /// <summary>
-        /// 有参构造函数
+        /// 有参构造函数（学生总成绩）
         /// </summary>
         /// <param name="id">成绩Id</param>
         /// <param name="cid">课程Id</param>
         /// <param name="sid">学生Id</param>
         /// <param name="score">成绩数值</param>
-        public Grade(int id,int cid,int sid,int eid,int score)
+        public Grade(int id, int cid, int sid, int score)
+        {
+            Id = id;
+            CourseId = cid;
+            StudentId = sid;
+            Score = score;
+        }
+        /// <summary>
+        /// 有参构造函数（某次考试成绩）
+        /// </summary>
+        /// <param name="id">成绩Id</param>
+        /// <param name="cid">课程Id</param>
+        /// <param name="sid">学生Id</param>
+        /// <param name="eid">考试Id</param>
+        /// <param name="score">成绩数值</param>
+        public Grade(int id, int cid, int sid, int eid, int score)
         {
             Id = id;
             CourseId = cid;

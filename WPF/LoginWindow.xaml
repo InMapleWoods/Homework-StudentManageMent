@@ -1,0 +1,91 @@
+﻿<Window x:Class="WPF.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        Height="300" Width="470"
+        WindowStyle="None" Background="{x:Null}"
+        ResizeMode="NoResize"
+        AllowsTransparency="True" 
+        Icon="pack://application:,,,/Resource/Icon.png" 
+        WindowStartupLocation="CenterScreen"
+        >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--#region 渐变出现-->
+        <Grid.OpacityMask>
+           <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#00000000" Offset="0"/>
+                <GradientStop Color="#00000000" Offset="1"/>
+                <GradientStop Color="#00000000" Offset="1"/>
+            </LinearGradientBrush> 
+        </Grid.OpacityMask>
+
+        
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation From="1" To="0" Duration="0:0:0.45" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[1].Offset"/>
+                            <DoubleAnimation From="1" To="0" Duration="0:0:0.3" BeginTime="0:0:0.15" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Offset"/>
+                            <ColorAnimation To="#FF000000" Duration="0" Storyboard.TargetProperty="OpacityMask.(GradientBrush.GradientStops)[2].Color"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Grid.Triggers>
+        <!--#endregion-->
+        <!--#region 头部背景-->
+        <Rectangle Grid.Row="0" Grid.Column="0" Uid="HeadBackgroundColor">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFF68AC8" Offset="0"></GradientStop>
+                    <GradientStop Color="#FFBA95FF" Offset="0.33"></GradientStop>
+                    <GradientStop Color="#FF82F1FC" Offset="0.67"></GradientStop>
+                    <GradientStop Color="#FF8DF97D" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+
+        </Rectangle>
+        <Rectangle Grid.Row="0" Grid.Column="0" Uid="HeadBackgroundImg">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="pack://application:,,,/Resource/logo.png" Stretch="Fill"/>
+            </Rectangle.Fill>
+
+        </Rectangle>
+        <!--#endregion-->
+        <!--#region 登录部分背景-->
+        <Rectangle Grid.Row="1" Grid.Column="0" Uid="LoginBackgroundColor">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                    <GradientStop Color="#FFFFF8DB" Offset="0"></GradientStop>
+                    <GradientStop Color="#FFE8FFD8" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <!--#endregion-->
+        <!--#region 账号-->
+        <TextBlock x:Name="AccountLabel" HorizontalAlignment="Left" Height="30" Margin="115,40,0,0" Grid.Row="1" TextWrapping="Wrap" Text="账号：" VerticalAlignment="Top" Width="70" FontFamily="Microsoft JhengHei" FontSize="22"/>
+        <TextBox x:Name="AccountText" HorizontalAlignment="Left" Height="30" Margin="185,40,0,0" Grid.Row="1" VerticalAlignment="Top" Width="180" FontSize="20" VerticalContentAlignment="Center"/>
+        <!--#endregion-->
+        <!--#region 密码-->
+        <TextBlock x:Name="PasswordLabel" HorizontalAlignment="Left" Height="30" Margin="115,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="密码：" VerticalAlignment="Top" Width="70" FontFamily="Microsoft JhengHei" FontSize="22"/>
+        <PasswordBox x:Name="PasswordText" HorizontalAlignment="Left" Height="30" Margin="185,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="180" FontSize="20" VerticalContentAlignment="Center"/>
+        <!--#endregion-->
+        <!--#region 验证码-->
+        <TextBlock x:Name="ValidateLabel" HorizontalAlignment="Left" Height="30" Margin="100,120,0,0" Grid.Row="1" TextWrapping="Wrap" Text="验证码：" VerticalAlignment="Top" Width="87.6" FontFamily="Microsoft JhengHei" FontSize="19" Visibility="Hidden"/>
+        <TextBox x:Name="ValidateText" HorizontalAlignment="Left" Height="30" Margin="185,120,0,0" Grid.Row="1" VerticalAlignment="Top" Width="80" FontSize="20" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Image x:Name="ValidateImg" Stretch="UniformToFill" HorizontalAlignment="Left" Height="30" Margin="285,120,0,0" Grid.Row="1" VerticalAlignment="Top" Width="80" Visibility="Hidden" MouseDown="ValidateImg_MouseDown"/>
+        <!--#endregion-->
+        <Button x:Name="LoginBtn" Content="登录" Margin="135,120,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" Height="35" Width="80" Click="LoginBtn_Click" Template="{StaticResource Login_Btn}"/>
+        <Button x:Name="CancelBtn" Content="取消" Margin="280,120,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" Height="35" Width="80" Click="CancelBtn_Click" Template="{StaticResource Login_Btn}"/>
+        <Label x:Name="RegisterLabel" Content="注册账号" MouseDown="RegisterLabel_MouseDown" HorizontalAlignment="Left" Margin="10,173.4,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="80" Foreground="#FF999999" MouseEnter="RegisterLabel_MouseEnter" MouseLeave="RegisterLabel_MouseLeave"/>
+    </Grid>
+</Window>

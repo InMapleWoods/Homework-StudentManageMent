@@ -32,7 +32,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return dataTable;
         }
@@ -60,7 +60,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return temp;
         }
@@ -77,7 +77,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return dataTable;
         }
@@ -105,7 +105,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return temp;
         }
@@ -126,7 +126,7 @@ namespace Bll
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message); throw e;
             }
             return result;
         }

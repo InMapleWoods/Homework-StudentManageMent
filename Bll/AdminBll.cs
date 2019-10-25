@@ -3,9 +3,6 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bll
 {
@@ -44,7 +41,7 @@ namespace Bll
             {
                 result = adminDal.AcceptLog(id, tobe);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -60,7 +57,7 @@ namespace Bll
             {
                 result = adminDal.RejectionLog(id);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -76,7 +73,7 @@ namespace Bll
             {
                 result = adminDal.DeleteUser(id);
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -94,22 +91,22 @@ namespace Bll
             {
                 if (choose == choose_Student)
                 {
-                    result = adminDal.GetPaperUsers_Student(index, size);
+                    result = adminDal.GetPaperUsersStudent(index, size);
                 }
                 else if (choose == choose_Teacher)
                 {
-                    result = adminDal.GetPaperUsers_Teacher(index, size);
+                    result = adminDal.GetPaperUsersTeacher(index, size);
                 }
                 else if (choose == choose_Unchecked)
                 {
-                    result = adminDal.GetPaperUsers_Check(index, size);
+                    result = adminDal.GetPaperUsersWaitingToCheck(index, size);
                 }
                 else
                 {
                     throw new Exception("choose选项不正确");
                 }
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 
@@ -133,12 +130,13 @@ namespace Bll
                     string Name = dr["Name"].ToString();
                     string Password = dr["Password"].ToString();
                     int Role = (int)dr["Role"];
-                    User t = new User(Id, Name, Password, Role);
+                    string Number = dr["Number"].ToString();
+                    User t = new User(Id, Name, Password, Role,Number);
                     temp.Add(t);
                 }
                 return temp;
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
         }
         /// <summary>
         /// 获取未审核用户分页总页数
@@ -161,14 +159,32 @@ namespace Bll
                 }
                 else if (choose == choose_Unchecked)
                 {
-                    result = adminDal.GetAllPageNum_UnChecked(size);
+                    result = adminDal.GetAllPageNumUnChecked(size);
                 }
                 else
                 {
                     throw new Exception("choose选项不正确");
                 }
             }
-            catch (Exception e) { throw e; }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+        /// <summary>
+        /// 增加用户
+        /// </summary>
+        /// <param name="account">用户账号</param>
+        /// <param name="name">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="role">用户角色</param>
+        /// <returns>增加成功与否</returns>
+        public bool AddUser(string account, string name, string password, int role)
+        {
+            bool result;
+            try
+            {
+                result = adminDal.AddUser(account,name,password,role);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
         }
 

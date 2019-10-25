@@ -39,7 +39,7 @@ namespace Bll
             bool result;
             try
             {
-                result = userDal.Login(account, password);
+                result = userDal.Login(account, password,out t);
                 t = userDal.t;
                 Role = userDal.Role;
             }
@@ -49,7 +49,7 @@ namespace Bll
 
 
         /// <summary>
-        /// 获取账号密码对应的用户
+        /// 获取账号对应的用户
         /// </summary>
         /// <param name="account">账号</param>
         /// <returns>用户</returns>
@@ -59,7 +59,7 @@ namespace Bll
             User result;
             try
             {
-                result = userDal.GetUserLogin(account);
+                result = userDal.GetUserLogin(account, out t);
                 t = userDal.t;
                 Role = userDal.Role;
             }
@@ -82,14 +82,17 @@ namespace Bll
             catch (Exception e) { throw e; }
             return result;
         }
+
         /// <summary>
         /// 注册操作
         /// </summary>
         /// <param name="name">昵称</param>
         /// <param name="password">密码</param>
         /// <param name="repeatpwd">重复密码</param>
+        /// <param name="accountResult">注册账号结果</param>
+        /// <param name="role">角色</param>
         /// <returns>是否成功注册</returns>
-        public bool Register(string name, string password, string repeatpwd, int role = -1)
+        public bool Register(string name, string password, string repeatpwd, out string accountResult,int role = -1)
         {
             name = name == null ? "" : name;
             password = password == null ? "" : password;
@@ -97,7 +100,7 @@ namespace Bll
             bool result;
             try
             {
-                result = userDal.Register(name, password, repeatpwd, role);
+                result = userDal.Register(name, password, repeatpwd, out accountResult, out t, role);
                 t = userDal.t;
                 Role = userDal.Role;
             }
@@ -118,7 +121,22 @@ namespace Bll
             catch (Exception e) { throw e; }
             return result;
         }
-        
+
+
+        /// <summary>
+        /// 获取注册者账号
+        /// </summary>
+        /// <returns>注册者账号</returns>
+        public string GetRegisterAccount()
+        {
+            string result;
+            try
+            {
+                result = userDal.GetRegisterAccount();
+            }
+            catch (Exception e) { throw e; }
+            return result;
+        }
 
 
         /// <summary>
@@ -153,7 +171,8 @@ namespace Bll
                     string Name = dr["Name"].ToString();
                     string Password = dr["Password"].ToString();
                     int Role = (int)dr["Role"];
-                    User t = new User(Id, Name, Password, Role);
+                    string Number = dr["Number"].ToString();
+                    User t = new User(Id, Name, Password, Role,Number);
                     temp.Add(t);
                 }
                 return temp;
