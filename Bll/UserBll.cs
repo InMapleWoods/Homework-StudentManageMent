@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Dal;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using Dal;
-using Model;
 
 namespace Bll
 {
@@ -15,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 数据操作对象
         /// </summary>
-        UserDal userDal = new UserDal();
+        readonly UserDal userDal = new UserDal();
         /// <summary>
         /// 登录用户
         /// </summary>
@@ -24,8 +23,8 @@ namespace Bll
         /// 登录角色
         /// </summary>
         public string Role = null;
-        
-      
+
+
         /// <summary>
         /// 登录操作
         /// </summary>
@@ -39,7 +38,7 @@ namespace Bll
             bool result;
             try
             {
-                result = userDal.Login(account, password,out t);
+                result = userDal.Login(account, password, out t);
                 t = userDal.t;
                 Role = userDal.Role;
             }
@@ -92,7 +91,7 @@ namespace Bll
         /// <param name="accountResult">注册账号结果</param>
         /// <param name="role">角色</param>
         /// <returns>是否成功注册</returns>
-        public bool Register(string name, string password, string repeatpwd, out string accountResult,int role = -1)
+        public bool Register(string name, string password, string repeatpwd, out string accountResult, int role = -1)
         {
             name = name == null ? "" : name;
             password = password == null ? "" : password;
@@ -172,7 +171,7 @@ namespace Bll
                     string Password = dr["Password"].ToString();
                     int Role = (int)dr["Role"];
                     string Number = dr["Number"].ToString();
-                    User t = new User(Id, Name, Password, Role,Number);
+                    User t = new User(Id, Name, Password, Role, Number);
                     temp.Add(t);
                 }
                 return temp;
@@ -182,7 +181,7 @@ namespace Bll
                 throw new Exception("获取全部用户失败");
             }
         }
-        
+
         /// <summary>
         /// 修改昵称
         /// </summary>
@@ -216,6 +215,6 @@ namespace Bll
             catch (Exception e) { throw e; }
             return result;
         }
-        
+
     }
 }

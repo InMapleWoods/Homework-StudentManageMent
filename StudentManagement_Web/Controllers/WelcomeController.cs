@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
 
 namespace StudentManagement_Web.Controllers
 {
+    /// <summary>
+    /// 主页面
+    /// </summary>
     public class WelcomeController : Controller
     {
         /// <summary>
@@ -49,16 +50,16 @@ namespace StudentManagement_Web.Controllers
             }
             return View();
         }
-        
-        public IActionResult Student() 
+
+        public IActionResult Student()
         {
             return View();
-        }     
-        public IActionResult Teacher() 
+        }
+        public IActionResult Teacher()
         {
             return View();
-        }     
-        public IActionResult Administrator() 
+        }
+        public IActionResult Administrator()
         {
             return View();
         }

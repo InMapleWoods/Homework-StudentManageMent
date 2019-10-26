@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bll;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -14,12 +9,12 @@ namespace StudentManagement_Web.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ApiUserController : ControllerBase
     {
         /// <summary>
         /// 用户操作对象
         /// </summary>
-        UserBll userBll = new UserBll();
+        readonly UserBll userBll = new UserBll();
         // GET: api/User
         [HttpGet]
         public IEnumerable<string> Get()
@@ -52,4 +47,20 @@ namespace StudentManagement_Web.Controllers
         {
         }
     }
+
+    /// <summary>
+    /// 用户页面
+    /// </summary>
+    public class UserController : Controller
+    {
+        public IActionResult NameChange()
+        {
+            return View();
+        }
+        public IActionResult PasswordChange()
+        {
+            return View();
+        }
+    }
+
 }

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
 namespace Dal
 {
     /// <summary>
@@ -21,7 +16,7 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 获取全部课程
@@ -40,8 +35,12 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetStudentAllCourse(string Id)
         {
-            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名  from tb_Course inner join tb_Grade on tb_Grade.SId='" + Id + "'  and tb_Grade.CId=tb_Course.Id";
-            DataTable dataTable = helper.reDt(sqlstr);
+            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名  from tb_Course inner join tb_Grade on tb_Grade.SId=@id  and tb_Grade.CId=tb_Course.Id";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@id",Id),
+            };
+            DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text);
             return dataTable;
         }
         /// <summary>
@@ -50,7 +49,7 @@ namespace Dal
         /// <param name="name">课程名称</param>
         /// <param name="teacherId">教师Id</param>
         /// <returns>增加成功与否</returns>
-        public bool AddCourse(string name,string teacherId)
+        public bool AddCourse(string name, string teacherId)
         {
             string sqlstr = "INSERT INTO tb_Course (Name,TeacherId) VALUES(@name,@teacherId)";
             //储存Datatable
@@ -75,7 +74,7 @@ namespace Dal
         /// <param name="UserId">学生Id</param>
         /// <param name="CourseId">课程Id</param>
         /// <returns>选课成功与否</returns>
-        public bool ChooseCourse(string UserId,string CourseId)
+        public bool ChooseCourse(string UserId, string CourseId)
         {
             int num = helper.sqlNum("tb_Course Where Id='" + CourseId + "'");
             if (num == 0)
@@ -94,7 +93,7 @@ namespace Dal
                 new SqlParameter("@cid",CourseId),
                 new SqlParameter("@sid",UserId),
             };
-            int count=helper.ExecuteNonQuery(sqlstr, para1, CommandType.Text);
+            int count = helper.ExecuteNonQuery(sqlstr, para1, CommandType.Text);
             if (count > 0)
             {
                 return true;
@@ -159,8 +158,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperCourse(int index, int size)
         {
-            string sqlstr = "select Id 课程ID,Name 课程名称 from tb_Course order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperCourse"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 

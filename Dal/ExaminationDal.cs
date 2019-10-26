@@ -18,8 +18,8 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
-      
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+
         #region 考试相关
         /// <summary>
         /// 获取分页后的考试列表
@@ -29,8 +29,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExam(int index, int size)
         {
-            string sqlstr = "select tb_Examination.Id 考试ID,tb_Course.Name 课程名称,tb_Examination.Name 考试名称,tb_Examination.Time 考试时间 from tb_Course inner join tb_Examination on tb_Course.Id=tb_Examination.CourseId order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperExam"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -190,8 +196,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExamApply(int index, int size)
         {
-            string sqlstr = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Users.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间 from tb_Course,tb_ExamApplyLog,tb_Users where tb_Course.Id=tb_ExamApplyLog.CourseId and tb_Users.Id=tb_ExamApplyLog.TeacherId and tb_ExamApplyLog.IsChecked=false order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperExamApply"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 

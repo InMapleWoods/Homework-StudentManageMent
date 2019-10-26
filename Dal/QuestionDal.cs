@@ -1,10 +1,7 @@
 ﻿using Model;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace Dal
 {
@@ -21,7 +18,7 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 获取指定考试的所有题目
@@ -51,13 +48,15 @@ namespace Dal
             {
                 new SqlParameter("@questionid",questionId),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, sqlParameters, CommandType.Text);
-            if (dataTable.Rows.Count == 1)
+            using (DataTable dataTable = helper.ExcuteQuery(str, sqlParameters, CommandType.Text))
             {
-                DataRow dr = dataTable.Rows[0];
-                return new ExamQuestion((int)dr["Id"], (int)dr["ExamId"], dr["QuestionText"].ToString());
+                if (dataTable.Rows.Count == 1)
+                {
+                    DataRow dr = dataTable.Rows[0];
+                    return new ExamQuestion((int)dr["Id"], (int)dr["ExamId"], dr["QuestionText"].ToString());
+                }
+                return null;
             }
-            return null;
         }
 
         /// <summary>
@@ -232,7 +231,7 @@ namespace Dal
                 return false;
             question.Stem = stem;
             ExamQuestion examQuestion = new ExamQuestion(id, examid, question);
-            return UpdateExaminationQuestion(examQuestion);        
+            return UpdateExaminationQuestion(examQuestion);
         }
         #endregion
     }

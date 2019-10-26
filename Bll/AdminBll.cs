@@ -14,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 数据操作对象
         /// </summary>
-        AdminDal adminDal = new AdminDal();
+        readonly AdminDal adminDal = new AdminDal();
         /// <summary>
         /// 表单选择教师
         /// </summary>
@@ -32,14 +32,13 @@ namespace Bll
         /// 接收申请
         /// </summary>
         /// <param name="id">申请用户ID</param>
-        /// <param name="tobe">申请角色</param>
         /// <returns>成功与否</returns>
-        public bool AcceptLog(string id, string tobe)
+        public bool AcceptLog(string id)
         {
             bool result;
             try
             {
-                result = adminDal.AcceptLog(id, tobe);
+                result = adminDal.AcceptLog(id);
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
@@ -131,7 +130,7 @@ namespace Bll
                     string Password = dr["Password"].ToString();
                     int Role = (int)dr["Role"];
                     string Number = dr["Number"].ToString();
-                    User t = new User(Id, Name, Password, Role,Number);
+                    User t = new User(Id, Name, Password, Role, Number);
                     temp.Add(t);
                 }
                 return temp;
@@ -182,7 +181,7 @@ namespace Bll
             bool result;
             try
             {
-                result = adminDal.AddUser(account,name,password,role);
+                result = adminDal.AddUser(account, name, password, role);
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;

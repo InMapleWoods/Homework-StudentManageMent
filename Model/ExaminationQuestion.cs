@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
@@ -123,14 +123,14 @@ namespace Model
         /// <summary>
         /// 选项
         /// </summary>
-        private ArrayList options = new ArrayList();
+        private readonly ArrayList options = new ArrayList();
 
         /// <summary>
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
         /// <param name="options">选项</param>
-        public ChoiceQuestion(int rightAnswer,ArrayList options)
+        public ChoiceQuestion(int rightAnswer, ArrayList options)
         {
             this.rightAnswer = rightAnswer;
             this.options = options;

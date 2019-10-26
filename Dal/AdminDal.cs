@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dal
 {
@@ -21,7 +16,7 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 接收申请
@@ -99,8 +94,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersWaitingToCheck(int index, int size)
         {
-            string sqlstr = "select dbo.PadLeft(UserId,8,'0') 账号,Name 昵称,WantToBe 申请角色 from tb_Log where IsChecked=0 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperUsersWaitingToCheck"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -113,8 +114,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersStudent(int index, int size)
         {
-            string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=1 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperUsersStudent"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -126,8 +133,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersTeacher(int index, int size)
         {
-            string sqlstr = "select dbo.PadLeft(Id,8,'0') 账号,Name 昵称 from tb_Users where Role=2 order by Id offset ((" + (index - 1) + ")*" + size + ") rows fetch next " + size + " rows only";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string str = "GetPageByOption";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@option","GetPaperUsersTeacher"),
+            };
+            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -201,11 +214,14 @@ namespace Dal
         /// <returns>更改结果</returns>
         public string ReverseRegisterOpenState()
         {
-            string str = "Execute ReverseRegisterOpenState";
-            SqlParameter[] para = Array.Empty<SqlParameter>();
+            string str = "ReverseRegisterOpenState";
+            SqlParameter[] para = new SqlParameter[] {
+                new SqlParameter("result",SqlDbType.VarChar,10)
+            };
+            para[0].Direction = ParameterDirection.ReturnValue;
             using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.StoredProcedure))
             {
-                string result = dataTable.Rows[0]["Result"].ToString();
+                string result = para[0].Value.ToString();
                 if (result == "OpenStateBecomeFalse")
                 {
                     return "注册功能关闭";

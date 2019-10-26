@@ -13,7 +13,7 @@ namespace Bll
         /// <summary>
         /// 考试数据操作对象
         /// </summary>
-        private ExaminationDal examinationDal = new ExaminationDal();
+        private readonly ExaminationDal examinationDal = new ExaminationDal();
 
         #region 考试相关
         /// <summary>
@@ -27,9 +27,9 @@ namespace Bll
             DataTable datatable = null;
             try
             {
-                datatable=examinationDal.GetPaperExam(index, size);
+                datatable = examinationDal.GetPaperExam(index, size);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -48,7 +48,7 @@ namespace Bll
             {
                 result = examinationDal.GetAllPageNum(size);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -66,7 +66,7 @@ namespace Bll
             {
                 result = examinationDal.GetAllExamination();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -86,7 +86,7 @@ namespace Bll
             {
                 result = examinationDal.GetExaminationById(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -105,7 +105,7 @@ namespace Bll
             {
                 result = examinationDal.GetExaminationByCourseId(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -124,7 +124,7 @@ namespace Bll
             {
                 result = examinationDal.AddExamination(examination);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -143,7 +143,7 @@ namespace Bll
             {
                 result = examinationDal.DeleteExamination(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -161,9 +161,9 @@ namespace Bll
             bool result = false;
             try
             {
-                result = examinationDal.UpdateExaminationTime(dateTime,id);
+                result = examinationDal.UpdateExaminationTime(dateTime, id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -183,7 +183,7 @@ namespace Bll
             {
                 result = examinationDal.UpdateExaminationName(name, id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -205,7 +205,7 @@ namespace Bll
             {
                 result = examinationDal.GetPaperExamApply(index, size);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -224,7 +224,7 @@ namespace Bll
             {
                 result = examinationDal.GetAllPageApplyNum(size);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -245,7 +245,7 @@ namespace Bll
             {
                 result = examinationDal.AddExamApply(examination, teacherId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -264,7 +264,7 @@ namespace Bll
             {
                 result = examinationDal.UpdateExamApplyCheckedState(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -283,7 +283,7 @@ namespace Bll
             {
                 result = examinationDal.AccpetExamApply(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -303,7 +303,7 @@ namespace Bll
             {
                 result = examinationDal.RejectExamApply(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }

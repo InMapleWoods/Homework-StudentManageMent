@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
 
 namespace Dal
 {
@@ -22,27 +16,37 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 获取学生成绩
         /// </summary>
+        /// <param name="Id">学生Id</param>
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetStudentGrade(string Id)
         {
-            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名  from tb_Course inner join tb_Grade on tb_Grade.SId='" + Id + "'  and tb_Grade.CId=tb_Course.Id";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名 from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id";//SQL执行字符串
+            SqlParameter[] para = new SqlParameter[]
+            {
+                new SqlParameter("@id",Id),
+            };
+            DataTable dataTable = helper.ExcuteQuery(sqlstr, para, CommandType.Text);//储存Datatable
             return dataTable;
         }
 
         /// <summary>
         /// 教师获取学生成绩
         /// </summary>
+        /// <param name="Id">课程Id</param>
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetCourseGrade(string Id)
         {
-            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Score as 课程分数 from tb_Grade inner join tb_Users on CId='" + Id + "' and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
-            DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
+            string sqlstr = "select dbo.PadLeft(tb_Grade.SId,8,'0') as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Score as 课程分数 from tb_Grade inner join tb_Users on CId=@id and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@id",Id),
+            };
+            DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             return dataTable;
         }
 

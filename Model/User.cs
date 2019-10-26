@@ -49,7 +49,7 @@ namespace Model
         /// <param name="passWord">用户密码</param>
         /// <param name="role">用户角色</param>
         /// <param name="number">用户编号</param>
-        public User(int userID, string userName, string passWord,  int role,string number)
+        public User(int userID, string userName, string passWord, int role, string number)
         {
             UserID = userID;
             UserName = userName;

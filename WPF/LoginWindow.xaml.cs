@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Model;
 
 namespace WPF
 {
@@ -25,7 +25,7 @@ namespace WPF
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             #region 自定义事件绑定
-            MouseLeftButtonDown += new MouseButtonEventHandler((sender, e)=>{DragMove();});
+            MouseLeftButtonDown += new MouseButtonEventHandler((sender, e) => { DragMove(); });
             #endregion
         }
 
@@ -33,7 +33,7 @@ namespace WPF
         /// <summary>
         /// 验证码对象
         /// </summary>
-        private Captcha captcha = new Captcha();
+        private readonly Captcha captcha = new Captcha();
 
         /// <summary>
         /// 验证码显示位置变化
@@ -69,7 +69,7 @@ namespace WPF
             GetCaptcha();
         }
         #endregion
-        
+
         #region 登录
         /// <summary>
         /// 登录按钮点击事件
@@ -87,9 +87,9 @@ namespace WPF
                     ShowValidate();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("登录失败"+ex.Message);
+                MessageBox.Show("登录失败" + ex.Message);
             }
         }
 

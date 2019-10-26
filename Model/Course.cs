@@ -35,7 +35,7 @@ namespace Model
         /// <param name="id">课程Id</param>
         /// <param name="name">课程名称</param>
         /// <param name="teacherId">开课教师Id</param>
-        public Course(int id,string name,int teacherId)
+        public Course(int id, string name, int teacherId)
         {
             Id = id;
             Name = name;

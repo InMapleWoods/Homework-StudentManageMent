@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPF
 {
@@ -22,7 +11,7 @@ namespace WPF
         /// <summary>
         /// 父登录窗体
         /// </summary>
-        private LoginWindow ParentLoginWindow = null;
+        private readonly LoginWindow ParentLoginWindow = null;
 
         /// <summary>
         /// 构造函数
@@ -56,7 +45,7 @@ namespace WPF
                     ParentLoginWindow.PasswordText.Password = Register_Password_PasswordBox.Password;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

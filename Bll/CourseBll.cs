@@ -13,7 +13,7 @@ namespace Bll
         /// <summary>
         /// 课程数据操作对象
         /// </summary>
-        CourseDal courseDal = new CourseDal();
+        readonly CourseDal courseDal = new CourseDal();
 
         /// <summary>
         /// 获取全部课程
@@ -58,7 +58,6 @@ namespace Bll
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return temp;
         }
         /// <summary>
         /// 获取学生已选课程
@@ -103,7 +102,6 @@ namespace Bll
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return temp;
         }
         /// <summary>
         /// 增加课程
@@ -218,7 +216,6 @@ namespace Bll
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return temp;
         }
 
         /// <summary>

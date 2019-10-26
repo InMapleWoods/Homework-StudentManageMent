@@ -2,8 +2,6 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 
 namespace Dal
@@ -22,7 +20,7 @@ namespace Dal
         /// 登录用户
         /// </summary>
         public User t = null;
-        
+
         /// <summary>
         /// 登录角色
         /// </summary>
@@ -31,7 +29,7 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        SQLHelper helper = new SQLHelper(sqlConnect);
+        readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 登录操作
@@ -40,18 +38,13 @@ namespace Dal
         /// <param name="password">密码</param>
         /// <param name="validate">验证码</param>
         /// <returns>登录成功与否</returns>
-        public bool Login(string account, string password,out User user)
-        {
-            return LoginSystem(account, password,out user);
-        }
-
-        public bool LoginSystem(string account, string password, out User user)
+        public bool Login(string account, string password, out User user)
         {
             try
             {
                 string matchPattern = @"(^\d{8,40}$)";
                 Match resultGet = Regex.Match(account, matchPattern);
-                if(resultGet.Groups.Count==0)
+                if (resultGet.Groups.Count == 0)
                     throw new Exception("账号格式不正确");
             }
             catch
@@ -61,47 +54,54 @@ namespace Dal
             //MD5加密密码
             string pwd = helper.GetMD5(password);
             //编写SQL语句
-            string sqlstr = "SELECT * FROM tb_Users where Number='" + account + "' AND Password='" + pwd + "'";
-            //将返回的结果保存在datatable中
-            System.Data.DataTable dataTable = helper.reDt(sqlstr);
-            if (dataTable.Rows.Count == 1)//如果返回一个结果
+            string sqlstr = "SELECT * FROM tb_Users where Number=@number AND Password=@password";
+            SqlParameter[] paras = new SqlParameter[]
             {
-                DataRow dr = dataTable.Rows[0];
-                int userId = (int)dr["Id"];
-                string name = dr["Name"].ToString();
-                string psw = dr["Password"].ToString();
-                int Role = (int)dr["Role"];
-                string Number = dr["Number"].ToString();
-                if (Role == 0)//未审核人员无法访问
+                new SqlParameter("@number",account),
+                new SqlParameter("@password",pwd)
+            };
+            //将返回的结果保存在datatable中
+            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
+            {
+                if (dataTable.Rows.Count == 1)//如果返回一个结果
                 {
-                    throw new Exception("注册未审核，请联系管理员");
-                }
-                else
-                {
-                    t = new User(userId, name, psw, Role,Number);//将用户信息保存到变量t中
-                    if (Role == 3)
+                    DataRow dr = dataTable.Rows[0];
+                    int userId = (int)dr["Id"];
+                    string name = dr["Name"].ToString();
+                    string psw = dr["Password"].ToString();
+                    int Role = (int)dr["Role"];
+                    string Number = dr["Number"].ToString();
+                    if (Role == 0)//未审核人员无法访问
                     {
-                        this.Role = "管理员";
-                    }
-                    else if (Role == 2)
-                    {
-                        this.Role = "老师";
+                        throw new Exception("注册未审核，请联系管理员");
                     }
                     else
                     {
-                        this.Role = "学生";
+                        t = new User(userId, name, psw, Role, Number);//将用户信息保存到变量t中
+                        if (Role == 3)
+                        {
+                            this.Role = "管理员";
+                        }
+                        else if (Role == 2)
+                        {
+                            this.Role = "老师";
+                        }
+                        else
+                        {
+                            this.Role = "学生";
+                        }
+                        user = t;
+                        return true;
                     }
-                    user = t;
-                    return true;
                 }
-            }
-            else if (dataTable.Rows.Count > 1)//返回结果不止一个
-            {
-                throw new Exception("未知用户重复错误，请联系管理员");
-            }
-            else//返回结果为0个
-            {
-                throw new Exception("用户名或密码不正确，请重新输入");
+                else if (dataTable.Rows.Count > 1)//返回结果不止一个
+                {
+                    throw new Exception("未知用户重复错误，请联系管理员");
+                }
+                else//返回结果为0个
+                {
+                    throw new Exception("用户名或密码不正确，请重新输入");
+                }
             }
         }
 
@@ -124,29 +124,35 @@ namespace Dal
                 throw;
             }
             //编写SQL语句
-            string sqlstr = "SELECT * FROM tb_Users where Number='" + account + "'";
+            string sqlstr = "SELECT * FROM tb_Users where Number=@number";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@number",account),
+            };
             //将返回的结果保存在datatable中
-            System.Data.DataTable dataTable = helper.reDt(sqlstr);
-            if (dataTable.Rows.Count == 1)//如果返回一个结果
+            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
             {
-                DataRow dr = dataTable.Rows[0];
-                int userId = (int)dr["Id"];
-                string name = dr["Name"].ToString();
-                string psw = dr["Password"].ToString();
-                int Role = (int)dr["Role"];
-                string Number = dr["Number"].ToString();
-                t = new User(userId, name, psw, Role,Number);//将用户信息保存到变量t中
-                user = t;
-                return t;
-            }
-            else if (dataTable.Rows.Count > 1)//返回结果不止一个
-            {
-                throw new Exception("未知用户重复错误，请联系管理员");
-            }
-            else//返回结果为0个
-            {
-                user = t;
-                return null;
+                if (dataTable.Rows.Count == 1)//如果返回一个结果
+                {
+                    DataRow dr = dataTable.Rows[0];
+                    int userId = (int)dr["Id"];
+                    string name = dr["Name"].ToString();
+                    string psw = dr["Password"].ToString();
+                    int Role = (int)dr["Role"];
+                    string Number = dr["Number"].ToString();
+                    t = new User(userId, name, psw, Role, Number);//将用户信息保存到变量t中
+                    user = t;
+                    return t;
+                }
+                else if (dataTable.Rows.Count > 1)//返回结果不止一个
+                {
+                    throw new Exception("未知用户重复错误，请联系管理员");
+                }
+                else//返回结果为0个
+                {
+                    user = t;
+                    return null;
+                }
             }
         }
 
@@ -158,16 +164,22 @@ namespace Dal
         public bool UserNameCheck(string userName)
         {
             //编写SQL语句
-            string sqlstr = "SELECT * FROM tb_Users where Name='" + userName + "'";
+            string sqlstr = "SELECT * FROM tb_Users where Name=@userName";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@userName",userName),
+            };
             //将返回的结果保存在datatable中
-            System.Data.DataTable dataTable = helper.reDt(sqlstr);
-            if (dataTable.Rows.Count >= 1)//返回结果不止一个
+            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
             {
-                return false;
-            }
-            else//返回结果为0个
-            {
-                return true;
+                if (dataTable.Rows.Count >= 1)//返回结果不止一个
+                {
+                    return false;
+                }
+                else//返回结果为0个
+                {
+                    return true;
+                }
             }
         }
 
@@ -181,11 +193,17 @@ namespace Dal
         /// <param name="accountResult">注册账号结果</param>
         /// <param name="role">角色</param>
         /// <returns>是否成功注册</returns>
-        public bool Register(string name, string password, string repeatpwd, out string accountResult, out User user,int role = -1)
+        public bool Register(string name, string password, string repeatpwd, out string accountResult, out User user, int role = -1)
         {
+            if (password == null)
+            {
+                accountResult = "";
+                user = new User();
+                return false;
+            }
             //未审核注册统一将其角色赋值为0（未审核）
             int Role = 0;
-            if (!password.Equals(repeatpwd,StringComparison.CurrentCulture))
+            if (!password.Equals(repeatpwd, StringComparison.CurrentCulture))
             {
                 throw new Exception("两次密码不一致");
             }
@@ -205,12 +223,26 @@ namespace Dal
             //储存Datatable
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
+                new SqlParameter("returnValue",SqlDbType.Int,4),
                 new SqlParameter("@name",name),
                 new SqlParameter("@passWord",helper.GetMD5(password)),
                 new SqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
                 new SqlParameter("@role",Role),
             };
+            para[0].Direction = ParameterDirection.ReturnValue;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
+            int result = (int)para[0].Value;
+            switch (result)
+            {
+                case -3:
+                    {
+                        throw new Exception("两次密码不一致");
+                    }
+                case -2:
+                    {
+                        throw new Exception("注册功能被关闭");
+                    }
+            }
             t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role, account);//将用户信息保存到变量t中
             user = t;
             if (count > 0)
@@ -228,7 +260,7 @@ namespace Dal
         {
             return helper.sqlMaxID("Id", "tb_Users") - 1;
         }
-        
+
         /// <summary>
         /// 获取注册者账号
         /// </summary>
@@ -243,7 +275,7 @@ namespace Dal
         /// </summary>
         /// <returns>用户表</returns>
         public DataTable GetAllUser()
-        {            
+        {
             string sqlstr = "select * from tb_Users";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);//储存Datatable
             return dataTable;

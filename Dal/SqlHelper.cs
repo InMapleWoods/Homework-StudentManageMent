@@ -7,9 +7,9 @@ namespace Dal
 {
     public class SQLHelper
     {
-        private SqlConnection conn = null;
+        private readonly SqlConnection conn = null;
         private SqlCommand cmd = null;
-        private SqlDataReader sdr = null;
+        private readonly SqlDataReader sdr = null;
 
         public SQLHelper(string sqlConnect)
         {
@@ -40,7 +40,7 @@ namespace Dal
             catch (Exception) { throw; }
             return conn;
         }
-        
+
 
         /// <summary>
         /// 查询表中数据条数

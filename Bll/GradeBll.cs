@@ -1,11 +1,8 @@
 ﻿using Dal;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
 
 namespace Bll
 {
@@ -17,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 课程数据操作对象
         /// </summary>
-        GradeDal gradeDal = new GradeDal();
+        readonly GradeDal gradeDal = new GradeDal();
 
         /// <summary>
         /// 获取学生成绩
@@ -62,7 +59,6 @@ namespace Bll
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return temp;
         }
         /// <summary>
         /// 教师获取学生成绩
@@ -107,7 +103,6 @@ namespace Bll
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return temp;
         }
 
         /// <summary>

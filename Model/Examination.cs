@@ -27,7 +27,7 @@ namespace Model
         /// </summary>
         [StringLength(500)]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// 无参构造函数
         /// </summary>
@@ -45,7 +45,7 @@ namespace Model
         /// <param name="courseId">课程Id</param>
         /// <param name="time">考试时间</param>
         /// <param name="name">考试名称</param>
-        public Examination(int id, int courseId, DateTime time,  string name)
+        public Examination(int id, int courseId, DateTime time, string name)
         {
             Id = id;
             CourseId = courseId;

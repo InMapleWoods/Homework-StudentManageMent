@@ -13,7 +13,7 @@ namespace Bll
         /// <summary>
         /// 题目数据操作对象
         /// </summary>
-        private QuestionDal questionDal = new QuestionDal();
+        private readonly QuestionDal questionDal = new QuestionDal();
 
         /// <summary>
         /// 获取指定考试的所有题目
@@ -27,7 +27,7 @@ namespace Bll
             {
                 result = questionDal.GetExamAllQuestions(examid);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -46,7 +46,7 @@ namespace Bll
             {
                 result = questionDal.GetExaminationQuestionById(questionId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -65,7 +65,7 @@ namespace Bll
             {
                 result = questionDal.DeleteExaminationQuestion(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -89,7 +89,7 @@ namespace Bll
             {
                 result = questionDal.AddExamQuestion(type, examid, stem, parameters);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
@@ -115,7 +115,7 @@ namespace Bll
             {
                 result = questionDal.UpdateExamQuestion(type, id, examid, stem, parameters);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }

@@ -21,11 +21,11 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 用户操作对象
         /// </summary>
-        private UserBll userBll = new UserBll();
+        private readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 验证码对象
         /// </summary>
-        private Captcha captcha = new Captcha();
+        private readonly Captcha captcha = new Captcha();
         /// <summary>
         /// 登录
         /// </summary>
@@ -47,7 +47,7 @@ namespace StudentManagement_Web.Controllers
                     user.PassWord = "******";
                 if (result == true)
                 {
-                    SetCookies("User", JsonConvert.SerializeObject(new string[] { user.UserID.ToString(),user.UserName,user.Role.ToString(),user.Number }), 4320);
+                    SetCookies("User", JsonConvert.SerializeObject(new string[] { user.UserID.ToString(), user.UserName, user.Role.ToString(), user.Number }), 4320);
                 }
                 return Ok(result);
             }
@@ -123,9 +123,9 @@ namespace StudentManagement_Web.Controllers
                 bool result = userBll.Register(name, password, repeat, out account, role);
                 if (result == true)
                 {
-                    SetCookies("User", JsonConvert.SerializeObject(new string[] {userBll.t.UserID.ToString(),name,role.ToString(), userBll.t.Number}), 4320);
+                    SetCookies("User", JsonConvert.SerializeObject(new string[] { userBll.t.UserID.ToString(), name, role.ToString(), userBll.t.Number }), 4320);
                 }
-                return Ok(new object[] { result, account});
+                return Ok(new object[] { result, account });
             }
             catch (Exception ex)
             {
