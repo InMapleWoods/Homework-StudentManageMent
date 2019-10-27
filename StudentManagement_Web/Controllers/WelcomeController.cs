@@ -19,9 +19,29 @@ namespace StudentManagement_Web.Controllers
         /// <returns>返回视图</returns>
         public IActionResult Index()
         {
+            return GetIsloginState("Index");
+        }
+        public IActionResult Student()
+        {
+            return GetIsloginState("Student");
+        }
+        public IActionResult Teacher()
+        {
+            return GetIsloginState("Teacher");
+        }
+        public IActionResult Administrator()
+        {
+            return GetIsloginState("Administrator");
+        }
+        private IActionResult GetIsloginState(string sourceUrl)
+        {
             try
             {
-                if (GetCookies("islogin") == "true")
+                if ((GetCookies("islogin") == null) || (GetCookies("islogin") != "true"))
+                {
+                    return Redirect("~/");
+                }
+                else
                 {
                     JObject userinfo = (JObject)JsonConvert.DeserializeObject(GetCookies("User"));
                     string userrole = (string)userinfo.SelectToken("Role");
@@ -29,38 +49,36 @@ namespace StudentManagement_Web.Controllers
                     switch (role)
                     {
                         case 0:
-                            return Redirect("~/Welcome/");
+                            if (sourceUrl != "Index")
+                            {
+                                return Redirect("~/Welcome/");
+                            }break;
                         case 1:
-                            return Redirect("~/Welcome/Student");
+                            if (sourceUrl != "Student")
+                            {
+                                return Redirect("~/Welcome/Student");
+                            }
+                            break;
                         case 2:
-                            return Redirect("~/Welcome/Teacher");
+                            if (sourceUrl != "Teacher")
+                            {
+                                return Redirect("~/Welcome/Teacher");
+                            }
+                            break;
                         case 3:
-                            return Redirect("~/Welcome/Administrator");
+                            if (sourceUrl != "Administrator")
+                            {
+                                return Redirect("~/Welcome/Administrator");
+                            }
+                            break;
                         default: break;
                     }
-                }
-                else
-                {
-                    return Redirect("~/Welcome/");
                 }
             }
             catch (Exception e)
             {
                 return NotFound(e.Message);
             }
-            return View();
-        }
-
-        public IActionResult Student()
-        {
-            return View();
-        }
-        public IActionResult Teacher()
-        {
-            return View();
-        }
-        public IActionResult Administrator()
-        {
             return View();
         }
         #region Cookies操作

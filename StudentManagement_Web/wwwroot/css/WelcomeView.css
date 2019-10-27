@@ -1,7 +1,27 @@
-﻿
+﻿#userName{
+    width:200px;
+}
 
-.row {
-    display: contents;
+.HeaderDiv {
+    width: -webkit-fill-available;
+}
+
+@media (min-width: 0px) {
+    .HeaderDiv {
+        height: 50px;
+    }
+}
+
+@media (min-width: 530px) {
+    .HeaderDiv {
+        height: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    .HeaderDiv {
+        height: 150px;
+    }
 }
 
 .logobg {
