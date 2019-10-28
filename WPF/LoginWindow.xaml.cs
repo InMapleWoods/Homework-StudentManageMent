@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Bll;
+using Model;
 using System;
 using System.IO;
 using System.Windows;
@@ -12,6 +13,10 @@ namespace WPF
     /// </summary>
     public partial class LoginWindow : Window
     {
+        /// <summary>
+        /// 用户操作对象
+        /// </summary>
+        readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 登录失败次数
         /// </summary>
@@ -78,7 +83,9 @@ namespace WPF
         {
             try
             {
-                if (!Login())
+                string account = AccountText.Text;
+                string password = PasswordText.Password;
+                if (!Login(account, password))
                 {
                     countFailed++;
                 }
@@ -89,17 +96,19 @@ namespace WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("登录失败" + ex.Message);
+                MessageBox.Show("登录失败:" + ex.Message);
             }
         }
 
         /// <summary>
         /// 登录事件
         /// </summary>
+        /// <param name="account">用户账号</param>
+        /// <param name="password">用户密码</param>
         /// <returns>登录成功与否</returns>
-        private bool Login()
+        private bool Login(string account,string password)
         {
-            return false;
+            return userBll.Login(account, password);
         }
         #endregion
 

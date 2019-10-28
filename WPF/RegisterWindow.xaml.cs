@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bll;
+using System;
 using System.Windows;
 
 namespace WPF
@@ -8,6 +9,10 @@ namespace WPF
     /// </summary>
     public partial class RegisterWindow : Window
     {
+        /// <summary>
+        /// 用户操作对象
+        /// </summary>
+        readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 父登录窗体
         /// </summary>
@@ -38,11 +43,19 @@ namespace WPF
         {
             try
             {
-                if (Register())
+                if (Register_RoleChoose.SelectedIndex == -1)
+                    throw new Exception("未选择角色");
+                string account;
+                string name = Register_Name_Text.Text;
+                string pwd = Register_Password_PasswordBox.Password;
+                string repeatpwd = Register_Repassword_PasswordBox.Password;
+                int role = Register_RoleChoose.SelectedIndex + 1;
+                if (Register(name, pwd, repeatpwd, role, out account))
                 {
-                    string account = "sss";
                     ParentLoginWindow.AccountText.Text = account;
                     ParentLoginWindow.PasswordText.Password = Register_Password_PasswordBox.Password;
+                    ParentLoginWindow.Show();
+                    Hide();
                 }
             }
             catch (Exception ex)
@@ -54,20 +67,27 @@ namespace WPF
         /// <summary>
         /// 注册事件
         /// </summary>
+        /// <param name="name">用户名</param>
+        /// <param name="password">密码</param>
+        /// <param name="repeatPassword">重复密码</param>
+        /// <param name="role">用户角色</param>
+        /// <param name="account">用户账号</param>
         /// <returns>注册成功与否</returns>
-        private bool Register()
+        private bool Register(string name,string password,string repeatPassword,int role,out string account)
         {
             try
             {
-                string name = Register_Name_Text.Text;
-                string password = Register_Password_PasswordBox.Password;
-                string repassword = Register_Repassword_PasswordBox.Password;
-                return true;
+                string accountNum;
+                bool result = userBll.Register(name, password, repeatPassword, out accountNum, role);
+                account = accountNum;
+                MessageBox.Show("请牢记您的登录账号为：" + accountNum);
+                return result;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            account = "";
             return false;
         }
 
