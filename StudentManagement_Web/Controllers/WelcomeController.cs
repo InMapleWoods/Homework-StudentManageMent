@@ -52,7 +52,8 @@ namespace StudentManagement_Web.Controllers
                             if (sourceUrl != "Index")
                             {
                                 return Redirect("~/Welcome/");
-                            }break;
+                            }
+                            break;
                         case 1:
                             if (sourceUrl != "Student")
                             {

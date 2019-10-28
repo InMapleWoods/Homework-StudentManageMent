@@ -131,7 +131,7 @@ namespace Bll
             string result;
             try
             {
-                result = userDal.GetRegisterAccount();
+                result = userDal.GetRegisterAccount(out t);
             }
             catch (Exception e) { throw e; }
             return result;
@@ -193,7 +193,7 @@ namespace Bll
             bool result;
             try
             {
-                result = userDal.ChangedName(id, changedName);
+                result = userDal.ChangedName(id, changedName, out t);
             }
             catch (Exception e) { throw e; }
             return result;
@@ -210,7 +210,7 @@ namespace Bll
             bool result;
             try
             {
-                result = userDal.ChangePassword(opwd, npwd);
+                result = userDal.ChangePassword(opwd, npwd, out t);
             }
             catch (Exception e) { throw e; }
             return result;

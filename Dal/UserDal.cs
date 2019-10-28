@@ -19,12 +19,12 @@ namespace Dal
         /// <summary>
         /// 登录用户
         /// </summary>
-        public User t = null;
+        public User t = new User();
 
         /// <summary>
         /// 登录角色
         /// </summary>
-        public string Role = null;
+        public string Role = "";
 
         /// <summary>
         /// SQL帮助类
@@ -265,8 +265,9 @@ namespace Dal
         /// 获取注册者账号
         /// </summary>
         /// <returns>注册者账号</returns>
-        public string GetRegisterAccount()
+        public string GetRegisterAccount(out User user)
         {
+            user = t;
             return t.Number;
         }
 
@@ -287,7 +288,7 @@ namespace Dal
         /// <param name="id">用户ID</param>
         /// <param name="changedName">要修改的昵称</param>
         /// <returns>成功与否</returns>
-        public bool ChangedName(string id, string changedName)
+        public bool ChangedName(string id, string changedName, out User user)
         {
             string sqlStr = "update tb_Users set Name=@name where Id=@Id";
             SqlParameter[] para = new SqlParameter[]
@@ -298,11 +299,13 @@ namespace Dal
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
             {
+                user = t;
                 t.UserName = changedName;
                 return true;
             }
             else
             {
+                user = t;
                 return false;
             }
         }
@@ -313,7 +316,7 @@ namespace Dal
         /// <param name="opwd">旧密码</param>
         /// <param name="npwd">新密码</param>
         /// <returns>成功与否</returns>
-        public bool ChangePassword(string opwd, string npwd)
+        public bool ChangePassword(string opwd, string npwd, out User user)
         {
             if (!t.PassWord.Equals(helper.GetMD5(opwd)))
             {
@@ -328,6 +331,7 @@ namespace Dal
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
             {
+                user = t;
                 t.PassWord = helper.GetMD5(npwd);
                 return true;
             }

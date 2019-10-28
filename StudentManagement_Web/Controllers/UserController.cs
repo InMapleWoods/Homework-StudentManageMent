@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StudentManagement_Web.Controllers
@@ -65,8 +64,8 @@ namespace StudentManagement_Web.Controllers
         /// <param name="id">用户ID</param>
         /// <param name="changedName">要修改的昵称</param>
         /// <returns>成功与否</returns>
-        //PUT: api/User/{id}?changedName={changedName}
-        [HttpPut("{id}", Name = "ChangedName")]
+        //PUT: api/ApiUser/ChangedName?id={id}&&changedName={changedName}
+        [HttpPut("ChangedName")]
         public IActionResult ChangedName(string id, string changedName)
         {
             try
@@ -83,8 +82,7 @@ namespace StudentManagement_Web.Controllers
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <returns>是否存在</returns>
-        //Get: api/User/UserNameCheck?userName={userName}
-        //Get: api/User?userName={userName}
+        //Get: api/ApiUser/UserNameCheck?userName={userName}
         [HttpGet("UserNameCheck")]
         public IActionResult UserNameCheck(string userName)
         {
@@ -103,9 +101,8 @@ namespace StudentManagement_Web.Controllers
         /// <param name="opwd">旧密码</param>
         /// <param name="npwd">新密码</param>
         /// <returns>成功与否</returns>
-        //PUT: api/User?opwd={opwd}&npwd={npwd}
-        //PUT: api/User/ChangePassword?opwd={opwd}&npwd={npwd}
-        [HttpPut]
+        //PUT: api/ApiUser/ChangePassword?opwd={opwd}&npwd={npwd}
+        [HttpPut("ChangePassword")]
         public IActionResult ChangePassword(string opwd, string npwd)
         {
             try
