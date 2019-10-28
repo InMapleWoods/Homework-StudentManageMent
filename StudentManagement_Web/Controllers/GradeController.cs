@@ -1,42 +1,76 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bll;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
+    /// <summary>
+    /// 成绩控制器
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class GradeController : ControllerBase
+    public class ApiGradeController : ControllerBase
     {
-        // GET: api/Grade
-        [HttpGet]
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// 成绩操作对象
+        /// </summary>
+        readonly GradeBll gradeBll = new GradeBll();
+        /// <summary>
+        /// 获取学生成绩
+        /// </summary>
+        /// <returns>全部学生成绩数据表</returns>
+        //GET: api/Grade/GetStudentGradeArray/{Id}
+        [HttpGet("{id}",Name = "GetStudentGradeArray")]
+        public IActionResult GetStudentGradeArray(string Id)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(GetStudentGradeArray(Id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // GET: api/Grade/5
-        [HttpGet("{id}", Name = "GetGrade")]
-        public string Get(int id)
+        /// <summary>
+        /// 教师获取学生成绩
+        /// </summary>
+        /// <returns>全部学生成绩数据表</returns>
+        //GET: api/Grade/GetCourseGradeArray/{Id}
+        [HttpGet("{id}",Name = "GetCourseGradeArray")]
+        public IActionResult GetCourseGradeArray(string Id)
         {
-            return "value";
+            try
+            {
+                return Ok(GetCourseGradeArray(Id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // POST: api/Grade
-        [HttpPost]
-        public void Post([FromBody] string value)
+        /// <summary>
+        /// 更改学生成绩
+        /// </summary>
+        /// <param name="score">成绩</param>
+        /// <param name="studenid">学生Id</param>
+        /// <param name="courseid">课程Id</param>
+        /// <returns>修改是否成功</returns>
+        //PUT: api/Grade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
+        [HttpPut("ChangeCourseGrade")]
+        public IActionResult ChangeCourseGrade(string score, string studenid, string courseid)
         {
-        }
-
-        // PUT: api/Grade/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                return Ok(gradeBll.ChangeCourseGrade(score, studenid, courseid));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Dal
         /// <summary>
         /// 登录用户
         /// </summary>
-        public User t = new User();
+        public User t = null;
 
         /// <summary>
         /// 登录角色
