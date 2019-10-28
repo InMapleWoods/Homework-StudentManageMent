@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,37 +20,104 @@ namespace StudentManagement_Web.Controllers
         /// 用户操作对象
         /// </summary>
         readonly UserBll userBll = new UserBll();
-        // GET: api/User
-        [HttpGet]
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// 获取全部用户
+        /// </summary>
+        /// <returns>用户数组</returns>
+        // GET: api/ApiUser/GetAllUserArray
+        [HttpGet(Name = "GetAllUserArray")]
+        public IActionResult GetAllUserArray()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var users = userBll.GetAllUserArray().ToList();
+                var usersresult = from user in users
+                                  select new User(user.UserID, user.UserName, "******", user.Role, user.Number);
+                return Ok(usersresult);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "GetUser")]
-        public string Get(int id)
+        /// <summary>
+        /// 获取当前用户
+        /// </summary>
+        /// <returns>当前用户</returns>
+        // GET: api/ApiUser/GetCurrentUser?number={number}
+        [HttpGet("GetCurrentUser")]
+        public IActionResult GetCurrentUser(string number)
         {
-            return "value";
+            try
+            {
+                return Ok(userBll.GetUserLogin(number));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody] string value)
+        /// <summary>
+        /// 修改昵称
+        /// </summary>
+        /// <param name="id">用户ID</param>
+        /// <param name="changedName">要修改的昵称</param>
+        /// <returns>成功与否</returns>
+        //PUT: api/User/{id}?changedName={changedName}
+        [HttpPut("{id}", Name = "ChangedName")]
+        public IActionResult ChangedName(string id, string changedName)
         {
+            try
+            {
+                return Ok(userBll.ChangedName(id, changedName));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 用户名是否存在
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>是否存在</returns>
+        //Get: api/User/UserNameCheck?userName={userName}
+        //Get: api/User?userName={userName}
+        [HttpGet("UserNameCheck")]
+        public IActionResult UserNameCheck(string userName)
+        {
+            try
+            {
+                return Ok(userBll.UserNameCheck(userName));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="opwd">旧密码</param>
+        /// <param name="npwd">新密码</param>
+        /// <returns>成功与否</returns>
+        //PUT: api/User?opwd={opwd}&npwd={npwd}
+        //PUT: api/User/ChangePassword?opwd={opwd}&npwd={npwd}
+        [HttpPut]
+        public IActionResult ChangePassword(string opwd, string npwd)
+        {
+            try
+            {
+                return Ok(userBll.ChangePassword(opwd, npwd));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 
     /// <summary>
@@ -74,7 +142,7 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                if ((GetCookies("islogin")==null)||(GetCookies("islogin") != "true"))
+                if ((GetCookies("islogin") == null) || (GetCookies("islogin") != "true"))
                 {
                     return Redirect("~/");
                 }
@@ -134,5 +202,4 @@ namespace StudentManagement_Web.Controllers
         #endregion
 
     }
-
 }
