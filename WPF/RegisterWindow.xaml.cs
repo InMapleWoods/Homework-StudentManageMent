@@ -73,7 +73,7 @@ namespace WPF
         /// <param name="role">用户角色</param>
         /// <param name="account">用户账号</param>
         /// <returns>注册成功与否</returns>
-        private bool Register(string name,string password,string repeatPassword,int role,out string account)
+        private bool Register(string name, string password, string repeatPassword, int role, out string account)
         {
             try
             {

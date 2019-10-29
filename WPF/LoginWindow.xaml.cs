@@ -106,7 +106,7 @@ namespace WPF
         /// <param name="account">用户账号</param>
         /// <param name="password">用户密码</param>
         /// <returns>登录成功与否</returns>
-        private bool Login(string account,string password)
+        private bool Login(string account, string password)
         {
             return userBll.Login(account, password);
         }

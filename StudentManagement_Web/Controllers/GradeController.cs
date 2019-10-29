@@ -1,7 +1,6 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -21,7 +20,7 @@ namespace StudentManagement_Web.Controllers
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
         //GET: api/Grade/GetStudentGradeArray/{Id}
-        [HttpGet("{id}",Name = "GetStudentGradeArray")]
+        [HttpGet("{id}", Name = "GetStudentGradeArray")]
         public IActionResult GetStudentGradeArray(string Id)
         {
             try
@@ -39,7 +38,7 @@ namespace StudentManagement_Web.Controllers
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
         //GET: api/Grade/GetCourseGradeArray/{Id}
-        [HttpGet("{id}",Name = "GetCourseGradeArray")]
+        [HttpGet("{id}", Name = "GetCourseGradeArray")]
         public IActionResult GetCourseGradeArray(string Id)
         {
             try

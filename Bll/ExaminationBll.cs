@@ -1,6 +1,7 @@
 ﻿using Dal;
 using Model;
 using System;
+using System.Collections;
 using System.Data;
 
 namespace Bll
@@ -34,6 +35,30 @@ namespace Bll
                 Console.WriteLine(e.Message); throw e;
             }
             return datatable;
+        }
+        /// <summary>
+        /// 获取分页后的考试数组
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页后名单数组</returns>
+        public IEnumerable GetPageExamArray(int index, int size)
+        {
+            ArrayList examinations = new ArrayList();
+            try
+            {
+                DataTable datatable = examinationDal.GetPaperExam(index, size);
+                foreach (DataRow dr in datatable.Rows)
+                {
+                    Examination examination = new Examination((int)dr["Id"], (int)dr["CourseId"], (DateTime)dr["Time"], dr["Name"].ToString());
+                    examinations.Add(examination);
+                }
+                return examinations;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
         }
 
         /// <summary>
@@ -211,6 +236,29 @@ namespace Bll
             }
             return result;
         }
+        /// <summary>
+        /// 获取分页后的考试申请数组
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页后名单数组</returns>
+        public IEnumerable GetPageExamApplyArray(int index, int size)
+        {
+            ArrayList examApplyLogArray = new ArrayList();
+            try
+            {
+                DataTable result = examinationDal.GetPaperExamApply(index, size);
+                foreach (DataRow dr in result.Rows)
+                {
+                    examApplyLogArray.Add(new ExamApply((int)dr["Id"], (int)dr["TeacherId"], (int)dr["CourseId"], (DateTime)dr["Time"], dr["ExamName"].ToString(), (bool)dr["isChecked"]));
+                }
+                return examApplyLogArray;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
 
         /// <summary>
         /// 获取分页后的考试申请列表总页数
@@ -312,5 +360,26 @@ namespace Bll
         }
         #endregion
 
+        /// <summary>
+        /// 考试申请类
+        /// </summary>
+        private class ExamApply
+        {
+            int Id { get; set; }
+            int TeacherId { get; set; }
+            int CourseId { get; set; }
+            DateTime Time { get; set; }
+            string ExamName { get; set; }
+            bool IsChecked { get; set; }
+            public ExamApply(int id, int teacherId, int courseId, DateTime time, string examName, bool isChecked)
+            {
+                Id = id;
+                TeacherId = teacherId;
+                CourseId = courseId;
+                Time = time;
+                ExamName = examName;
+                IsChecked = isChecked;
+            }
+        }
     }
 }
