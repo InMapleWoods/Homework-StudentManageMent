@@ -36,20 +36,19 @@ namespace StudentManagement_Web.Controllers
                 return NotFound(e.Message);
             }
         }
-
+        
         /// <summary>
-        /// 获取考试分页列表
+        /// 获取分页后的考试列表总页数
         /// </summary>
-        /// <param name="index">页索引</param>
-        /// <param name="size">页容量</param>
-        /// <returns>考试列表</returns>
-        // GET: api/ApiExamination/GetExam?index={index}&&size={size}
-        [HttpGet("GetExam")]
-        public IActionResult GetExam(int index, int size)
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        // GET: api/ApiExamination/GetAllPageNum?size={size}
+        [HttpGet("GetAllPageNum")]
+        public IActionResult GetAllPageNum(int size)
         {
             try
             {
-                return Ok(examinationBll.GetPageExamApplyArray(index, size));
+                return Ok(examinationBll.GetAllPageNum(size));
             }
             catch(Exception e)
             {
