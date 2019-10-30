@@ -64,8 +64,8 @@ namespace StudentManagement_Web.Controllers
         }
 
         // GET: api/Examination/5
-        [HttpGet("{id}", Name = "GetExamination")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetExaminationById")]
+        public string GetExaminationById(int id)
         {
             return "value";
         }
