@@ -268,6 +268,7 @@ namespace Dal
         public string GetRegisterAccount(out User user)
         {
             user = t;
+            t = t == null ? new User() : t;
             return t.Number;
         }
 
@@ -300,6 +301,7 @@ namespace Dal
             if (count > 0)
             {
                 user = t;
+                t = t == null ? new User() : t;
                 t.UserName = changedName;
                 return true;
             }
@@ -318,6 +320,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool ChangePassword(string opwd, string npwd, out User user)
         {
+            t = t == null ? new User() : t;
             if (!t.PassWord.Equals(helper.GetMD5(opwd)))
             {
                 throw new Exception("旧密码不正确");
@@ -332,6 +335,7 @@ namespace Dal
             if (count > 0)
             {
                 user = t;
+                t = t == null ? new User() : t;
                 t.PassWord = helper.GetMD5(npwd);
                 return true;
             }

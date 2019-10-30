@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Bll
@@ -106,7 +107,7 @@ namespace Bll
         /// <returns>符合条件的考试</returns>
         public Examination GetExaminationById(int id)
         {
-            Examination result = null;
+            Examination result = new Examination();
             try
             {
                 result = examinationDal.GetExaminationById(id);
@@ -137,6 +138,34 @@ namespace Bll
             return result;
         }
 
+        /// <summary>
+        /// 按考试Id获取考试
+        /// </summary>
+        /// <param name="id">考试Id</param>
+        /// <returns>符合条件的所有考试</returns>
+        public IEnumerable GetExaminationByCourseIdArray(int id)
+        {
+            List<Examination> temp = null;
+            try
+            {
+                DataTable dataTable = examinationDal.GetExaminationByCourseId(id);
+                temp = new List<Examination>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    int Id = (int)dr["Id"];
+                    string Name = dr["Name"].ToString();
+                    int CourseId = (int)dr["CourseId"];
+                    DateTime Time = (DateTime)dr["Time"];
+                    Examination t = new Examination(Id, CourseId,Time, Name);
+                    temp.Add(t);
+                }
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
         /// <summary>
         /// 增加考试
         /// </summary>
@@ -292,25 +321,6 @@ namespace Bll
             try
             {
                 result = examinationDal.AddExamApply(examination, teacherId);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message); throw e;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 改变考试申请状态
-        /// </summary>
-        /// <param name="id">考试申请Id</param>
-        /// <returns>改变成功与否</returns>
-        public bool UpdateExamApplyCheckedState(int id)
-        {
-            bool result = false;
-            try
-            {
-                result = examinationDal.UpdateExamApplyCheckedState(id);
             }
             catch (Exception e)
             {

@@ -43,7 +43,8 @@ namespace StudentManagement_Web.Controllers
                 }
                 else
                 {
-                    JObject userinfo = (JObject)JsonConvert.DeserializeObject(GetCookies("User"));
+                    string user = GetCookies("User") == string.Empty ?"": GetCookies("User");
+                    JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
                     string userrole = (string)userinfo.SelectToken("Role");
                     int role = int.Parse(userrole);
                     switch (role)
