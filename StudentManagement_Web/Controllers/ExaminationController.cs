@@ -1,7 +1,6 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -23,7 +22,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="index">页索引</param>
         /// <param name="size">页容量</param>
         /// <returns>考试列表</returns>
-        // GET: api/ApiExamination/GetExam?index={index}&&size={size}
+        // GET: api/ApiExamination/GetExam?index={index}&size={size}
         [HttpGet("GetExam")]
         public IActionResult GetExam(int index, int size)
         {
@@ -159,7 +158,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="index">页索引</param>
         /// <param name="size">页容量</param>
         /// <returns>考试申请列表</returns>
-        // GET: api/ApiExamination/GetExamApply?index={index}&&size={size}
+        // GET: api/ApiExamination/GetExamApply?index={index}&size={size}
         [HttpGet("GetExamApply")]
         public IActionResult GetExamApply(int index, int size)
         {

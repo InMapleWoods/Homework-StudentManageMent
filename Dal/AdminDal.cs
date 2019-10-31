@@ -26,10 +26,10 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool AcceptLog(string id)
         {
-            string sqlStr = "AccpetLog";
+            string sqlStr = "AcceptLog";
             SqlParameter[] para = new SqlParameter[]
              {
-                new SqlParameter("@userId",id)
+                new SqlParameter("@id",id)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)
@@ -51,7 +51,7 @@ namespace Dal
             string sqlStr = "RejectionLog";
             SqlParameter[] para = new SqlParameter[]
              {
-                new SqlParameter("@userId",id)
+                new SqlParameter("@id",id)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)

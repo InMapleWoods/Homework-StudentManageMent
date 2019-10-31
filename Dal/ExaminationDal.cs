@@ -90,9 +90,9 @@ namespace Dal
         }
 
         /// <summary>
-        /// 按考试Id获取考试
+        /// 按课程Id获取考试
         /// </summary>
-        /// <param name="id">考试Id</param>
+        /// <param name="id">课程Id</param>
         /// <returns>符合条件的所有考试</returns>
         public DataTable GetExaminationByCourseId(int id)
         {

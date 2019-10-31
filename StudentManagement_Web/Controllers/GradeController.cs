@@ -71,5 +71,25 @@ namespace StudentManagement_Web.Controllers
                 return NotFound(ex.Message);
             }
         }
+        /// <summary>
+        /// 更改学生某考试成绩
+        /// </summary>
+        /// <param name="score">成绩</param>
+        /// <param name="studenid">学生Id</param>
+        /// <param name="examid">考试Id</param>
+        /// <returns>修改是否成功</returns>
+        //PUT: api/Grade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
+        [HttpPut("ChangeCourseGrade")]
+        public IActionResult ChangeExamGrade(string score, string studenid, string examid)
+        {
+            try
+            {
+                return Ok(gradeBll.ChangeExamGrade(score, studenid, examid));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

@@ -120,9 +120,9 @@ namespace Bll
         }
 
         /// <summary>
-        /// 按考试Id获取考试
+        /// 按课程Id获取考试
         /// </summary>
-        /// <param name="id">考试Id</param>
+        /// <param name="id">课程Id</param>
         /// <returns>符合条件的所有考试</returns>
         public DataTable GetExaminationByCourseId(int id)
         {
@@ -156,7 +156,7 @@ namespace Bll
                     string Name = dr["Name"].ToString();
                     int CourseId = (int)dr["CourseId"];
                     DateTime Time = (DateTime)dr["Time"];
-                    Examination t = new Examination(Id, CourseId,Time, Name);
+                    Examination t = new Examination(Id, CourseId, Time, Name);
                     temp.Add(t);
                 }
                 return temp;
@@ -373,14 +373,14 @@ namespace Bll
         /// <summary>
         /// 考试申请类
         /// </summary>
-        private class ExamApply
+        public class ExamApply
         {
-            int Id { get; set; }
-            int TeacherId { get; set; }
-            int CourseId { get; set; }
-            DateTime Time { get; set; }
-            string ExamName { get; set; }
-            bool IsChecked { get; set; }
+            public int Id { get; set; }
+            public int TeacherId { get; set; }
+            public int CourseId { get; set; }
+            public DateTime Time { get; set; }
+            public string ExamName { get; set; }
+            public bool IsChecked { get; set; }
             public ExamApply(int id, int teacherId, int courseId, DateTime time, string examName, bool isChecked)
             {
                 Id = id;

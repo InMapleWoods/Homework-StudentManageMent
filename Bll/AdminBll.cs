@@ -1,9 +1,8 @@
 ﻿using Dal;
-using Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-
 namespace Bll
 {
     /// <summary>
@@ -31,14 +30,15 @@ namespace Bll
         /// <summary>
         /// 接收申请
         /// </summary>
-        /// <param name="id">申请用户ID</param>
+        /// <param name="number">申请用户账号</param>
         /// <returns>成功与否</returns>
-        public bool AcceptLog(string id)
+        public bool AcceptLog(string number)
         {
             bool result;
             try
             {
-                result = adminDal.AcceptLog(id);
+                Model.User user = new UserBll().GetUserLogin(number);
+                result = adminDal.AcceptLog(user.UserID.ToString());
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
@@ -47,14 +47,15 @@ namespace Bll
         /// <summary>
         /// 拒绝申请
         /// </summary>
-        /// <param name="id">申请用户ID</param>
+        /// <param name="number">申请用户账号</param>
         /// <returns>成功与否</returns>
-        public bool RejectionLog(string id)
+        public bool RejectionLog(string number)
         {
             bool result;
             try
             {
-                result = adminDal.RejectionLog(id);
+                Model.User user = new UserBll().GetUserLogin(number);
+                result = adminDal.RejectionLog(user.UserID.ToString());
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
@@ -116,24 +117,40 @@ namespace Bll
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
         /// <returns>分页后名单</returns>
-        public List<User> GetPaperUsersArray(int index, int size, int choose)
+        public IEnumerable GetPaperUsersArray(int index, int size, int choose)
         {
-            List<User> temp = null;
             try
             {
                 DataTable dataTable = GetPaperUsers(index, size, choose);
-                temp = new List<User>();
-                foreach (DataRow dr in dataTable.Rows)
+                if ((choose == choose_Student) || (choose == choose_Teacher))
                 {
-                    int Id = (int)dr["Id"];
-                    string Name = dr["Name"].ToString();
-                    string Password = dr["Password"].ToString();
-                    int Role = (int)dr["Role"];
-                    string Number = dr["Number"].ToString();
-                    User t = new User(Id, Name, Password, Role, Number);
-                    temp.Add(t);
+                    List<UserTempObject> temp = new List<UserTempObject>();
+                    foreach (DataRow dr in dataTable.Rows)
+                    {
+                        string Name = dr["昵称"].ToString();
+                        string Number = dr["账号"].ToString();
+                        UserTempObject t = new UserTempObject(Number, Name);
+                        temp.Add(t);
+                    }
+                    return temp;
                 }
-                return temp;
+                else if (choose == choose_Unchecked)
+                {
+                    List<WaitingCheckUser> temp = new List<WaitingCheckUser>();
+                    foreach (DataRow dr in dataTable.Rows)
+                    {
+                        string Name = dr["昵称"].ToString();
+                        string Number = dr["账号"].ToString();
+                        int WantToBe = (int)dr["申请角色"];
+                        WaitingCheckUser t = new WaitingCheckUser(Number, Name, WantToBe);
+                        temp.Add(t);
+                    }
+                    return temp;
+                }
+                else
+                {
+                    throw new Exception("choose选项不正确");
+                }
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
         }
@@ -200,6 +217,31 @@ namespace Bll
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
+        }
+
+        public class WaitingCheckUser
+        {
+            public string Name { get; set; }
+            public string Number { get; set; }
+            public int Role { get; set; }
+            public WaitingCheckUser(string id, string name, int role)
+            {
+                Name = name;
+                Number = id;
+                Role = role;
+            }
+        }
+
+        public class UserTempObject
+        {
+            public string Name { get; set; }
+            public string Number { get; set; }
+            public UserTempObject(string id, string name)
+            {
+                Name = name;
+                Number = id;
+            }
+
         }
     }
 }

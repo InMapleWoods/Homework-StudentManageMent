@@ -23,7 +23,7 @@ namespace StudentManagement_Web.Controllers
         /// 获取全部用户
         /// </summary>
         /// <returns>用户数组</returns>
-        // GET: api/ApiUser/GetAllUserArray
+        // GET: api/ApiUser
         [HttpGet(Name = "GetAllUserArray")]
         public IActionResult GetAllUserArray()
         {

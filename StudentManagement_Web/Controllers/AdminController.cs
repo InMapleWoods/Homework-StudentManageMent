@@ -1,7 +1,6 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -33,15 +32,15 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 接收申请
         /// </summary>
-        /// <param name="id">申请用户ID</param>
+        /// <param name="number">申请用户账号</param>
         /// <returns>成功与否</returns>
-        //PUT: api/ApiAdmin/AcceptLog/{id}
-        [HttpPut("AcceptLog/{id}")]
-        public IActionResult AcceptLog(string id)
+        //PUT: api/ApiAdmin/AcceptLog?number={number}
+        [HttpPut("AcceptLog")]
+        public IActionResult AcceptLog(string number)
         {
             try
             {
-                return Ok(adminBll.AcceptLog(id));
+                return Ok(adminBll.AcceptLog(number));
             }
             catch (Exception ex)
             {
@@ -52,15 +51,15 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 拒绝申请
         /// </summary>
-        /// <param name="id">申请用户ID</param>
+        /// <param name="number">申请用户账号</param>
         /// <returns>成功与否</returns>
-        //PUT: api/ApiAdmin/RejectionLog/{id}
-        [HttpPut("RejectionLog/{id}")]
-        public IActionResult RejectionLog(string id)
+        //PUT: api/ApiAdmin/RejectionLog?number={number}
+        [HttpPut("RejectionLog")]
+        public IActionResult RejectionLog(string number)
         {
             try
             {
-                return Ok(adminBll.RejectionLog(id));
+                return Ok(adminBll.RejectionLog(number));
             }
             catch (Exception ex)
             {
@@ -100,7 +99,8 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                return Ok(adminBll.GetPaperUsersArray(index, size, choose));
+                var users = adminBll.GetPaperUsersArray(index, size, choose);
+                return Ok(users);
             }
             catch (Exception ex)
             {
@@ -127,5 +127,13 @@ namespace StudentManagement_Web.Controllers
             }
         }
 
+    }
+
+    public class AdminController : Controller
+    {
+        public IActionResult UserApply()
+        {
+            return View();
+        }
     }
 }

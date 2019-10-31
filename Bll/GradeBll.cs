@@ -1,6 +1,6 @@
 ﻿using Dal;
-using Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 
@@ -37,20 +37,19 @@ namespace Bll
         /// 获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        public List<Grade> GetStudentGradeArray(string Id)
+        public IEnumerable GetStudentGradeArray(string Id)
         {
-            List<Grade> temp = null;
+            List<GradeObject> temp = null;
             try
             {
                 DataTable dataTable = gradeDal.GetStudentGrade(Id);
-                temp = new List<Grade>();
+                temp = new List<GradeObject>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    int GradeId = (int)dr["Id"];
-                    int CId = (int)dr["CId"];
-                    int SId = (int)dr["SId"];
-                    int Score = (int)dr["Score"];
-                    Grade t = new Grade(GradeId, CId, SId, Score);
+                    string ExamName = dr["考试名"].ToString();
+                    string CourseName = dr["课程名"].ToString();
+                    int Score = (int)dr["成绩"];
+                    GradeObject t = new GradeObject(CourseName, ExamName, Score);
                     temp.Add(t);
                 }
                 return temp;
@@ -81,20 +80,19 @@ namespace Bll
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        public List<Grade> GetCourseGradeArray(string Id)
+        public IEnumerable GetCourseGradeArray(string Id)
         {
-            List<Grade> temp = null;
+            List<GradeObject> temp = null;
             try
             {
                 DataTable dataTable = gradeDal.GetCourseGrade(Id);
-                temp = new List<Grade>();
+                temp = new List<GradeObject>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    int GradeId = (int)dr["Id"];
-                    int CId = (int)dr["CId"];
-                    int SId = (int)dr["SId"];
-                    int Score = (int)dr["Score"];
-                    Grade t = new Grade(GradeId, CId, SId, Score);
+                    string ExamName = dr["考试名"].ToString();
+                    string CourseName = dr["课程名"].ToString();
+                    int Score = (int)dr["成绩"];
+                    GradeObject t = new GradeObject(CourseName, ExamName, Score);
                     temp.Add(t);
                 }
                 return temp;
@@ -124,6 +122,41 @@ namespace Bll
                 Console.WriteLine(e.Message); throw e;
             }
             return result;
+        }
+
+
+        /// <summary>
+        /// 更改学生某考试成绩
+        /// </summary>
+        /// <param name="score">成绩</param>
+        /// <param name="studenid">学生Id</param>
+        /// <param name="examid">考试Id</param>
+        /// <returns>修改是否成功</returns>
+        public bool ChangeExamGrade(string score, string studenid, string examid)
+        {
+            bool result = false;
+            try
+            {
+                result = gradeDal.ChangeExamGrade(score, studenid, examid);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+            return result;
+        }
+
+        public class GradeObject
+        {
+            public string courseName { get; set; }
+            public string examName { get; set; }
+            public int score { get; set; }
+            public GradeObject(string cN, string eN, int s)
+            {
+                courseName = cN;
+                examName = eN;
+                score = s;
+            }
         }
     }
 }

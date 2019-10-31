@@ -1,42 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace StudentManagement_Web.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentController : Controller
     {
-        // GET: api/Student
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Index()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Student/5
-        [HttpGet("{id}", Name = "GetStudent")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Student
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Student/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return View();
         }
     }
 }
