@@ -227,7 +227,7 @@ namespace Dal
                 new SqlParameter("@name",name),
                 new SqlParameter("@passWord",helper.GetMD5(password)),
                 new SqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
-                new SqlParameter("@role",Role),
+                new SqlParameter("@role",role),
             };
             para[0].Direction = ParameterDirection.ReturnValue;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);

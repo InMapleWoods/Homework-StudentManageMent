@@ -64,14 +64,14 @@ namespace Bll
         /// <summary>
         /// 删除用户
         /// </summary>
-        /// <param name="id">用户ID</param>
+        /// <param name="number">用户账号</param>
         /// <returns>成功与否</returns>
-        public bool DeleteUser(string id)
+        public bool DeleteUser(string number)
         {
             bool result;
             try
             {
-                result = adminDal.DeleteUser(id);
+                result = adminDal.DeleteUser(number);
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;

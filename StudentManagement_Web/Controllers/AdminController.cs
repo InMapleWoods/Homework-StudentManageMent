@@ -70,15 +70,15 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 删除用户
         /// </summary>
-        /// <param name="id">用户ID</param>
+        /// <param name="number">用户账号</param>
         /// <returns>成功与否</returns>       
-        //DELETE: api/ApiAdmin/{id}
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(string id)
+        //DELETE: api/ApiAdmin?number={number}
+        [HttpDelete]
+        public IActionResult DeleteUser(string number)
         {
             try
             {
-                return Ok(adminBll.DeleteUser(id));
+                return Ok(adminBll.DeleteUser(number));
             }
             catch (Exception ex)
             {
@@ -132,6 +132,10 @@ namespace StudentManagement_Web.Controllers
     public class AdminController : Controller
     {
         public IActionResult UserApply()
+        {
+            return View();
+        }
+        public IActionResult GetStudent()
         {
             return View();
         }

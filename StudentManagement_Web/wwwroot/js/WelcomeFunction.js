@@ -23,3 +23,22 @@ function ReLogin() {
     deleteCookie("User");
     location = "../"
 }
+
+function ChangeLabel(name) {
+    if (name == 'Apply') {
+        $("#AdminFrame").attr('src', '../Admin/UserApply');
+        $("#ApplyTab").attr('class', 'nav-link active');
+        $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#StudentTab").attr('class', 'nav-link');
+        $("#TeacherTab").attr('class', 'nav-link');
+        $("#CourseTab").attr('class', 'nav-link');
+    }
+    else if (name == 'Student') {
+        $("#AdminFrame").attr('src', '../Admin/GetStudent');
+        $("#ApplyTab").attr('class', 'nav-link');
+        $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#StudentTab").attr('class', 'nav-link active');
+        $("#TeacherTab").attr('class', 'nav-link');
+        $("#CourseTab").attr('class', 'nav-link');
+    }
+}

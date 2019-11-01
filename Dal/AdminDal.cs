@@ -66,14 +66,14 @@ namespace Dal
         /// <summary>
         /// 删除用户
         /// </summary>
-        /// <param name="id">用户ID</param>
+        /// <param name="number">用户账号</param>
         /// <returns>成功与否</returns>
-        public bool DeleteUser(string id)
+        public bool DeleteUser(string number)
         {
-            string sqlStr = "delete from tb_Users where Id=@Id";
+            string sqlStr = "delete from tb_Users where Number=@number";
             SqlParameter[] para = new SqlParameter[]
              {
-                new SqlParameter("@Id",id)
+                new SqlParameter("@number",number)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
