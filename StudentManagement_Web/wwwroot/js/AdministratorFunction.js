@@ -48,7 +48,7 @@ function RejectApply(num) {
         type: "PUT",
         url: '../api/ApiAdmin/RejectionLog?number=' + num,
         success: function (data) {
-            if (data == true) {
+            if (data == 'true') {
                 alert('成功');
             }
             else {
