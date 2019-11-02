@@ -3,7 +3,6 @@
     ViewData["JsFunction"] = "AdministratorFunction.js";
 }
 <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/WelcomeView.css" />
@@ -19,7 +18,8 @@
     window.onload = function () {
         var User = getJSONCookie('User');
         if (User.Role == 3) {
-            onloadUserApplyView(admin_index);
+            dataTypeChoose = 3;
+            onloadView(admin_index, dataTypeChoose);
             GetPageNum(dataTypeChoose);
         }
     }

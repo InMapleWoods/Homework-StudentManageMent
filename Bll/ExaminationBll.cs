@@ -273,13 +273,13 @@ namespace Bll
         /// <returns>分页后名单数组</returns>
         public IEnumerable GetPageExamApplyArray(int index, int size)
         {
-            ArrayList examApplyLogArray = new ArrayList();
+            List<ExamApply> examApplyLogArray = new List<ExamApply>();
             try
             {
                 DataTable result = examinationDal.GetPaperExamApply(index, size);
                 foreach (DataRow dr in result.Rows)
                 {
-                    examApplyLogArray.Add(new ExamApply((int)dr["Id"], (int)dr["TeacherId"], (int)dr["CourseId"], (DateTime)dr["Time"], dr["ExamName"].ToString(), (bool)dr["isChecked"]));
+                    examApplyLogArray.Add(new ExamApply((int)dr["考试ID"], dr["老师名称"].ToString(), dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString()));
                 }
                 return examApplyLogArray;
             }
@@ -376,19 +376,17 @@ namespace Bll
         public class ExamApply
         {
             public int Id { get; set; }
-            public int TeacherId { get; set; }
-            public int CourseId { get; set; }
+            public string TeacherName { get; set; }
+            public string CourseName { get; set; }
             public DateTime Time { get; set; }
             public string ExamName { get; set; }
-            public bool IsChecked { get; set; }
-            public ExamApply(int id, int teacherId, int courseId, DateTime time, string examName, bool isChecked)
+            public ExamApply(int id, string teacherName, string courseName, DateTime time, string examName)
             {
                 Id = id;
-                TeacherId = teacherId;
-                CourseId = courseId;
+                TeacherName = teacherName;
+                CourseName = courseName;
                 Time = time;
                 ExamName = examName;
-                IsChecked = isChecked;
             }
         }
     }

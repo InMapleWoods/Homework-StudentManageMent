@@ -1,6 +1,9 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -133,11 +136,58 @@ namespace StudentManagement_Web.Controllers
     {
         public IActionResult UserApply()
         {
-            return View();
+            return GetIsloginState();
         }
         public IActionResult GetStudent()
         {
+            return GetIsloginState();
+        }
+        public IActionResult GetTeacher()
+        {
+            return GetIsloginState();
+        }
+        public IActionResult ExamApply()
+        {
+            return GetIsloginState();
+        }
+        public IActionResult GetCourse()
+        {
+            return GetIsloginState();
+        }
+        private IActionResult GetIsloginState()
+        {
+            try
+            {
+                if ((GetCookies("islogin") == null) || (GetCookies("islogin") != "true"))
+                {
+                    return Redirect("~/Welcome");
+                }
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
             return View();
         }
+        #region Cookies操作
+        /// <summary>
+        /// 获取cookies
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <returns>返回对应的值</returns>
+        public string GetCookies(string key)
+        {
+            Microsoft.Extensions.Primitives.StringValues values;
+            HttpContext.Request.Headers.TryGetValue("Cookie", out values);
+            var cookies = values.ToString().Split(';').ToList();
+            var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
+            var value = result.Where(r => r.Key == key).FirstOrDefault();
+            string valueresult = value.Value;
+            if (string.IsNullOrEmpty(valueresult))
+                valueresult = string.Empty;
+            return valueresult;
+        }
+        #endregion
+
     }
 }

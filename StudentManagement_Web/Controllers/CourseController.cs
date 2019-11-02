@@ -31,7 +31,45 @@ namespace StudentManagement_Web.Controllers
                 return NotFound(ex.Message);
             }
         }
+        /// <summary>
+        /// 获取分页后的课程
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页后课程</returns>
+        //GET: api/ApiCourse/GetPaperCourseArray?index={index}&size={size}
+        [HttpGet("GetPaperCourseArray")]
+        public IActionResult GetPaperCourseArray(int index, int size)
+        {
+            try
+            {
+                var users = courseBll.GetPaperCourseArray(index, size);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
+        /// <summary>
+        /// 获取分页后的课程列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        //GET: api/ApiCourse/GetAllPageNum?size={size}
+        [HttpGet("GetAllPageNum")]
+        public IActionResult GetAllPageNum(int size)
+        {
+            try
+            {
+                return Ok(courseBll.GetAllPageNum(size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
         /// <summary>
         /// 获取学生已选课程
         /// </summary>

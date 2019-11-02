@@ -100,14 +100,15 @@ namespace StudentManagement_Web.Controllers
         /// </summary>
         /// <param name="opwd">旧密码</param>
         /// <param name="npwd">新密码</param>
+        /// <param name="userid">用户Id</param>
         /// <returns>成功与否</returns>
-        //PUT: api/ApiUser/ChangePassword?opwd={opwd}&npwd={npwd}
+        //PUT: api/ApiUser/ChangePassword?opwd={opwd}&npwd={npwd}&userid={userid}
         [HttpPut("ChangePassword")]
-        public IActionResult ChangePassword(string opwd, string npwd)
+        public IActionResult ChangePassword(string opwd, string npwd,string userid)
         {
             try
             {
-                return Ok(userBll.ChangePassword(opwd, npwd));
+                return Ok(userBll.ChangePassword(opwd, npwd, userid));
             }
             catch (Exception ex)
             {

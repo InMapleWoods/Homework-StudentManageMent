@@ -3,7 +3,6 @@
     ViewData["JsFunction"] = "AdministratorFunction.js";
 }
 <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/WelcomeView.css" />
@@ -19,7 +18,7 @@
     window.onload = function () {
         var User = getJSONCookie('User');
         if (User.Role == 3) {
-            dataTypeChoose = 2;
+            dataTypeChoose = 4;
             onloadView(admin_index, dataTypeChoose);
             GetPageNum(dataTypeChoose);
         }
@@ -30,9 +29,13 @@
     <table id="apply_table" style="margin:auto;text-align:center">
         <thead>
             <tr>
-                <td>账号</td>
-                <td>名称</td>
-                <td>删除</td>
+                <td>考试ID</td>
+                <td>教师</td>
+                <td>课程名称</td>
+                <td>考试时间</td>
+                <td>考试名称</td>
+                <td>通过</td>
+                <td>拒绝</td>
             </tr>
         </thead>
         <tbody id="apply_list">

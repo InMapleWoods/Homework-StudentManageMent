@@ -195,19 +195,19 @@ namespace Bll
         /// 获取全部课程
         /// </summary>
         /// <returns>全部课程数据表</returns>
-        public List<Course> GetPaperCourseArray(int index, int size)
+        public List<CourseTempObject> GetPaperCourseArray(int index, int size)
         {
-            List<Course> temp = null;
+            List<CourseTempObject> temp = null;
             try
             {
                 DataTable dataTable = GetPaperCourse(index, size);
-                temp = new List<Course>();
+                temp = new List<CourseTempObject>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    int Id = (int)dr["Id"];
-                    string Name = dr["Name"].ToString();
-                    int TeacherId = (int)dr["TeacherId"];
-                    Course t = new Course(Id, Name, TeacherId);
+                    int Id = (int)dr["课程ID"];
+                    string Name = dr["课程名称"].ToString();
+                    string TeacherName = dr["教师名称"].ToString();
+                    CourseTempObject t = new CourseTempObject(Id, Name, TeacherName);
                     temp.Add(t);
                 }
                 return temp;
@@ -233,6 +233,19 @@ namespace Bll
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;
+        }
+        public class CourseTempObject
+        {
+            public int Id { get; set; }
+            public string CourseName { get; set; }
+            public string TeacherName { get; set; }
+            public CourseTempObject(int id, string cname, string tname)
+            {
+                Id = id;
+                CourseName = cname;
+                TeacherName = tname;
+            }
+
         }
     }
 }

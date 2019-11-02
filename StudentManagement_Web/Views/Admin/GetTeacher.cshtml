@@ -19,7 +19,7 @@
     window.onload = function () {
         var User = getJSONCookie('User');
         if (User.Role == 3) {
-            dataTypeChoose = 2;
+            dataTypeChoose = 1;
             onloadView(admin_index, dataTypeChoose);
             GetPageNum(dataTypeChoose);
         }

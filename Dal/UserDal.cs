@@ -317,19 +317,15 @@ namespace Dal
         /// </summary>
         /// <param name="opwd">旧密码</param>
         /// <param name="npwd">新密码</param>
+        /// <param name="id">用户Id</param>
         /// <returns>成功与否</returns>
-        public bool ChangePassword(string opwd, string npwd, out User user)
+        public bool ChangePassword(string opwd, string npwd,string id, out User user)
         {
-            t = t == null ? new User() : t;
-            if (!t.PassWord.Equals(helper.GetMD5(opwd)))
-            {
-                throw new Exception("旧密码不正确");
-            }
             string sqlStr = "update tb_Users set Password=@password where Id=@Id";
             SqlParameter[] para = new SqlParameter[]
              {
                 new SqlParameter("@password",helper.GetMD5(npwd)),
-                new SqlParameter("@Id",t.UserID),
+                new SqlParameter("@Id",id),
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)

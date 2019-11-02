@@ -114,10 +114,9 @@ namespace Dal
         {
             if (examination == null)
                 return false;
-            string str = "insert into tb_Examination(Id,CourseId,Time,Name) Values(@examid,@courseid,@time,@examname)";
+            string str = "insert into tb_Examination(CourseId,Time,Name) Values(@courseid,@time,@examname)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@examid",examination.Id),
                 new SqlParameter("@courseid",examination.CourseId),
                 new SqlParameter("@time",examination.Time),
                 new SqlParameter("@examname",examination.Name),
