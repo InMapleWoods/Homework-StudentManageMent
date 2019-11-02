@@ -41,6 +41,7 @@ function onloadView(index, choose) {
     else if (choose == 5)
         onloadCourseView(index);
 }
+
 function onloadUserApplyView(index) {
     $("#index").text(admin_index);
     GetPageNum(dataTypeChoose);
@@ -63,6 +64,7 @@ function onloadUserApplyView(index) {
         }
     });
 }
+
 function AccpetApply(num) {
     $.ajax({
         type: "put",
@@ -82,6 +84,7 @@ function AccpetApply(num) {
         }
     });
 }
+
 function RejectApply(num) {
     $.ajax({
         type: "PUT",
@@ -101,6 +104,7 @@ function RejectApply(num) {
         }
     });
 }
+
 function onloadStudentView(index) {
     $("#index").text(admin_index);
     GetPageNum(dataTypeChoose);
@@ -122,6 +126,7 @@ function onloadStudentView(index) {
         }
     });
 }
+
 function DeleteStudent(num) {
 
     $.ajax({
@@ -142,6 +147,7 @@ function DeleteStudent(num) {
         }
     });
 }
+
 function onloadTeacherView(index) {
     $("#index").text(admin_index);
     GetPageNum(dataTypeChoose);
@@ -163,6 +169,7 @@ function onloadTeacherView(index) {
         }
     });
 }
+
 function DeleteTeacher(num) {
 
     $.ajax({
@@ -183,6 +190,7 @@ function DeleteTeacher(num) {
         }
     });
 }
+
 function onloadCourseView(index) {
     $("#index").text(admin_index);
     GetPageNum(dataTypeChoose);
@@ -205,6 +213,7 @@ function onloadCourseView(index) {
         }
     });
 }
+
 function DeleteCourse(num) {
 
     $.ajax({
@@ -225,6 +234,7 @@ function DeleteCourse(num) {
         }
     });
 }
+
 function onloadExamApplyView(index) {
     $("#index").text(admin_index);
     GetPageNum(dataTypeChoose);
@@ -249,6 +259,7 @@ function onloadExamApplyView(index) {
         }
     });
 }
+
 function AccpetExamApply(num) {
     $.ajax({
         type: "put",
@@ -268,6 +279,7 @@ function AccpetExamApply(num) {
         }
     });
 }
+
 function RejectExamApply(num) {
     $.ajax({
         type: "PUT",
@@ -287,6 +299,7 @@ function RejectExamApply(num) {
         }
     });
 }
+
 function LeftIndex() {
     if (admin_index - 1 > 1)
         admin_index = admin_index - 1;
@@ -294,6 +307,7 @@ function LeftIndex() {
         admin_index = 1;
     onloadView(admin_index, dataTypeChoose);
 }
+
 function RightIndex() {
     if (admin_index + 1 < admin_page)
         admin_index = admin_index + 1;
