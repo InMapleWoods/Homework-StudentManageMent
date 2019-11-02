@@ -2,6 +2,33 @@
 var admin_size = 10;
 var admin_index = 1;
 var dataTypeChoose = 3;
+
+var sqls = [
+    window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
+    window.matchMedia('(max-width:768px)'),
+    window.matchMedia('(max-width:992px)'),
+    window.matchMedia('(max-width:1200px)')
+]
+
+function mediaMatches() {
+    if (sqls[0].matches) {
+        admin_size = 5;
+    } else if (sqls[1].matches) {
+        admin_size = 10;
+    } else if (sqls[2].matches) {
+        admin_size = 15;
+    } else if (sqls[3].matches) {
+        admin_size = 20;
+    } else {
+        admin_size = 25;
+    }
+    onloadView(admin_index, dataTypeChoose);
+}
+mediaMatches(); //页面首次加载
+
+for (var i = 0; i < sqls.length; i++) {
+    sqls[i].addListener(mediaMatches);
+}
 function onloadView(index, choose) {
     if (choose == 3)
         onloadUserApplyView(index);
