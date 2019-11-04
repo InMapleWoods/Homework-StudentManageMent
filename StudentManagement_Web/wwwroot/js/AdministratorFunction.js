@@ -16,11 +16,11 @@ function mediaMatches() {
     } else if (sqls[1].matches) {
         admin_size = 10;
     } else if (sqls[2].matches) {
-        admin_size = 15;
+        admin_size = 12;
     } else if (sqls[3].matches) {
-        admin_size = 20;
+        admin_size = 13;
     } else {
-        admin_size = 25;
+        admin_size = 14;
     }
     onloadView(admin_index, dataTypeChoose);
 }

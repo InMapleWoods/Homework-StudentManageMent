@@ -1,7 +1,6 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Linq;
 
@@ -177,15 +176,23 @@ namespace StudentManagement_Web.Controllers
         /// <returns>返回对应的值</returns>
         public string GetCookies(string key)
         {
-            Microsoft.Extensions.Primitives.StringValues values;
+            StringValues values;
             HttpContext.Request.Headers.TryGetValue("Cookie", out values);
             var cookies = values.ToString().Split(';').ToList();
             var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
-            var value = result.Where(r => r.Key == key).FirstOrDefault();
-            string valueresult = value.Value;
-            if (string.IsNullOrEmpty(valueresult))
-                valueresult = string.Empty;
-            return valueresult;
+            if (result != null)
+            {
+                var value = result.Where(r => r.Key == key).FirstOrDefault();
+                if (value != null)
+                {
+                    string valueresult = value.Value;
+                    if (string.IsNullOrEmpty(valueresult))
+                        valueresult = string.Empty;
+                    return valueresult;
+                }
+            }
+            return String.Empty;
+
         }
         #endregion
 

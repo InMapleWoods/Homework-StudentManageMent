@@ -37,43 +37,51 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                if ((GetCookies("islogin") == null) || (GetCookies("islogin") != "true"))
+                if (GetCookies("islogin") != null)
                 {
-                    return Redirect("~/");
-                }
-                else
-                {
-                    string user = GetCookies("User") == string.Empty ? "" : GetCookies("User");
-                    JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
-                    string userrole = (string)userinfo.SelectToken("Role");
-                    int role = int.Parse(userrole);
-                    switch (role)
+                    if (GetCookies("islogin") != "true")
                     {
-                        case 0:
-                            if (sourceUrl != "Index")
-                            {
-                                return Redirect("~/Welcome/");
-                            }
-                            break;
-                        case 1:
-                            if (sourceUrl != "Student")
-                            {
-                                return Redirect("~/Welcome/Student");
-                            }
-                            break;
-                        case 2:
-                            if (sourceUrl != "Teacher")
-                            {
-                                return Redirect("~/Welcome/Teacher");
-                            }
-                            break;
-                        case 3:
-                            if (sourceUrl != "Administrator")
-                            {
-                                return Redirect("~/Welcome/Administrator");
-                            }
-                            break;
-                        default: break;
+                        return Redirect("~/");
+                    }
+                    else
+                    {
+                        string user = GetCookies("User") == string.Empty ? "" : GetCookies("User");
+                        if (user == "")
+                        {
+                            DeleteCookies("islogin");
+                            return Redirect("~/");
+                        }
+                        JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
+                        string userrole = (string)userinfo.SelectToken("Role");
+                        int role = int.Parse(userrole);
+                        switch (role)
+                        {
+                            case 0:
+                                if (sourceUrl != "Index")
+                                {
+                                    return Redirect("~/Welcome/");
+                                }
+                                break;
+                            case 1:
+                                if (sourceUrl != "Student")
+                                {
+                                    return Redirect("~/Welcome/Student");
+                                }
+                                break;
+                            case 2:
+                                if (sourceUrl != "Teacher")
+                                {
+                                    return Redirect("~/Welcome/Teacher");
+                                }
+                                break;
+                            case 3:
+                                if (sourceUrl != "Administrator")
+                                {
+                                    return Redirect("~/Welcome/Administrator");
+                                }
+                                break;
+                            default: break;
+                        }
                     }
                 }
             }
@@ -117,11 +125,18 @@ namespace StudentManagement_Web.Controllers
             HttpContext.Request.Headers.TryGetValue("Cookie", out values);
             var cookies = values.ToString().Split(';').ToList();
             var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
-            var value = result.Where(r => r.Key == key).FirstOrDefault();
-            string valueresult = value.Value;
-            if (string.IsNullOrEmpty(valueresult))
-                valueresult = string.Empty;
-            return valueresult;
+            if (result != null)
+            {
+                var value = result.Where(r => r.Key == key).FirstOrDefault();
+                if (value != null)
+                {
+                    string valueresult = value.Value;
+                    if (string.IsNullOrEmpty(valueresult))
+                        valueresult = string.Empty;
+                    return valueresult;
+                }
+            }
+            return String.Empty;
         }
         #endregion
 
