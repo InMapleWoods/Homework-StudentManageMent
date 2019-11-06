@@ -130,6 +130,7 @@ function ChangeAdminLabel(name) {
         $("#AdminFrame").attr('src', '../Admin/UserApply');
         $("#ApplyTab").attr('class', 'nav-link active');
         $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#ExamTab").attr('class', 'nav-link');
         $("#StudentTab").attr('class', 'nav-link');
         $("#TeacherTab").attr('class', 'nav-link');
         $("#CourseTab").attr('class', 'nav-link');
@@ -138,6 +139,16 @@ function ChangeAdminLabel(name) {
         $("#AdminFrame").attr('src', '../Admin/ExamApply');
         $("#ApplyTab").attr('class', 'nav-link');
         $("#ExamApplyTab").attr('class', 'nav-link active');
+        $("#ExamTab").attr('class', 'nav-link');
+        $("#StudentTab").attr('class', 'nav-link');
+        $("#TeacherTab").attr('class', 'nav-link');
+        $("#CourseTab").attr('class', 'nav-link');
+    }
+    else if (name == 'Exam') {
+        $("#AdminFrame").attr('src', '../Admin/GetExam');
+        $("#ApplyTab").attr('class', 'nav-link');
+        $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#ExamTab").attr('class', 'nav-link active');
         $("#StudentTab").attr('class', 'nav-link');
         $("#TeacherTab").attr('class', 'nav-link');
         $("#CourseTab").attr('class', 'nav-link');
@@ -146,6 +157,7 @@ function ChangeAdminLabel(name) {
         $("#AdminFrame").attr('src', '../Admin/GetStudent');
         $("#ApplyTab").attr('class', 'nav-link');
         $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#ExamTab").attr('class', 'nav-link');
         $("#StudentTab").attr('class', 'nav-link active');
         $("#TeacherTab").attr('class', 'nav-link');
         $("#CourseTab").attr('class', 'nav-link');
@@ -154,6 +166,7 @@ function ChangeAdminLabel(name) {
         $("#AdminFrame").attr('src', '../Admin/GetTeacher');
         $("#ApplyTab").attr('class', 'nav-link');
         $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#ExamTab").attr('class', 'nav-link');
         $("#StudentTab").attr('class', 'nav-link');
         $("#TeacherTab").attr('class', 'nav-link active');
         $("#CourseTab").attr('class', 'nav-link');
@@ -162,6 +175,7 @@ function ChangeAdminLabel(name) {
         $("#AdminFrame").attr('src', '../Admin/GetCourse');
         $("#ApplyTab").attr('class', 'nav-link');
         $("#ExamApplyTab").attr('class', 'nav-link');
+        $("#ExamTab").attr('class', 'nav-link');
         $("#StudentTab").attr('class', 'nav-link');
         $("#TeacherTab").attr('class', 'nav-link');
         $("#CourseTab").attr('class', 'nav-link active');

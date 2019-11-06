@@ -45,13 +45,13 @@ namespace Bll
         /// <returns>分页后名单数组</returns>
         public IEnumerable GetPageExamArray(int index, int size)
         {
-            ArrayList examinations = new ArrayList();
+            List<ExamTemp> examinations = new List<ExamTemp>();
             try
             {
                 DataTable datatable = examinationDal.GetPaperExam(index, size);
                 foreach (DataRow dr in datatable.Rows)
                 {
-                    Examination examination = new Examination((int)dr["Id"], (int)dr["CourseId"], (DateTime)dr["Time"], dr["Name"].ToString());
+                    ExamTemp examination = new ExamTemp((int)dr["考试ID"], dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString());
                     examinations.Add(examination);
                 }
                 return examinations;
@@ -384,6 +384,23 @@ namespace Bll
             {
                 Id = id;
                 TeacherName = teacherName;
+                CourseName = courseName;
+                Time = time;
+                ExamName = examName;
+            }
+        }
+        /// <summary>
+        /// 考试类
+        /// </summary>
+        public class ExamTemp
+        {
+            public int Id { get; set; }
+            public string CourseName { get; set; }
+            public DateTime Time { get; set; }
+            public string ExamName { get; set; }
+            public ExamTemp(int id, string courseName, DateTime time, string examName)
+            {
+                Id = id;
                 CourseName = courseName;
                 Time = time;
                 ExamName = examName;

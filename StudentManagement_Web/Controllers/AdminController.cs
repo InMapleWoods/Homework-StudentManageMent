@@ -153,6 +153,10 @@ namespace StudentManagement_Web.Controllers
         {
             return GetIsloginState();
         }
+        public IActionResult GetExam()
+        {
+            return GetIsloginState();
+        }
         private IActionResult GetIsloginState()
         {
             try
