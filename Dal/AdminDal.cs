@@ -209,6 +209,21 @@ namespace Dal
         }
 
         /// <summary>
+        /// 获取设置列表
+        /// </summary>
+        /// <returns>设置列表</returns>
+        public DataTable GetSettings()
+        {
+            string str = "select * from tb_Settings";
+            SqlParameter[] para = new SqlParameter[] {
+            };
+            using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.Text))
+            {
+                return dataTable;
+            }
+        }
+
+        /// <summary>
         /// 更改是否开启注册功能
         /// </summary>
         /// <returns>更改结果</returns>
@@ -216,9 +231,9 @@ namespace Dal
         {
             string str = "ReverseRegisterOpenState";
             SqlParameter[] para = new SqlParameter[] {
-                new SqlParameter("result",SqlDbType.VarChar,10)
+                new SqlParameter("result",SqlDbType.VarChar,20)
             };
-            para[0].Direction = ParameterDirection.ReturnValue;
+            para[0].Direction = ParameterDirection.Output;
             using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.StoredProcedure))
             {
                 string result = para[0].Value.ToString();

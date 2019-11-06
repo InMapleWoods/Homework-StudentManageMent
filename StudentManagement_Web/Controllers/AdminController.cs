@@ -129,6 +129,43 @@ namespace StudentManagement_Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取设置列表
+        /// </summary>
+        /// <returns>设置列表</returns>
+        //GET: api/ApiAdmin/GetSettings
+        [HttpGet("GetSettings")]
+        public IActionResult GetSettings()
+        {
+            try
+            {
+                return Ok(adminBll.GetSettings());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 更改设置
+        /// </summary>
+        /// <param name="name">设置名</param>
+        /// <param name="value">设置值</param>
+        /// <returns>更改结果</returns>
+        //PUT: api/ApiAdmin/UpdateSettings?name={name}&value={value}
+        [HttpPut("UpdateSettings")]
+        public IActionResult UpdateSettings(string name,string value)
+        {
+            try
+            {
+                return Ok(adminBll.UpdateSettings(name, value));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 
     public class AdminController : Controller
@@ -154,6 +191,10 @@ namespace StudentManagement_Web.Controllers
             return GetIsloginState();
         }
         public IActionResult GetExam()
+        {
+            return GetIsloginState();
+        }
+        public IActionResult GetSettings()
         {
             return GetIsloginState();
         }

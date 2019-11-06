@@ -205,6 +205,46 @@ namespace Bll
         }
 
         /// <summary>
+        /// 获取设置列表
+        /// </summary>
+        /// <returns>设置列表</returns>
+        public IEnumerable GetSettings()
+        {
+            List <string[]> result = new List<string[]>();
+            try
+            {
+                using (DataTable dataTable= adminDal.GetSettings())
+                {
+                    foreach (DataRow dr in dataTable.Rows)
+                    {
+                        string[] setting = new string[3];
+                        setting[0] = dr["Id"].ToString();
+                        setting[1] = dr["SettingName"].ToString();
+                        setting[2] = dr["SettingValue"].ToString();
+                        result.Add(setting);
+                    }
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+
+        /// <summary>
+        /// 更改设置
+        /// </summary>
+        /// <param name="name">设置名</param>
+        /// <param name="value">设置值</param>
+        /// <returns>更改结果</returns>
+        public string UpdateSettings(string name,string value)
+        {
+            if(name== "RegisterOpenState")
+            {
+                return ReverseRegisterOpenState();
+            }
+            return "";
+        }
+
+        /// <summary>
         /// 更改是否开启注册功能
         /// </summary>
         /// <returns>更改结果</returns>

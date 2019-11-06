@@ -30,7 +30,6 @@ for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
 function onloadView(index, choose) {
-    $('#apply_list').html("");
     if (choose == 3)
         onloadUserApplyView(index);
     else if (choose == 2)
@@ -43,6 +42,8 @@ function onloadView(index, choose) {
         onloadCourseView(index);
     else if (choose == 6)
         onloadExamView(index);
+    else if (choose == 7)
+        onloadSettingsView(index);
 }
 
 function GetPageNum(choose) {
@@ -405,6 +406,49 @@ function RejectExamApply(num) {
             location.reload();
         }
     });
+}
+
+function onloadSettingsView(index) {
+    $.ajax({
+        type: "Get",
+        url: '../api/ApiAdmin/GetSettings',
+        success: function (data) {
+            $('#settingList').html('');
+            var applyList = data;
+            for (i = 0; i < applyList.length; i++) {
+                var Id = applyList[i][0];
+                var SettingName = applyList[i][1];
+                var SettingValue = applyList[i][2];
+                if ((SettingValue == 'true') || (SettingValue == 'false')) {
+                    if (SettingName == 'RegisterOpenState') {
+                        Name = '注册功能是否开启';
+                        Value = 'true' == SettingValue ?"已开启":"已关闭";
+                    }
+                    $('#settingList').append("<div class='col-6'>" + Name + "</div><div class='col-6'>" + Value + "</div><div class='col-12'><button class='btn btn-block btn-info' onclick=updateSettings('" + SettingName + "','" + SettingValue + "')>修改</button></div></div>");
+                }
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
+
+function updateSettings(name, value) {
+    $.ajax({
+        type: "put",
+        url: '../api/ApiAdmin/UpdateSettings?name=' + name + '&value=' + value,
+        success: function (data) {
+            alert(data);
+            onloadView(admin_index, dataTypeChoose);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+
 }
 
 function LeftIndex() {

@@ -212,8 +212,6 @@ namespace Dal
                 throw new Exception("未选择身份");
             }
             int numid = helper.sqlNum("tb_Users");//获取表中数据条数
-            string account = helper.sqlMaxID("Number", "tb_Users").ToString().PadLeft(8, '0');//获取用户编号
-            accountResult = account;
             if (numid == 0)//如果是第一个注册默认成为管理员
             {
                 Role = 3;
@@ -224,14 +222,17 @@ namespace Dal
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
                 new SqlParameter("returnValue",SqlDbType.Int,4),
+                new SqlParameter("@number",SqlDbType.VarChar,200),
                 new SqlParameter("@name",name),
                 new SqlParameter("@passWord",helper.GetMD5(password)),
                 new SqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
                 new SqlParameter("@role",role),
             };
             para[0].Direction = ParameterDirection.ReturnValue;
+            para[1].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             int result = (int)para[0].Value;
+            accountResult = para[1].Value.ToString();
             switch (result)
             {
                 case -3:
@@ -243,7 +244,7 @@ namespace Dal
                         throw new Exception("注册功能被关闭");
                     }
             }
-            t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role, account);//将用户信息保存到变量t中
+            t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role, accountResult);//将用户信息保存到变量t中
             user = t;
             if (count > 0)
             {
