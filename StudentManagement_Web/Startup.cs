@@ -41,7 +41,8 @@ namespace StudentManagement_Web
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<Middleware.IsLoginMiddleware>();
+            app.UseMiddleware<Middleware.WelcomeAuthorizeMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

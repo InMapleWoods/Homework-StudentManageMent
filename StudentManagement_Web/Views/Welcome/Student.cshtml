@@ -1,8 +1,34 @@
 ﻿@{
-    
+
     Layout = "_WelcomeLayout";
     ViewData["Title"] = "同学";
     ViewData["JsFunction"] = "StudentFunction.js";
 }
-
-<h1>Index</h1>
+<div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-courseView-tab" data-toggle="tab" href="#nav-courseView" role="tab" aria-controls="nav-courseView" aria-selected="true">课程查看</a>
+            <a class="nav-item nav-link" id="nav-chooseCourse-tab" data-toggle="tab" href="#nav-chooseCourse" role="tab" aria-controls="nav-chooseCourse" aria-selected="false">学生选课</a>
+            <a class="nav-item nav-link" id="nav-gradeView-tab" data-toggle="tab" href="#nav-gradeView" role="tab" aria-controls="nav-gradeView" aria-selected="false">成绩查看</a>
+            <a class="nav-item nav-link" id="nav-Exam-tab" data-toggle="tab" href="#nav-Exam" role="tab" aria-controls="nav-Exam" aria-selected="false">待考考试</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-courseView" role="tabpanel" aria-labelledby="nav-courseView-tab">
+            <iframe id="StudentFrame" src="../Student/GetCourseView" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+            </iframe>
+        </div>
+        <div class="tab-pane fade" id="nav-chooseCourse" role="tabpanel" aria-labelledby="nav-chooseCourse-tab">
+            <iframe id="StudentFrame" src="../Student/ChooseCourse" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+            </iframe>
+        </div>
+        <div class="tab-pane fade" id="nav-gradeView" role="tabpanel" aria-labelledby="nav-gradeView-tab">
+            <iframe id="StudentFrame" src="../Student/GetGradeView" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+            </iframe>
+        </div>
+        <div class="tab-pane fade" id="nav-Exam" role="tabpanel" aria-labelledby="nav-Exam-tab">
+            <iframe id="StudentFrame" src="../Student/GetExam" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+            </iframe>
+        </div>
+    </div>
+</div>

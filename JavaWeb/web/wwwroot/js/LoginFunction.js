@@ -82,7 +82,7 @@ function LoginWithValidate() {
         type: "get",
         url: '../api/ApiLogin?account=' + stringAccount,
         success: function (data) {
-            var t = data;
+            var t = JSON.parse(data);
             if (data == 'null') {
                 alert('用户名不存在');
                 location = '../';
@@ -101,7 +101,6 @@ function LoginWithValidate() {
                 data: JSON.stringify(list),
                 success: function (data) {
                     data = eval(data);
-                    t = eval(t);
                     if (data == true) {
                         alert('登陆成功');
                         deleteCookie('times');

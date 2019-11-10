@@ -19,126 +19,19 @@ namespace StudentManagement_Web.Controllers
         /// <returns>返回视图</returns>
         public IActionResult Index()
         {
-            return GetIsloginState("Index");
+            return View();
         }
         public IActionResult Student()
         {
-            return GetIsloginState("Student");
+            return View();
         }
         public IActionResult Teacher()
         {
-            return GetIsloginState("Teacher");
+            return View();
         }
         public IActionResult Administrator()
         {
-            return GetIsloginState("Administrator");
-        }
-        private IActionResult GetIsloginState(string sourceUrl)
-        {
-            try
-            {
-                if (GetCookies("islogin") != null)
-                {
-                    if (GetCookies("islogin") != "true")
-                    {
-                        return Redirect("~/");
-                    }
-                    else
-                    {
-                        string user = GetCookies("User") == string.Empty ? "" : GetCookies("User");
-                        if (user == "")
-                        {
-                            DeleteCookies("islogin");
-                            return Redirect("~/");
-                        }
-                        JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
-                        string userrole = (string)userinfo.SelectToken("Role");
-                        int role = int.Parse(userrole);
-                        switch (role)
-                        {
-                            case 0:
-                                if (sourceUrl != "Index")
-                                {
-                                    return Redirect("~/Welcome/");
-                                }
-                                break;
-                            case 1:
-                                if (sourceUrl != "Student")
-                                {
-                                    return Redirect("~/Welcome/Student");
-                                }
-                                break;
-                            case 2:
-                                if (sourceUrl != "Teacher")
-                                {
-                                    return Redirect("~/Welcome/Teacher");
-                                }
-                                break;
-                            case 3:
-                                if (sourceUrl != "Administrator")
-                                {
-                                    return Redirect("~/Welcome/Administrator");
-                                }
-                                break;
-                            default: break;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                return NotFound(e.Message);
-            }
             return View();
         }
-        #region Cookies操作
-        /// <summary>
-        /// 设置本地cookie
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="value">值</param>  
-        /// <param name="minutes">过期时长，单位：分钟</param>   
-        public void SetCookies(string key, string value, int minutes = 30)
-        {
-            HttpContext.Response.Cookies.Append(key, value, new CookieOptions
-            {
-                Expires = DateTime.Now.AddMinutes(minutes)
-            });
-        }
-        /// <summary>
-        /// 删除指定的cookie
-        /// </summary>
-        /// <param name="key">键</param>
-        public void DeleteCookies(string key)
-        {
-            HttpContext.Response.Cookies.Delete(key);
-        }
-
-        /// <summary>
-        /// 获取cookies
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <returns>返回对应的值</returns>
-        public string GetCookies(string key)
-        {
-            StringValues values;
-            HttpContext.Request.Headers.TryGetValue("Cookie", out values);
-            var cookies = values.ToString().Split(';').ToList();
-            var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
-            if (result != null)
-            {
-                var value = result.Where(r => r.Key == key).FirstOrDefault();
-                if (value != null)
-                {
-                    string valueresult = value.Value;
-                    if (string.IsNullOrEmpty(valueresult))
-                        valueresult = string.Empty;
-                    return valueresult;
-                }
-            }
-            return String.Empty;
-        }
-        #endregion
-
     }
 }
