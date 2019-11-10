@@ -71,16 +71,69 @@ namespace StudentManagement_Web.Controllers
             }
         }
         /// <summary>
-        /// 获取学生已选课程
+        /// 获取学生未选课程总页数
         /// </summary>
-        /// <returns>全部课程数据表</returns>
-        //GET: api/ApiCourse/GetStudentAllCourseArray/{Id}
-        [HttpGet("GetStudentAllCourseArray/{Id}")]
-        public IActionResult GetStudentAllCourseArray(string Id)
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        //GET: api/ApiCourse/GetStudentNoChooseCoursePageNum/{id}?size={size}
+        [HttpGet("GetStudentNoChooseCoursePageNum/{id}")]
+        public IActionResult GetStudentNoChooseCoursePageNum(int size, string id)
         {
             try
             {
-                return Ok(courseBll.GetStudentAllCourseArray(Id));
+                return Ok(courseBll.GetStudentNoChooseCoursePageNum(size, id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 获取学生已选课程总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        //GET: api/ApiCourse/GetStudentAllCoursePageNum/{id}?size={size}
+        [HttpGet("GetStudentAllCoursePageNum/{id}")]
+        public IActionResult GetStudentAllCoursePageNum(int size, string id)
+        {
+            try
+            {
+                return Ok(courseBll.GetStudentAllCoursePageNum(size, id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 获取学生已选课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        //GET: api/ApiCourse/GetStudentAllCourseArray/{Id}?index={index}&size={size}
+        [HttpGet("GetStudentAllCourseArray/{Id}")]
+        public IActionResult GetStudentAllCourseArray(string Id, int index, int size)
+        {
+            try
+            {
+                return Ok(courseBll.GetStudentAllCourseArray(Id, index, size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 获取学生未选课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        //GET: api/ApiCourse/GetStudentNoChooseCourseArray/{Id}?index={index}&size={size}
+        [HttpGet("GetStudentNoChooseCourseArray/{Id}")]
+        public IActionResult GetStudentNoChooseCourseArray(string Id, int index, int size)
+        {
+            try
+            {
+                return Ok(courseBll.GetStudentNoChooseCourseArray(Id, index, size));
             }
             catch (Exception ex)
             {

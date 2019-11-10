@@ -32,7 +32,7 @@ namespace Dal
             {
                 new SqlParameter("@examid",examid),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, sqlParameters, CommandType.Text);
+            DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text);
             return dataTable;
         }
 
@@ -48,7 +48,7 @@ namespace Dal
             {
                 new SqlParameter("@questionid",questionId),
             };
-            using (DataTable dataTable = helper.ExcuteQuery(str, sqlParameters, CommandType.Text))
+            using (DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text))
             {
                 if (dataTable.Rows.Count == 1)
                 {

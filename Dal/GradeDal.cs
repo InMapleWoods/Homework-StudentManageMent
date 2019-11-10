@@ -30,7 +30,7 @@ namespace Dal
             {
                 new SqlParameter("@id",Id),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlstr, para, CommandType.Text);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, para, CommandType.Text);//储存Datatable
             return dataTable;
         }
 
@@ -46,7 +46,7 @@ namespace Dal
             {
                 new SqlParameter("@id",Id),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             return dataTable;
         }
 

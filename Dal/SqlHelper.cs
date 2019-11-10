@@ -224,7 +224,7 @@ namespace Dal
         /// <param name="paras">参数集合</param>
         /// <param name="ct">命令类型（SQL语句或存储过程）</param>
         /// <returns></returns>
-        public DataTable ExcuteQuery(string cmdtext, SqlParameter[] paras, CommandType ct)
+        public DataTable ExecuteQuery(string cmdtext, SqlParameter[] paras, CommandType ct)
         {//执行查询
             cmdtext = protectsql(cmdtext);
             DataTable dt = new DataTable();

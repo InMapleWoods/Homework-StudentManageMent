@@ -101,7 +101,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperUsersWaitingToCheck"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -121,7 +121,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperUsersStudent"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -140,7 +140,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperUsersTeacher"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -217,7 +217,7 @@ namespace Dal
             string str = "select * from tb_Settings";
             SqlParameter[] para = new SqlParameter[] {
             };
-            using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.Text))
+            using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.Text))
             {
                 return dataTable;
             }
@@ -234,7 +234,7 @@ namespace Dal
                 new SqlParameter("result",SqlDbType.VarChar,20)
             };
             para[0].Direction = ParameterDirection.Output;
-            using (DataTable dataTable = helper.ExcuteQuery(str, para, CommandType.StoredProcedure))
+            using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.StoredProcedure))
             {
                 string result = para[0].Value.ToString();
                 if (result == "OpenStateBecomeFalse")

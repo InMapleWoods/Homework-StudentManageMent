@@ -22,14 +22,14 @@ function mediaMatches() {
     } else {
         admin_size = 12;
     }
-    onloadView(admin_index, dataTypeChoose);
+    onloadViewAdmin(admin_index, dataTypeChoose);
 }
 mediaMatches(); //页面首次加载
 
 for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
-function onloadView(index, choose) {
+function onloadViewAdmin(index, choose) {
     if (choose == 3)
         onloadUserApplyView(index);
     else if (choose == 2)
@@ -44,9 +44,16 @@ function onloadView(index, choose) {
         onloadExamView(index);
     else if (choose == 7)
         onloadSettingsView(index);
+    $('#AdminFrame_1').attr('src', '../Admin/UserApply');
+    $('#AdminFrame_2').attr('src', '../Admin/ExamApply');
+    $('#AdminFrame_3').attr('src', '../Admin/GetExam');
+    $('#AdminFrame_4').attr('src', '../Admin/GetStudent');
+    $('#AdminFrame_5').attr('src', '../Admin/GetTeacher');
+    $('#AdminFrame_6').attr('src', '../Admin/GetCourse');
+    $('#AdminFrame_7').attr('src', '../Admin/GetSettings');
 }
 
-function GetPageNum(choose) {
+function GetPageNumAdmin(choose) {
     if ((choose == 1) || (choose == 2) || (choose == 3)) {
         $.ajax({
             type: "Get",
@@ -107,7 +114,7 @@ function GetPageNum(choose) {
 
 function onloadUserApplyView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=3',
@@ -139,7 +146,7 @@ function AccpetApply(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -159,7 +166,7 @@ function RejectApply(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -170,7 +177,7 @@ function RejectApply(num) {
 
 function onloadExamView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiExamination/GetExam?index=' + index + '&size=' + admin_size,
@@ -204,7 +211,7 @@ function DeleteExam(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -215,7 +222,7 @@ function DeleteExam(num) {
 
 function onloadStudentView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=2',
@@ -247,7 +254,7 @@ function DeleteStudent(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -258,7 +265,7 @@ function DeleteStudent(num) {
 
 function onloadTeacherView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=1',
@@ -290,7 +297,7 @@ function DeleteTeacher(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -301,7 +308,7 @@ function DeleteTeacher(num) {
 
 function onloadCourseView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiCourse/GetPaperCourseArray?index=' + index + '&size=' + admin_size,
@@ -334,7 +341,7 @@ function DeleteCourse(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -345,7 +352,7 @@ function DeleteCourse(num) {
 
 function onloadExamApplyView(index) {
     $("#index").text(admin_index);
-    GetPageNum(dataTypeChoose);
+    GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
         url: '../api/ApiExamination/GetExamApply?index=' + index + '&size=' + admin_size,
@@ -379,7 +386,7 @@ function AccpetExamApply(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -399,7 +406,7 @@ function RejectExamApply(num) {
             else {
                 alert('失败');
             }
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -441,7 +448,7 @@ function updateSettings(name, value) {
         url: '../api/ApiAdmin/UpdateSettings?name=' + name + '&value=' + value,
         success: function (data) {
             alert(data);
-            onloadView(admin_index, dataTypeChoose);
+            onloadViewAdmin(admin_index, dataTypeChoose);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -456,7 +463,7 @@ function LeftIndex() {
         admin_index = admin_index - 1;
     else
         admin_index = 1;
-    onloadView(admin_index, dataTypeChoose);
+    onloadViewAdmin(admin_index, dataTypeChoose);
 }
 
 function RightIndex() {
@@ -464,5 +471,5 @@ function RightIndex() {
         admin_index = admin_index + 1;
     else
         admin_index = admin_page;
-    onloadView(admin_index, dataTypeChoose);
+    onloadViewAdmin(admin_index, dataTypeChoose);
 }

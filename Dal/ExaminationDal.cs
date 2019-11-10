@@ -36,7 +36,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperExam"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -75,7 +75,7 @@ namespace Dal
             {
                 new SqlParameter("@id",id),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlStr, sqlParameters, CommandType.Text);
+            DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             if (dataTable.Rows.Count == 1)
             {
                 DataRow dataRow = dataTable.Rows[0];
@@ -101,7 +101,7 @@ namespace Dal
             {
                 new SqlParameter("@id",id),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlStr, sqlParameters, CommandType.Text);
+            DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             return dataTable;
         }
 
@@ -202,7 +202,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperExamApply"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -276,7 +276,7 @@ namespace Dal
                 new SqlParameter("@id",id),
                 new SqlParameter("@ischecked",false),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlStr, sqlParameters, CommandType.Text);
+            DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             if (dataTable.Rows.Count == 1)
             {
                 DataRow dataRow = dataTable.Rows[0];

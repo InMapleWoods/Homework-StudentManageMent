@@ -1,6 +1,7 @@
 ﻿using Dal;
 using Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 namespace Bll
@@ -63,37 +64,44 @@ namespace Bll
         /// 获取学生已选课程
         /// </summary>
         /// <returns>全部课程数据表</returns>
-        public DataTable GetStudentAllCourse(string Id)
+        public IEnumerable GetStudentAllCourseArray(string Id, int index, int size)
         {
-            DataTable dataTable = null;
+            List<string[]> temp = null;
             try
             {
-                dataTable = courseDal.GetStudentAllCourse(Id);
+                DataTable dataTable = courseDal.GetStudentAllCourse(Id, index, size);
+                temp = new List<string[]>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    int CourseId = (int)dr["Id"];
+                    string Name = dr["Name"].ToString();
+                    string[] t = new string[] { CourseId.ToString(), Name };
+                    temp.Add(t);
+                }
+                return temp;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
-            return dataTable;
         }
-
         /// <summary>
-        /// 获取学生已选课程
+        /// 获取学生未选课程
         /// </summary>
         /// <returns>全部课程数据表</returns>
-        public List<Course> GetStudentAllCourseArray(string Id)
+        public IEnumerable GetStudentNoChooseCourseArray(string Id, int index, int size)
         {
-            List<Course> temp = null;
+            List<string[]> temp = null;
             try
             {
-                DataTable dataTable = courseDal.GetStudentAllCourse(Id);
-                temp = new List<Course>();
+                DataTable dataTable = courseDal.GetStudentNoChooseCourse(Id, index, size);
+                temp = new List<string[]>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    int CourseId = (int)dr["Id"];
-                    string Name = dr["Name"].ToString();
-                    int TeacherId = (int)dr["TeacherId"];
-                    Course t = new Course(CourseId, Name, TeacherId);
+                    int CourseId = (int)dr["课程ID"];
+                    string Name = dr["课程名称"].ToString();
+                    string TeacherName = dr["教师名称"].ToString();
+                    string[] t = new string[] { CourseId.ToString(), Name, TeacherName };
                     temp.Add(t);
                 }
                 return temp;
@@ -219,7 +227,7 @@ namespace Bll
         }
 
         /// <summary>
-        /// 获取未审核用户分页总页数
+        /// 获取分页后的课程列表总页数
         /// </summary>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
@@ -230,6 +238,38 @@ namespace Bll
             try
             {
                 result = courseDal.GetAllPageNum(size);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+        /// <summary>
+        /// 获取学生未选课程总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="Id">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetStudentNoChooseCoursePageNum(int size, string Id)
+        {
+            int result;
+            try
+            {
+                result = courseDal.GetStudentNoChooseCoursePageNum(size, Id);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+        /// <summary>
+        /// 获取学生已选课程总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="Id">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetStudentAllCoursePageNum(int size, string Id)
+        {
+            int result;
+            try
+            {
+                result = courseDal.GetStudentAllCoursePageNum(size, Id);
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;

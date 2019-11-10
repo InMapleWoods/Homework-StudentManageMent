@@ -61,7 +61,7 @@ namespace Dal
                 new SqlParameter("@password",pwd)
             };
             //将返回的结果保存在datatable中
-            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
+            using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
             {
                 if (dataTable.Rows.Count == 1)//如果返回一个结果
                 {
@@ -130,7 +130,7 @@ namespace Dal
                 new SqlParameter("@number",account),
             };
             //将返回的结果保存在datatable中
-            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
+            using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
             {
                 if (dataTable.Rows.Count == 1)//如果返回一个结果
                 {
@@ -170,7 +170,7 @@ namespace Dal
                 new SqlParameter("@userName",userName),
             };
             //将返回的结果保存在datatable中
-            using (DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text))
+            using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
             {
                 if (dataTable.Rows.Count >= 1)//返回结果不止一个
                 {

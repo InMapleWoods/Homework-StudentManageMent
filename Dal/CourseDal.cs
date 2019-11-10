@@ -30,17 +30,35 @@ namespace Dal
         }
 
         /// <summary>
+        /// 获取学生未选课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        public DataTable GetStudentNoChooseCourse(string Id, int index, int size)
+        {
+            string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Users.Name 教师名称 from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_Grade.CId from tb_Grade where tb_Grade.SId = @Id and tb_Grade.EId = 0) order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            SqlParameter[] para = new SqlParameter[] {
+                new SqlParameter("@id",Id),
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+            };
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, para, CommandType.Text);
+            return dataTable;
+        }
+
+        /// <summary>
         /// 获取学生已选课程
         /// </summary>
         /// <returns>全部课程数据表</returns>
-        public DataTable GetStudentAllCourse(string Id)
+        public DataTable GetStudentAllCourse(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名  from tb_Course inner join tb_Grade on tb_Grade.SId=@id  and tb_Grade.CId=tb_Course.Id";
+            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
             };
-            DataTable dataTable = helper.ExcuteQuery(sqlstr, paras, CommandType.Text);
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);
             return dataTable;
         }
         /// <summary>
@@ -76,24 +94,19 @@ namespace Dal
         /// <returns>选课成功与否</returns>
         public bool ChooseCourse(string UserId, string CourseId)
         {
-            int num = helper.sqlNum("tb_Course Where Id='" + CourseId + "'");
-            if (num == 0)
-            {
-                throw new Exception("该课程不存在");
-            }
-            num = helper.sqlNum("tb_Grade Where CId='" + CourseId + "' and SId='" + UserId + "'");
-            if (num != 0)
-            {
-                throw new Exception("重复选课");
-            }
-            string sqlstr = "INSERT INTO tb_Grade(CId,SId) VALUES(@cid,@sid)";
+            string sqlstr = "StudentChooseCourse";
             //储存Datatable
             SqlParameter[] para1 = new SqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@cid",CourseId),
-                new SqlParameter("@sid",UserId),
+                new SqlParameter("@courseId",CourseId),
+                new SqlParameter("@userId",UserId),
+                new SqlParameter("@result",SqlDbType.VarChar,30),
             };
-            int count = helper.ExecuteNonQuery(sqlstr, para1, CommandType.Text);
+            para1[2].Direction = ParameterDirection.Output;
+            int count = helper.ExecuteNonQuery(sqlstr, para1, CommandType.StoredProcedure);
+            string result = para1[2].Value.ToString();
+            if (result != "")
+                throw new Exception(result);
             if (count > 0)
             {
                 return true;
@@ -165,7 +178,7 @@ namespace Dal
                 new SqlParameter("@size",size),
                 new SqlParameter("@option","GetPaperCourse"),
             };
-            DataTable dataTable = helper.ExcuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 
@@ -177,6 +190,36 @@ namespace Dal
         public int GetAllPageNum(int size)
         {
             int num = helper.sqlNum("tb_Course");
+            num = num / size + (num % size == 0 ? 0 : 1);
+            return num;
+        }
+        /// <summary>
+        /// 获取学生未选课程总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="Id">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetStudentNoChooseCoursePageNum(int size,string Id)
+        {
+            string str = "select count(*) as Count from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_Grade.CId from tb_Grade where tb_Grade.SId = @Id and tb_Grade.EId = 0)";
+            DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
+            DataRow dr = dataTable.Rows[0];
+            int num = (int)dr["Count"];
+            num = num / size + (num % size == 0 ? 0 : 1);
+            return num;
+        }
+        /// <summary>
+        /// 获取学生已选课程总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="Id">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetStudentAllCoursePageNum(int size, string Id)
+        {
+            string str = "select count(*) as Count from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id";
+            DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
+            DataRow dr = dataTable.Rows[0];
+            int num = (int)dr["Count"];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
