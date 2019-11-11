@@ -129,13 +129,18 @@ namespace Dal
         /// <returns>删除成功与否</returns>
         public bool DeleteStudentCourse(string UserId, string CourseId)
         {
-            string sqlStr = "Delete from tb_Grade where CId=@cid and SId=@sid";
+            string sqlStr = "StudentDeleteChosenCourse";
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
                 new SqlParameter("@cid",CourseId),
                 new SqlParameter("@sid",UserId),
+                new SqlParameter("result",SqlDbType.Int)
             };
-            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
+            para[2].Direction = ParameterDirection.ReturnValue;
+            int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
+            int result = (int)para[2].Value;
+            if (result == -2)
+                throw new Exception("选课功能被关闭");
             if (count > 0)
             {
                 return true;
