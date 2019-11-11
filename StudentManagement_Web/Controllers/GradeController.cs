@@ -18,14 +18,17 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 获取学生成绩
         /// </summary>
+        /// <param name="id">学生Id</param>
+        /// <param name="courseId">课程Id</param>
+        /// <param name="examId">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        //GET: api/Grade/GetStudentGradeArray/{Id}
-        [HttpGet("{id}", Name = "GetStudentGradeArray")]
-        public IActionResult GetStudentGradeArray(string Id)
+        //GET: api/ApiGrade/GetStudentGradeArray/{id}?courseId={courseId}&examId={examId}
+        [HttpGet("GetStudentGradeArray/{id}")]
+        public IActionResult GetStudentGradeArray(string id, string courseId, string examId)
         {
             try
             {
-                return Ok(gradeBll.GetStudentGradeArray(Id));
+                return Ok(gradeBll.GetStudentGradeArray(id, courseId, examId));
             }
             catch (Exception ex)
             {
@@ -37,7 +40,7 @@ namespace StudentManagement_Web.Controllers
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        //GET: api/Grade/GetCourseGradeArray/{Id}
+        //GET: api/ApiGrade/GetCourseGradeArray/{Id}
         [HttpGet("{id}", Name = "GetCourseGradeArray")]
         public IActionResult GetCourseGradeArray(string Id)
         {
@@ -58,7 +61,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="studenid">学生Id</param>
         /// <param name="courseid">课程Id</param>
         /// <returns>修改是否成功</returns>
-        //PUT: api/Grade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
+        //PUT: api/ApiGrade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
         [HttpPut("ChangeCourseGrade")]
         public IActionResult ChangeCourseGrade(string score, string studenid, string courseid)
         {
@@ -78,7 +81,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="studenid">学生Id</param>
         /// <param name="examid">考试Id</param>
         /// <returns>修改是否成功</returns>
-        //PUT: api/Grade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
+        //PUT: api/ApiGrade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
         [HttpPut("ChangeCourseGrade")]
         public IActionResult ChangeExamGrade(string score, string studenid, string examid)
         {

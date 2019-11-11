@@ -19,46 +19,32 @@ namespace Bll
         /// <summary>
         /// 获取学生成绩
         /// </summary>
+        /// <param name="Id">学生Id</param>
+        /// <param name="courseId">课程Id</param>
+        /// <param name="examId">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public DataTable GetStudentGrade(string Id)
+        public IEnumerable GetStudentGradeArray(string Id, string courseId, string examId)
         {
-            DataTable dataTable = null;
+            List<string[]> result = new List<string[]>();
             try
             {
-                dataTable = gradeDal.GetStudentGrade(Id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message); throw e;
-            }
-            return dataTable;
-        }
-        /// <summary>
-        /// 获取学生成绩
-        /// </summary>
-        /// <returns>全部学生成绩数据表</returns>
-        public IEnumerable GetStudentGradeArray(string Id)
-        {
-            List<GradeObject> temp = null;
-            try
-            {
-                DataTable dataTable = gradeDal.GetStudentGrade(Id);
-                temp = new List<GradeObject>();
+                DataTable dataTable = gradeDal.GetStudentGrade(Id, courseId, examId);
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    string ExamName = dr["考试名"].ToString();
                     string CourseName = dr["课程名"].ToString();
-                    int Score = (int)dr["成绩"];
-                    GradeObject t = new GradeObject(CourseName, ExamName, Score);
-                    temp.Add(t);
+                    string ExamName = dr["考试名"].ToString();
+                    string Score = dr["成绩"].ToString();
+                    string[] t = new string[] { CourseName, ExamName, Score };
+                    result.Add(t);
                 }
-                return temp;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message); throw e;
             }
+            return result;
         }
+
         /// <summary>
         /// 教师获取学生成绩
         /// </summary>

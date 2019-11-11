@@ -22,15 +22,19 @@ namespace Dal
         /// 获取学生成绩
         /// </summary>
         /// <param name="Id">学生Id</param>
+        /// <param name="courseId">课程Id</param>
+        /// <param name="examId">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public DataTable GetStudentGrade(string Id)
+        public DataTable GetStudentGrade(string Id, string courseId, string examId)
         {
-            string sqlstr = "select tb_Course.Name as 课程名,tb_Examination.Name as 考试名,tb_Grade.Score as 成绩 from tb_Course,tb_Grade,tb_Examination where tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id and tb_Grade.EId=tb_Examination.Id and tb_Examination.CourseId=tb_Course.Id";//SQL执行字符串
+            string sqlstr = "GetStudentGrade";//SQL执行字符串
             SqlParameter[] para = new SqlParameter[]
             {
-                new SqlParameter("@id",Id),
+                new SqlParameter("@studentId",int.Parse(Id)),
+                new SqlParameter("@courseId",int.Parse(courseId)),
+                new SqlParameter("@examId",int.Parse(examId)),
             };
-            DataTable dataTable = helper.ExecuteQuery(sqlstr, para, CommandType.Text);//储存Datatable
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, para, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
         }
 

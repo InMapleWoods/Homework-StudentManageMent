@@ -51,7 +51,7 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetStudentAllCourse(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
+            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id and tb_Grade.EId = 0 order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),

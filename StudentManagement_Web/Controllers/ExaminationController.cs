@@ -80,7 +80,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="courseId">课程Id</param>
         /// <returns>符合条件的考试</returns>
         // GET: api/ApiExamination/GetExaminationByCourseId/5
-        [HttpGet("GetExaminationByCourseId/{id}")]
+        [HttpGet("GetExaminationByCourseId/{courseId}")]
         public IActionResult GetExaminationByCourseId(int courseId)
         {
             try
