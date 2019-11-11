@@ -45,10 +45,6 @@ namespace StudentManagement_Web.Controllers
                 User user = userBll.GetUserLogin(account);
                 if (user != null)
                     user.PassWord = "******";
-                if (result == true)
-                {
-                    SetCookies("User", JsonConvert.SerializeObject(new string[] { user.UserID.ToString(), user.UserName, user.Role.ToString(), user.Number }), 4320);
-                }
                 return Ok(result);
             }
             catch (Exception ex)

@@ -34,10 +34,6 @@ function onloadViewStudent(index, choose, userId) {
         onloadCourseView(index, userId);
     else if (choose == 2)
         onloadChooseCourseView(index, userId);
-    $('#StudentFrame_1').attr('src', '../Student/GetCourseView');
-    $('#StudentFrame_2').attr('src', '../Student/ChooseCourse');
-    $('#StudentFrame_3').attr('src', '../Student/GetGradeView');
-    $('#StudentFrame_4').attr('src', '../Student/GetExam');
 }
 
 function GetPageNumStudent(choose) {
@@ -69,6 +65,20 @@ function GetPageNumStudent(choose) {
             }
         });
     }
+    else if (choose == 3) {
+        $.ajax({
+            type: "Get",
+            url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum/' + Id + '?size=' + student_size,
+            success: function (data) {
+                student_page = data;
+                $("#page").text(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location.reload();
+            }
+        });
+    }
 }
 function onloadCourseView(index, userId) {
     $("#index").text(student_index);
@@ -78,11 +88,11 @@ function onloadCourseView(index, userId) {
         url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
         success: function (data) {
             var applyList = data;
-            $('#apply_list').html("");
+            $('#apply_list_student_1').html("");
             for (i = 0; i < applyList.length; i++) {
                 var Id = applyList[i][0];
                 var Name = applyList[i][1];
-                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + Name + "</td><td><button class='btn btn-block btn-danger' onclick=DeleteCourse('" + Id + "','" + userId + "')>删除已选课程</button></td></tr>");
+                $('#apply_list_student_1').append("<tr><td>" + Id + "</td><td>" + Name + "</td><td><button class='btn btn-block btn-danger' onclick=DeleteCourse('" + Id + "','" + userId + "')>删除已选课程</button></td></tr>");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -103,6 +113,7 @@ function DeleteCourse(courseId, studentId) {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);
+            onloadChooseCourseView(student_index, studentId);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);
@@ -119,12 +130,12 @@ function onloadChooseCourseView(index, userId) {
         url: '../api/ApiCourse/GetStudentNoChooseCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
         success: function (data) {
             var applyList = data;
-            $('#apply_list').html("");
+            $('#apply_list_student_2').html("");
             for (i = 0; i < applyList.length; i++) {
                 var Id = applyList[i][0];
                 var Name = applyList[i][1];
                 var TeacherName = applyList[i][2];
-                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + Name + "</td><td>" + TeacherName + "</td><td><button class='btn btn-block btn-danger' onclick=ChooseCourse('" + Id + "','" + userId + "')>选择</button></td></tr>");
+                $('#apply_list_student_2').append("<tr><td>" + Id + "</td><td>" + Name + "</td><td>" + TeacherName + "</td><td><button class='btn btn-block btn-danger' onclick=ChooseCourse('" + Id + "','" + userId + "')>选择</button></td></tr>");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -146,6 +157,7 @@ function ChooseCourse(courseId, studentId) {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);
+            onloadCourseView(student_index, studentId);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             ajaxError(XMLHttpRequest, textStatus);

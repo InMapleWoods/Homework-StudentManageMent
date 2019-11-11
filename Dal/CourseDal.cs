@@ -96,15 +96,20 @@ namespace Dal
         {
             string sqlstr = "StudentChooseCourse";
             //储存Datatable
-            SqlParameter[] para1 = new SqlParameter[]//存储相应参数的容器
+            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@courseId",CourseId),
-                new SqlParameter("@userId",UserId),
+                new SqlParameter("@courseId",int.Parse(CourseId)),
+                new SqlParameter("@userId",int.Parse(UserId)),
                 new SqlParameter("@result",SqlDbType.VarChar,30),
+                new SqlParameter("returnValue",SqlDbType.Int,4),
             };
-            para1[2].Direction = ParameterDirection.Output;
-            int count = helper.ExecuteNonQuery(sqlstr, para1, CommandType.StoredProcedure);
-            string result = para1[2].Value.ToString();
+            para[2].Direction = ParameterDirection.Output;
+            para[3].Direction = ParameterDirection.ReturnValue;
+            int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.StoredProcedure);
+            string result = para[2].Value.ToString();
+            int resultcount = (int)para[3].Value;
+            if (resultcount == -2)
+                throw new Exception("选课功能被关闭");
             if (result != "")
                 throw new Exception(result);
             if (count > 0)

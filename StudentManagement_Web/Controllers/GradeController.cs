@@ -25,7 +25,7 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                return Ok(GetStudentGradeArray(Id));
+                return Ok(gradeBll.GetStudentGradeArray(Id));
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                return Ok(GetCourseGradeArray(Id));
+                return Ok(gradeBll.GetCourseGradeArray(Id));
             }
             catch (Exception ex)
             {

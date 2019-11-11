@@ -26,7 +26,7 @@ namespace StudentManagement_Web.Middleware
             string sourceUrl = httpContext.Request.Path;
             string Pattern = "/Welcome/(.*)";
             Match resultGet = Regex.Match(sourceUrl, Pattern);
-            if ((resultGet.Groups.Count >= 2)||(sourceUrl=="/Welcome"))
+            if ((resultGet.Groups.Count >= 2) || (sourceUrl == "/Welcome"))
             {
                 sourceUrl = resultGet.Groups[1].Value.ToString();
                 string user = GetCookies("User", httpContext);
@@ -36,36 +36,43 @@ namespace StudentManagement_Web.Middleware
                     DeleteCookies("islogin", httpContext);
                     httpContext.Response.Redirect("/");
                 }
-                JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
-                string userrole = (string)userinfo.SelectToken("Role");
-                int role = int.Parse(userrole);
-                switch (role)
+                try
                 {
-                    case 0:
-                        if (sourceUrl != "Index")
-                        {
-                            httpContext.Response.Redirect("/Welcome/");
-                        }
-                        break;
-                    case 1:
-                        if (sourceUrl != "Student")
-                        {
-                            httpContext.Response.Redirect("/Welcome/Student");
-                        }
-                        break;
-                    case 2:
-                        if (sourceUrl != "Teacher")
-                        {
-                            httpContext.Response.Redirect("/Welcome/Teacher");
-                        }
-                        break;
-                    case 3:
-                        if (sourceUrl != "Administrator")
-                        {
-                            httpContext.Response.Redirect("/Welcome/Administrator");
-                        }
-                        break;
-                    default: break;
+                    JObject userinfo = (JObject)JsonConvert.DeserializeObject(user);
+                    string userrole = (string)userinfo.SelectToken("Role");
+                    int role = int.Parse(userrole);
+                    switch (role)
+                    {
+                        case 0:
+                            if (sourceUrl != "Index")
+                            {
+                                httpContext.Response.Redirect("/Welcome/");
+                            }
+                            break;
+                        case 1:
+                            if (sourceUrl != "Student")
+                            {
+                                httpContext.Response.Redirect("/Welcome/Student");
+                            }
+                            break;
+                        case 2:
+                            if (sourceUrl != "Teacher")
+                            {
+                                httpContext.Response.Redirect("/Welcome/Teacher");
+                            }
+                            break;
+                        case 3:
+                            if (sourceUrl != "Administrator")
+                            {
+                                httpContext.Response.Redirect("/Welcome/Administrator");
+                            }
+                            break;
+                        default: break;
+                    }
+                }
+                catch
+                {
+                    DeleteCookies("islogin", httpContext);
                 }
             }
             return _next(httpContext);

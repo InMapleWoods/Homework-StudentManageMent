@@ -37,7 +37,6 @@ namespace StudentManagement_Web
             app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();

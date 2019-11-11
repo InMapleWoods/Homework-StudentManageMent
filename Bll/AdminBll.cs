@@ -241,6 +241,10 @@ namespace Bll
             {
                 return ReverseRegisterOpenState();
             }
+            else if(name== "CourseChooseOpenState")
+            {
+                return ReverseCourseChooseOpenState();
+            }
             return "";
         }
 
@@ -254,6 +258,21 @@ namespace Bll
             try
             {
                 result = adminDal.ReverseRegisterOpenState();
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+
+        /// <summary>
+        /// 更改是否开启选课功能
+        /// </summary>
+        /// <returns>更改结果</returns>
+        public string ReverseCourseChooseOpenState()
+        {
+            string result;
+            try
+            {
+                result = adminDal.ReverseCourseChooseOpenState();
             }
             catch (Exception e) { Console.WriteLine(e.Message); throw e; }
             return result;

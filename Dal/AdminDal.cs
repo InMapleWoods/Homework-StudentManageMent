@@ -251,5 +251,33 @@ namespace Dal
                 }
             }
         }
+        /// <summary>
+        /// 更改是否开启选课功能
+        /// </summary>
+        /// <returns>更改结果</returns>
+        public string ReverseCourseChooseOpenState()
+        {
+            string str = "ReverseCourseChooseOpenState";
+            SqlParameter[] para = new SqlParameter[] {
+                new SqlParameter("result",SqlDbType.VarChar,20)
+            };
+            para[0].Direction = ParameterDirection.Output;
+            using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.StoredProcedure))
+            {
+                string result = para[0].Value.ToString();
+                if (result == "OpenStateBecomeFalse")
+                {
+                    return "选课功能关闭";
+                }
+                else if (result == "OpenStateBecomeTrue")
+                {
+                    return "选课功能开启";
+                }
+                else
+                {
+                    return "状态更改失败";
+                }
+            }
+        }
     }
 }

@@ -431,6 +431,10 @@ function onloadSettingsView(index) {
                         Name = '注册功能是否开启';
                         Value = 'true' == SettingValue ?"已开启":"已关闭";
                     }
+                    else if (SettingName == 'CourseChooseOpenState') {
+                        Name = '选课功能是否开启';
+                        Value = 'true' == SettingValue ?"已开启":"已关闭";
+                    }
                     $('#settingList').append("<div class='col-6'>" + Name + "</div><div class='col-6'>" + Value + "</div><div class='col-12'><button class='btn btn-block btn-info' onclick=updateSettings('" + SettingName + "','" + SettingValue + "')>修改</button></div></div>");
                 }
             }

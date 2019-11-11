@@ -105,8 +105,8 @@ function LoginWithValidate() {
                         deleteCookie('times');
                         var UserArray = {
                             'UserID': t.userID,
-                            'UserName': t.userName,
                             'Role': t.role,
+                            'UserName': t.userName,
                             'Number': t.number
                         };
                         alert(UserRoleArray[t.role - 1] + "你好，欢迎登录");
