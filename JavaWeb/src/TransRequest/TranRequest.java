@@ -17,9 +17,9 @@ public class TranRequest {
         InputStream inputStream;
         int statusCode = connection.getResponseCode();
         if (statusCode >= 200 && statusCode < 300) {
-            inputStream = connection.getErrorStream();
-        } else {
             inputStream = connection.getInputStream();
+        } else {
+            inputStream = connection.getErrorStream();
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
@@ -31,7 +31,7 @@ public class TranRequest {
             }
             String result = sb.toString();
             response.setCharacterEncoding("unicode");
-            if (statusCode >= 200 && statusCode < 300) {
+            if (statusCode < 200 || statusCode >= 300) {
                 response.setStatus(404);
             }
             response.getWriter().append(result);
@@ -53,9 +53,9 @@ public class TranRequest {
         InputStream inputStream;
         int statusCode = connection.getResponseCode();
         if (statusCode >= 200 && statusCode < 300) {
-            inputStream = connection.getErrorStream();
-        } else {
             inputStream = connection.getInputStream();
+        } else {
+            inputStream = connection.getErrorStream();
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
@@ -67,7 +67,7 @@ public class TranRequest {
             }
             String result = sb.toString();
             response.setCharacterEncoding("unicode");
-            if (statusCode >= 200 && statusCode < 300) {
+            if (statusCode < 200 || statusCode >= 300) {
                 response.setStatus(404);
             }
             response.getWriter().append(result);

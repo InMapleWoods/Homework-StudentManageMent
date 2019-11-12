@@ -1,11 +1,14 @@
 package Login;
 
+import Bll.UserBll;
+import Model.User;
 import TransRequest.TranRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +42,7 @@ public class ApiLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         // TODO Auto-generated method stub
         StringBuffer json = new StringBuffer();
         String lineString = null;
@@ -66,7 +70,17 @@ public class ApiLogin extends HttpServlet {
         } else {
             System.out.println("NO MATCH");
         }
-        transRequest.PostRequest(response, jsonresult, new URL("http://152.136.73.240:7723/api/ApiLogin/Login"));
+        User user = new User();
+        UserBll userBll = new UserBll();
+        try {
+            response.setCharacterEncoding("unicode");
+            boolean result = userBll.Login(account, password, user);
+            response.getWriter().println(String.valueOf(result));
+            session.setAttribute("User", user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //transRequest.PostRequest(response, jsonresult, new URL("http://152.136.73.240:7723/api/ApiLogin/Login"));
     }
 
 
