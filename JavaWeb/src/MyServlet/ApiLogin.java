@@ -3,6 +3,8 @@ package Login;
 import Bll.UserBll;
 import Model.User;
 import TransRequest.TranRequest;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import jdk.nashorn.internal.parser.JSONParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ApiLogin extends HttpServlet {
-    TranRequest transRequest =new TranRequest();
+    TranRequest transRequest = new TranRequest();
+
     public ApiLogin() {
         super();
         // TODO Auto-generated constructor stub
@@ -31,8 +34,18 @@ public class ApiLogin extends HttpServlet {
         // TODO Auto-generated method stub
 
         String account = request.getParameter("account");
-        URL url = new URL("http://152.136.73.240:7723/api/ApiLogin?account=" + account);
-        transRequest.GetRequest(response, url);
+        UserBll userBll=new UserBll();
+        try {
+            User user=userBll.GetAccountisExist(account);
+            response.setCharacterEncoding("unicode");
+            response.getWriter().append(String.valueOf(user));
+        } catch (Exception e) {
+            response.setStatus(404);
+            response.getWriter().append(e.getMessage());
+            e.printStackTrace();
+        }
+        //URL url = new URL("http://152.136.73.240:7723/api/ApiLogin?account=" + account);
+        //transRequest.GetRequest(response, url);
     }
 
     /**
@@ -78,11 +91,12 @@ public class ApiLogin extends HttpServlet {
             response.getWriter().println(String.valueOf(result));
             session.setAttribute("User", user);
         } catch (Exception e) {
+            response.setStatus(404);
+            response.getWriter().append(e.getMessage());
             e.printStackTrace();
         }
         //transRequest.PostRequest(response, jsonresult, new URL("http://152.136.73.240:7723/api/ApiLogin/Login"));
     }
-
 
 
 }

@@ -1,6 +1,7 @@
 package Login;
 
 import TransRequest.TranRequest;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,8 @@ import java.net.URL;
 
 public class Validate extends HttpServlet {
 
-    TranRequest transRequest =new TranRequest();
+    TranRequest transRequest = new TranRequest();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,7 +29,7 @@ public class Validate extends HttpServlet {
         // TODO Auto-generated method stub
         // TODO Auto-generated method stub
         URL url = new URL("http://152.136.73.240:7723/api/ApiLogin/validate");
-        transRequest.GetRequest(response,url);
+        transRequest.GetRequest(response, url);
     }
 
 }

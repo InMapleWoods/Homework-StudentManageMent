@@ -1,0 +1,155 @@
+﻿#userName{
+    width:200px;
+}
+
+.HeaderDiv {
+    width: -webkit-fill-available;
+}
+
+@media (min-width: 0px) {
+    .HeaderDiv {
+        height: 50px;
+    }
+}
+
+@media (min-width: 530px) {
+    .HeaderDiv {
+        height: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    .HeaderDiv {
+        height: 150px;
+    }
+}
+
+.logobg {
+    display: contents;
+}
+
+    .logobg a {
+        margin: 0 auto;
+        text-align: center;
+        background-image: url('../images/logo.png');
+        background-repeat: no-repeat;
+        display: flex;
+        color: #fbfaf5;
+        width: 520px;
+        line-height: 80px;
+        text-indent: -9999px;
+    }
+
+        .logobg a:hover {
+            opacity: 0.7;
+        }
+
+.divtrans {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+    .divtrans button {
+        display: block;
+        margin: auto;
+    }
+
+@media (min-width: 0px) {
+    .logobg {
+        vertical-align: auto;
+        text-align: center;
+        margin: auto;
+    }
+
+        .logobg a {
+            display: block;
+            background: none;
+            background-repeat: no-repeat;
+            line-height:;
+            text-indent: 0px;
+            width: auto;
+        }
+
+    #big_op {
+        display: none;
+        margin: auto;
+    }
+
+    #small_op {
+        display: flex;
+        text-align: center;
+    }
+}
+
+@media (min-width: 350px) {
+    .logobg a {
+        background: url(../images/logo_small.png);
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        text-align: center;
+        width: 100%;
+        background-size: contain;
+        line-height: 80px;
+        text-indent: -9999px;
+    }
+
+    #big_op {
+        display: none;
+        margin: auto;
+    }
+
+    #small_op {
+        display: flex;
+        text-align: center;
+    }
+}
+
+@media (min-width: 605px) {
+    .logobg a {
+        background: url(../images/logo.png);
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        text-align: center;
+        width: 470px;
+        background-size: 470px;
+    }
+
+    #small_op {
+        display: none;
+    }
+
+    #big_op {
+        display: flex;
+        text-align: center;
+        margin: auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .logobg a {
+        background: url(../images/logo_big.png);
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        color: #fbfaf5;
+        height: 110px;
+        width: 620px;
+        line-height: 80px;
+        text-indent: -9999px;
+    }
+
+    .navbar-nav {
+        float: right;
+    }
+
+    #small_op {
+        display: none;
+    }
+
+    #big_op {
+        display: flex;
+        text-align: center;
+        margin: auto;
+    }
+}

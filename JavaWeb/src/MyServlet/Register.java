@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Register extends HttpServlet {
-    TranRequest transRequest =new TranRequest();
+    TranRequest transRequest = new TranRequest();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,6 +28,6 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         String jsonresult = request.getQueryString();
         URL url = new URL("http://152.136.73.240:7723/api/ApiLogin/Register?" + jsonresult);
-        transRequest.PostRequest(response,"",url);
+        transRequest.PostRequest(response, "", url);
     }
 }
