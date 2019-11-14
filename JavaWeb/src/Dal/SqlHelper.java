@@ -19,13 +19,22 @@ public class SqlHelper {
     }
 
 
-    public ResultSet ExecuteQuery(String cmdText, String[] parameter) {
+    public ResultSet ExecuteQuery(String cmdText, Object[] parameter) {
         ResultSet resultSet = null;
         try {
             PreparedStatement ps = ct.prepareStatement(cmdText, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             int paraCount = parameter.length;
-            for (int i = 1; i <= paraCount; i++)
-                ps.setString(i, parameter[i - 1]);
+            for (int i = 1; i <= paraCount; i++) {
+                String type = parameter[i-1].getClass().getName();
+                switch (type) {
+                    case "java.lang.String":
+                        ps.setString(i, (String) parameter[i-1]);
+                        break;
+                    case "java.lang.Integer":
+                        ps.setInt(i, (int) parameter[i-1]);
+                        break;
+                }
+            }
             resultSet = ps.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,13 +42,19 @@ public class SqlHelper {
         return resultSet;
     }
 
-    public int ExecuteNonQuery(String cmdText, String[] parameter) throws SQLException {
+    public int ExecuteNonQuery(String cmdText, Object[] parameter) throws SQLException {
         int result = -1;
         try {
             PreparedStatement ps = ct.prepareStatement(cmdText, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             int paraCount = parameter.length;
-            for (int i = 0; i < paraCount; i++)
-                ps.setString(i, parameter[i]);
+            for (int i = 1; i <= paraCount; i++) {
+                String type = parameter[i-1].getClass().getName();
+                switch (type) {
+                    case "String":
+                        ps.setString(i, (String) parameter[i-1]);
+                        break;
+                }
+            }
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

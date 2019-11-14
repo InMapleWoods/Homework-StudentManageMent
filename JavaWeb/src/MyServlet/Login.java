@@ -1,4 +1,4 @@
-package Login;
+package MyServlet;
 
 import Bll.UserBll;
 import Model.User;
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/Login", name = "登录页面")
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -21,7 +20,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         UserBll userBll = new UserBll();
         User user = null;
-        response.setCharacterEncoding("unicode");
+        response.setCharacterEncoding("UTF-8");
         try {
             boolean result = userBll.Login(account, password, user);
             response.getWriter().append(String.valueOf(result));

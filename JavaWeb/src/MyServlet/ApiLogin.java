@@ -1,10 +1,8 @@
-package Login;
+package MyServlet;
 
 import Bll.UserBll;
 import Model.User;
-import TransRequest.TranRequest;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
-import jdk.nashorn.internal.parser.JSONParser;
+import Tools.TranRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +34,6 @@ public class ApiLogin extends HttpServlet {
         UserBll userBll=new UserBll();
         try {
             User user=userBll.GetAccountisExist(account);
-            response.setCharacterEncoding("unicode");
             response.getWriter().append(String.valueOf(user));
         } catch (Exception e) {
             response.setStatus(404);
@@ -86,7 +82,6 @@ public class ApiLogin extends HttpServlet {
         User user = new User();
         UserBll userBll = new UserBll();
         try {
-            response.setCharacterEncoding("unicode");
             boolean result = userBll.Login(account, password, user);
             response.getWriter().println(String.valueOf(result));
             session.setAttribute("User", user);

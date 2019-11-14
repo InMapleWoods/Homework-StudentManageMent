@@ -25,13 +25,15 @@ public class CourseNoChoose extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
+        int index = Integer.parseInt(request.getParameter("index"));
+        int size = Integer.parseInt(request.getParameter("size"));
         String result= null;
         try {
-            result = courseBll.GetStudentNoChooseCourse("320",1,100);
+            result = courseBll.GetStudentNoChooseCourse(id,index,size);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        response.setCharacterEncoding("unicode");
         response.getWriter().append(result);
         //URL url = new URL("http://152.136.73.240:7723/api/ApiLogin?account=" + account);
         //transRequest.GetRequest(response, url);

@@ -1,13 +1,23 @@
-@javax.servlet.annotation.WebFilter(filterName = "EncodeFilter")
-public class EncodeFilter implements javax.servlet.Filter {
+package MyFilter;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import java.io.IOException;
+
+@WebFilter(filterName = "EncodeFilter")
+public class EncodeFilter implements Filter {
     public void destroy() {
     }
 
-    public void doFilter(javax.servlet.ServletRequest req, javax.servlet.ServletResponse resp, javax.servlet.FilterChain chain) throws javax.servlet.ServletException, java.io.IOException {
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+        req.setCharacterEncoding("unicode");
+        resp.setCharacterEncoding("unicode");
         chain.doFilter(req, resp);
+        req.setCharacterEncoding("unicode");
+        resp.setCharacterEncoding("unicode");
     }
 
-    public void init(javax.servlet.FilterConfig config) throws javax.servlet.ServletException {
+    public void init(FilterConfig config) throws ServletException {
 
     }
 

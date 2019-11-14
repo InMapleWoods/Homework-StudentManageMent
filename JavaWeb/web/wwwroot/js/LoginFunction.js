@@ -96,8 +96,9 @@ function LoginWithValidate() {
             $.ajax({
                 type: "post",
                 accepts: "application/json",
+
                 url: "../api/ApiLogin",
-                contentType: "application/json",
+                contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(list),
                 success: function (data) {
                     data = eval(data);
@@ -106,7 +107,7 @@ function LoginWithValidate() {
                         deleteCookie('times');
                         var UserArray = {
                             'UserID': t.userID,
-                            'UserName': t.userName,
+                            'UserName': escape(t.userName),
                             'Role': t.role,
                             'Number': t.number
                         };

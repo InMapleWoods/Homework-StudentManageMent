@@ -1,6 +1,6 @@
-package Login;
+package MyServlet;
 
-import TransRequest.TranRequest;
+import Tools.TranRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

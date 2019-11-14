@@ -6,9 +6,17 @@
     <welcome-file-list>
         <welcome-file>Login.html</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>编码</filter-name>
+        <filter-class>MyFilter.EncodeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>编码</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>登录</servlet-name>
-        <servlet-class>Login.ApiLogin</servlet-class>
+        <servlet-class>MyServlet.ApiLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>登录</servlet-name>
@@ -16,7 +24,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>登录页面</servlet-name>
-        <servlet-class>Login.Login</servlet-class>
+        <servlet-class>MyServlet.Login</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>登录页面</servlet-name>
@@ -24,7 +32,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>注册</servlet-name>
-        <servlet-class>Login.Register</servlet-class>
+        <servlet-class>MyServlet.Register</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>注册</servlet-name>
@@ -32,10 +40,34 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>验证码</servlet-name>
-        <servlet-class>Login.Validate</servlet-class>
+        <servlet-class>MyServlet.Validate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>验证码</servlet-name>
         <url-pattern>/api/ApiLogin/Validate</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>获取选课课程</servlet-name>
+        <servlet-class>MyServlet.CourseChosen</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>获取选课课程</servlet-name>
+        <url-pattern>/api/ApiCourse/ChosenCourse</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>获取未选课课程</servlet-name>
+        <servlet-class>MyServlet.CourseNoChoose</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>获取未选课课程</servlet-name>
+        <url-pattern>/api/ApiCourse/NoChooseCourse</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>欢迎页面</servlet-name>
+        <servlet-class>MyServlet.Welcome</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>欢迎页面</servlet-name>
+        <url-pattern>/Welcome</url-pattern>
     </servlet-mapping>
 </web-app>
