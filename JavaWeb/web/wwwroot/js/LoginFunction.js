@@ -1,7 +1,7 @@
 ﻿var validatestring = "";
 window.onload = function () {
     if (getCookie('islogin') == 'true') {
-        // location.reload();
+         location='../Welcome';
     } else {
         if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
             if (getCookie('times') >= 5) {
@@ -98,7 +98,7 @@ function LoginWithValidate() {
                 accepts: "application/json",
 
                 url: "../api/ApiLogin",
-                contentType: "application/json;charset=utf-8",
+                contentType: "application/json;",
                 data: JSON.stringify(list),
                 success: function (data) {
                     data = eval(data);
@@ -114,7 +114,7 @@ function LoginWithValidate() {
                         alert(UserRoleArray[t.role - 1] + "你好，欢迎登录");
                         resetJSONCookieExpires('User', UserArray, 3);
                         resetCookieExpires('islogin', 'true', 3);
-                        //    location.reload();
+                        location='../Welcome';
                     } else {
                         resetCookie('times', temp);
                         alert('登录失败');

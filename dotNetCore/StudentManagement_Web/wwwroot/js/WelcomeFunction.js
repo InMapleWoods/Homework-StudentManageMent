@@ -103,7 +103,7 @@ function UserName() {
             Name = t.userName;
             var UserArray = {
                 'UserID': t.userID,
-                'UserName': t.userName,
+                'UserName': escape(t.userName),
                 'Role': t.role,
                 'Number': t.number
             };

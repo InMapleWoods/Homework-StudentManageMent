@@ -17,35 +17,41 @@
 <div class="HeaderDiv"></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3">
+        <div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3">
             <div class="TipFont">
                 请先登录！！!
             </div>
             <div class="input-group">
-                <span class="input-group-addon">账号：&nbsp;</span>
-                <input class="form-control" id="txtAccount" type="text"/>
+                <div class="input-group-append">
+                    <span class="input-group-text">账号：</span>
+                </div>
+                <input type="text" class="form-control" id="txtAccount" />
             </div>
             <div class="input-group">
-                <span class="input-group-addon">密码：&nbsp;</span>
-                <input class="form-control" id="txtPwd" type="password"/>
+                <div class="input-group-append">
+                    <span class="input-group-text">密码：</span>
+                </div>
+                <input type="password" class="form-control" id="txtPwd" />
             </div>
         </div>
         <div class="col-md-2 col-sm-2"></div>
-        <div class="col-xs-12 col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3" id="ValidateNum1" style="display:none">
+        <div id="ValidateNum1" class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" style="display:none">
             <div class="input-group">
-                <span class="input-group-addon">验证码:</span>
-                <input class="form-control" id="txtValidateNum" type="text"/>
+                <div class="input-group-append">
+                    <span class="input-group-text">验证码:</span>
+                </div>
+                <input type="text" class="form-control" id="txtValidateNum" />
             </div>
         </div>
-        <div class="col-xs-12 col-md-4 col-sm-4" id="ValidateNum2" style="display:none">
+        <div id="ValidateNum2" class="col-xs-12 col-md-4 col-sm-4" style="display:none">
             <p>
-                <img id="NumImage" onclick="getRandom()" src="#" style="height: 100%;"/> 请输入图片中验证码！
+                <img style="height: 100%;" onclick="getRandom()" id="NumImage" src="#" /> 请输入图片中验证码！
             </p>
         </div>
-        <div class="col-xs-12 col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3 text-center">
+        <div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3 text-center">
             <div class="btn-group">
-                <input class='btn btn-success' id="btnLogin" onclick="Login()" type="button" value="登录"/>
-                <input class="btn btn-success" id="btnRegister" onclick="Register()" type="button" value="注册"/>
+                <input type="button" id="btnLogin" class='btn btn-success' onclick="Login()" value="登录" />
+                <input type="button" id="btnRegister" class="btn btn-success" onclick="Register()" value="注册" />
             </div>
         </div>
         <div class="col-md-2 col-sm-2"></div>

@@ -33,6 +33,10 @@ public class SqlHelper {
                     case "java.lang.Integer":
                         ps.setInt(i, (int) parameter[i-1]);
                         break;
+                    case "java.lang.Boolean":
+                        ps.setBoolean(i, (boolean) parameter[i-1]);
+                        break;
+                    default:break;
                 }
             }
             resultSet = ps.executeQuery();

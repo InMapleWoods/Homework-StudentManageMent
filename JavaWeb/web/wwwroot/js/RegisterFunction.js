@@ -79,12 +79,12 @@ function Register() {
                     location = '../';
                 } else {
                     alert('注册失败');
-                    location = '../Login/Register';
+                    location = '../Login/Register.html';
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 ajaxError(XMLHttpRequest, textStatus);
-                location = '../Login/Register';
+                location = '../Login/Register.html';
             }
         });
     }

@@ -28,31 +28,31 @@
     display: contents;
 }
 
-    .logobg a {
-        margin: 0 auto;
-        text-align: center;
-        background-image: url('../images/logo.png');
-        background-repeat: no-repeat;
-        display: flex;
-        color: #fbfaf5;
-        width: 520px;
-        line-height: 80px;
-        text-indent: -9999px;
-    }
+.logobg a {
+    margin: 0 auto;
+    text-align: center;
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    display: flex;
+    color: #fbfaf5;
+    width: 520px;
+    line-height: 80px;
+    text-indent: -9999px;
+}
 
-        .logobg a:hover {
-            opacity: 0.7;
-        }
+.logobg a:hover {
+    opacity: 0.7;
+}
 
 .divtrans {
     background-color: transparent;
     border-color: transparent;
 }
 
-    .divtrans button {
-        display: block;
-        margin: auto;
-    }
+.divtrans button {
+    display: block;
+    margin: auto;
+}
 
 @media (min-width: 0px) {
     .logobg {
@@ -61,13 +61,13 @@
         margin: auto;
     }
 
-        .logobg a {
-            display: block;
-            background: none;
-            background-repeat: no-repeat;
-            text-indent: 0px;
-            width: auto;
-        }
+    .logobg a {
+        display: block;
+        background: none;
+        background-repeat: no-repeat;
+        text-indent: 0px;
+        width: auto;
+    }
 
     #big_op {
         display: none;

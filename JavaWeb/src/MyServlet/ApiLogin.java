@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,18 +23,31 @@ public class ApiLogin extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        String baseUri = request.getRequestURI();//这个位置进行url判别，看到底是请求什么功能的
+        if (baseUri.endsWith("/Validate")) {
+            GetValidate(response);
+            return;
+        }
+        if (baseUri.endsWith("")) {
+            GetLoginUser(request, response);
+            return;
+        }
+
+        //请求了一个没有的接口，返回404
+        response.getWriter().println("Error: 404");
+        response.getWriter().flush();
+        return;
+    }
+
+    private void GetLoginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String account = request.getParameter("account");
-        UserBll userBll=new UserBll();
+        UserBll userBll = new UserBll();
+        response.setCharacterEncoding("unicode");
         try {
-            User user=userBll.GetAccountisExist(account);
+            User user = userBll.GetAccountisExist(account);
             response.getWriter().append(String.valueOf(user));
         } catch (Exception e) {
             response.setStatus(404);
@@ -44,13 +58,28 @@ public class ApiLogin extends HttpServlet {
         //transRequest.GetRequest(response, url);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    private void GetValidate(HttpServletResponse response) throws IOException {
+        URL url = new URL("http://152.136.73.240:7723/api/ApiLogin/validate");
+        transRequest.GetRequest(response, url);
+    }
 
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String baseUri = request.getRequestURI();//这个位置进行url判别，看到底是请求什么功能的
+        if (baseUri.endsWith("/Register")) {
+            Register(request, response);
+            return;
+        }
+        if (baseUri.endsWith("")) {
+            LoginwithAcountandPassword(request, response);
+            return;
+        }
+        //请求了一个没有的接口，返回404
+        response.getWriter().println("Error: 404");
+        response.getWriter().flush();
+        return;
+    }
+
+    private void LoginwithAcountandPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         // TODO Auto-generated method stub
         StringBuffer json = new StringBuffer();
@@ -81,6 +110,7 @@ public class ApiLogin extends HttpServlet {
         }
         User user = new User();
         UserBll userBll = new UserBll();
+        response.setCharacterEncoding("unicode");
         try {
             boolean result = userBll.Login(account, password, user);
             response.getWriter().println(String.valueOf(result));
@@ -93,6 +123,11 @@ public class ApiLogin extends HttpServlet {
         //transRequest.PostRequest(response, jsonresult, new URL("http://152.136.73.240:7723/api/ApiLogin/Login"));
     }
 
+    private void Register(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String jsonresult = request.getQueryString();
+        URL url = new URL("http://152.136.73.240:7723/api/ApiLogin/Register?" + jsonresult);
+        transRequest.PostRequest(response, "", url);
+    }
 
 }
 

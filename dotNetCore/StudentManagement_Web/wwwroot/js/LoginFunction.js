@@ -106,7 +106,7 @@ function LoginWithValidate() {
                         var UserArray = {
                             'UserID': t.userID,
                             'Role': t.role,
-                            'UserName': t.userName,
+                            'UserName': escape(t.userName),
                             'Number': t.number
                         };
                         alert(UserRoleArray[t.role - 1] + "你好，欢迎登录");

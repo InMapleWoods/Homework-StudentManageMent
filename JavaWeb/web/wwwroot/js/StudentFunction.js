@@ -32,16 +32,10 @@ function onclickStudentTab(name) {
         return;
     }
     if (name == 'courseView') {
-        $('#StudentFrame').attr('src', '../Student/GetCourseView');
+        $('#StudentFrame').attr('src', '../Student/GetCourseView.html');
     }
     else if (name == 'chooseCourse') {
-        $('#StudentFrame').attr('src', '../Student/ChooseCourse');
-    }
-    else if (name == 'gradeView') {
-        $('#StudentFrame').attr('src', '../Student/GetGradeView');
-    }
-    else if (name == 'Exam') {
-        $('#StudentFrame').attr('src', '../Student/GetExam');
+        $('#StudentFrame').attr('src', '../Student/ChooseCourse.html');
     }
 }
 
@@ -53,18 +47,13 @@ function onloadViewStudent(index, choose, userId) {
         onloadCourseView(index, userId);
     else if (choose == 2)
         onloadChooseCourseView(index, userId);
-    else if (choose == 3) {
-        onloadCourseSelectList(userId);
-        onloadExamSelectList();
-        onloadGradeView();
-    }
 }
 
 function GetPageNumStudent(choose) {
     if (choose == 1) {
         $.ajax({
             type: "Get",
-            url: '../api/ApiCourse/GetStudentAllCoursePageNum/' + Id + '?size=' + student_size,
+            url: '../api/ApiCourse/GetStudentAllCoursePageNum?id=' + Id + '&size=' + student_size,
             success: function (data) {
                 student_page = data;
                 $("#page").text(data);
@@ -78,7 +67,7 @@ function GetPageNumStudent(choose) {
     else if (choose == 2) {
         $.ajax({
             type: "Get",
-            url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum/' + Id + '?size=' + student_size,
+            url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum?id=' + Id + '&size=' + student_size,
             success: function (data) {
                 student_page = data;
                 $("#page").text(data);
@@ -95,9 +84,9 @@ function onloadCourseView(index, userId) {
     $("#index").text(student_index);
     $.ajax({
         type: "Get",
-        url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
+        url: '../api/ApiCourse/ChosenCourse?id=' + userId + '&index=' + index + '&size=' + student_size,
         success: function (data) {
-            var applyList = data;
+            var applyList = eval(data);
             $('#apply_list_student_1').html("");
             for (i = 0; i < applyList.length; i++) {
                 var Id = applyList[i][0];
@@ -138,9 +127,9 @@ function onloadChooseCourseView(index, userId) {
     $("#index").text(student_index);
     $.ajax({
         type: "Get",
-        url: '../api/ApiCourse/GetStudentNoChooseCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
+        url: '../api/ApiCourse/NoChooseCourse?id=' + userId + '&index=' + index + '&size=' + student_size,
         success: function (data) {
-            var applyList = data;
+            var applyList = eval(data);
             $('#apply_list_student_2').html("");
             for (i = 0; i < applyList.length; i++) {
                 var Id = applyList[i][0];
@@ -178,82 +167,6 @@ function ChooseCourse(courseId, studentId) {
 
 }
 
-function onloadCourseSelectList(userId) {
-    $.ajax({
-        type: "Get",
-        url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=1&size=200',
-        success: function (data) {
-            var courselist = data;
-            $('#courseSelect').html("");
-            for (i = 0; i < courselist.length; i++) {
-                var Id = courselist[i][0];
-                var Name = courselist[i][1];
-                $('#courseSelect').append("<option value='" + Id + "'>" + Name + "</option>");
-            }
-            $("#courseSelect").val(courselist[0][0]);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            ajaxError(XMLHttpRequest, textStatus);
-            location.reload();
-        }
-    });
-}
-function onloadExamSelectList() {
-    var courseId = $("#courseSelect").val();
-    if ((courseId == '') || (courseId == null))
-        return;
-    $.ajax({
-        type: "Get",
-        url: '../api/ApiExamination/GetExaminationByCourseId/' + courseId,
-        success: function (data) {
-            var examlist = data;
-            $('#examSelect').html("<option value='0'>总成绩</option>");
-            for (i = 0; i < examlist.length; i++) {
-                var Id = examlist[i].id;
-                var Name = examlist[i].name;
-                $('#examSelect').append("<option value='" + Id + "'>" + Name + "</option>");
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            ajaxError(XMLHttpRequest, textStatus);
-            location.reload();
-        }
-
-    });
-}
-
-function onloadGradeView() {
-    var courseId = $("#courseSelect").val();
-    if ((courseId == '') || (courseId == null))
-        return;
-    var examId = $("#examSelect").val();
-    if ((examId == '') || (examId == '0') || examId == null) {
-        examId = '0';
-        $('#examName').text('总成绩');
-    }
-    else {
-        $('#examName').text('考试名称');
-    }
-    $.ajax({
-        type: "Get",
-        url: '../api/ApiGrade/GetStudentGradeArray/' + Id + '?courseId=' + courseId + '&examId=' + examId,
-        success: function (data) {
-            var applyList = data;
-            $('#apply_list_student_3').html("");
-            for (i = 0; i < applyList.length; i++) {
-                var CourseName = applyList[i][0];
-                var ExamName = applyList[i][1];
-                var Score = applyList[i][2];
-                $('#apply_list_student_3').append("<tr><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Score + "</td></tr>");
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            ajaxError(XMLHttpRequest, textStatus);
-            location.reload();
-        }
-    });
-}
-
 function LeftIndex() {
     if (student_index - 1 > 1)
         student_index = student_index - 1;
@@ -269,21 +182,3 @@ function RightIndex() {
         student_index = student_page;
     onloadViewStudent(student_index, dataTypeChoose, Id);
 }
-$(document).ready(function () {
-    $("#courseSelect").change(function () {
-        $("#examSelect").empty();
-        onloadExamSelectList();
-        onloadGradeView();
-    });
-    $("#examSelect").change(function () {
-        onloadGradeView();
-    });
-    $("#courseSelect").click(function () {
-        $("#examSelect").empty();
-        onloadExamSelectList();
-        onloadGradeView();
-    });
-    $("#examSelect").click(function () {
-        onloadGradeView();
-    });
-})

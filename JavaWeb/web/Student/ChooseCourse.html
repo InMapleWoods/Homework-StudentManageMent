@@ -1,0 +1,50 @@
+﻿<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="../wwwroot/lib/Bootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="../wwwroot/css/WelcomeView.css"/>
+    <script src="../wwwroot/lib/jQuery/jquery-3.3.1.js"></script>
+    <script src="../wwwroot/lib/Bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="../wwwroot/js/CookieAbout.js"></script>
+    <script type="text/javascript" src="../wwwroot/js/AjaxAbout.js"></script>
+    <script type="text/javascript" src="../wwwroot/js/StudentFunction.js"></script>
+
+</head>
+<script>
+
+    window.onload = function () {
+        var User = getJSONCookie('User');
+        var Id = User.UserID;
+        if (User.Role === 1) {
+            dataTypeChoose = 2;
+            onloadViewStudent(student_index, dataTypeChoose, Id);
+            GetPageNumStudent(dataTypeChoose, Id);
+        }
+    }
+
+</script>
+<body>
+<div>
+    <table id="apply_table" style="margin:auto;text-align:center">
+        <thead>
+        <tr>
+            <td>课程ID</td>
+            <td>课程名称</td>
+            <td>教师名称</td>
+            <td>选课</td>
+        </tr>
+        </thead>
+        <tbody id="apply_list_student_2">
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <div class="mr-auto">
+        <button class="btn btn-info" onclick="LeftIndex()">&lt;</button>
+        <label id="index">1</label>
+        <label id="split">/</label>
+        <label id="page">3</label>
+        <button class="btn btn-info" onclick="RightIndex()">&gt;</button>
+    </div>
+</div>
+</body>
