@@ -6,42 +6,18 @@
 <div>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-UserApply-tab" data-toggle="tab" href="#nav-ApplyTab" role="tab" aria-controls="nav-UserApply" aria-selected="true">用户申请</a>
-            <a class="nav-item nav-link" id="nav-ExamApply-tab" data-toggle="tab" href="#nav-ExamApply" role="tab" aria-controls="nav-ExamApply" aria-selected="false">考试申请</a>
-            <a class="nav-item nav-link" id="nav-Exam-tab" data-toggle="tab" href="#nav-Exam" role="tab" aria-controls="nav-Exam" aria-selected="false">考试列表</a>
-            <a class="nav-item nav-link" id="nav-Student-tab" data-toggle="tab" href="#nav-Student" role="tab" aria-controls="nav-Student" aria-selected="false">学生列表</a>
-            <a class="nav-item nav-link" id="nav-Teacher-tab" data-toggle="tab" href="#nav-Teacher" role="tab" aria-controls="nav-Teacher" aria-selected="false">教师列表</a>
-            <a class="nav-item nav-link" id="nav-Course-tab" data-toggle="tab" href="#nav-Course" role="tab" aria-controls="nav-Course" aria-selected="false">课程列表</a>
-            <a class="nav-item nav-link" id="nav-Setting-tab" data-toggle="tab" href="#nav-Setting" role="tab" aria-controls="nav-Setting" aria-selected="false">设置列表</a>
+            <a class="nav-item nav-link active" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="true" onclick="onclickAdminTab('UserApply')">用户申请</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('ExamApply')">考试申请</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('Exam')">考试列表</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('Student')">学生列表</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('Teacher')">教师列表</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('Course')">课程列表</a>
+            <a class="nav-item nav-link" id="nav-AdminView-tab" data-toggle="tab" href="#nav-AdminView" role="tab" aria-controls="nav-AdminView" aria-selected="false" onclick="onclickAdminTab('Setting')">设置列表</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-ApplyTab" role="tabpanel" aria-labelledby="nav-UserApply-tab">
-            <iframe id="AdminFrame_1" src="../Admin/UserApply" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-ExamApply" role="tabpanel" aria-labelledby="nav-ExamApply-tab">
-            <iframe id="AdminFrame_2" src="../Admin/ExamApply" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-Exam" role="tabpanel" aria-labelledby="nav-Exam-tab">
-            <iframe id="AdminFrame_3" src="../Admin/GetExam" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-Student" role="tabpanel" aria-labelledby="nav-Student-tab">
-            <iframe id="AdminFrame_4" src="../Admin/GetStudent" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-Teacher" role="tabpanel" aria-labelledby="nav-Teacher-tab">
-            <iframe id="AdminFrame_5" src="../Admin/GetTeacher" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-Course" role="tabpanel" aria-labelledby="nav-Course-tab">
-            <iframe id="AdminFrame_6" src="../Admin/GetCourse" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
-            </iframe>
-        </div>
-        <div class="tab-pane fade" id="nav-Setting" role="tabpanel" aria-labelledby="nav-Setting-tab">
-            <iframe id="AdminFrame_7" src="../Admin/GetSettings" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+        <div class="tab-pane fade show active" id="nav-AdminView" role="tabpanel" aria-labelledby="nav-AdminView-tab">
+            <iframe id="AdminFrame" src="../Admin/UserApply" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
             </iframe>
         </div>
     </div>

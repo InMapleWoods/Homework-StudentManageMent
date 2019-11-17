@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Welcome extends HttpServlet {
+
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().invalidate();
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String header = request.getHeader("Cookie");
         if (header != null)
@@ -49,10 +54,10 @@ public class Welcome extends HttpServlet {
                                     user.setUserName(EscapeUnescape.unescape(user.getUserName()));
                                     switch (user.getRole()) {
                                         case 1:
-                                            response.sendRedirect("Student.html");
+                                            response.sendRedirect("Student.jsp");
                                             return;
                                         case 3:
-                                            response.sendRedirect("Administrator.html");
+                                            response.sendRedirect("Administrator.jsp");
                                             return;
                                     }
                    /* String[] roles=new String[]{"未注册","学生","老师","管理员"};
@@ -62,8 +67,7 @@ public class Welcome extends HttpServlet {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         response.sendRedirect("/#");
                     }
                 }
@@ -72,4 +76,5 @@ public class Welcome extends HttpServlet {
         }
 
     }
+
 }

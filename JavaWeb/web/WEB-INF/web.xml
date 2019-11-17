@@ -6,6 +6,9 @@
     <welcome-file-list>
         <welcome-file>Login.html</welcome-file>
     </welcome-file-list>
+    <listener>
+        <listener-class>MyListener.HttpSessionCountListener</listener-class>
+    </listener>
     <filter>
         <filter-name>编码</filter-name>
         <filter-class>MyFilter.EncodeFilter</filter-class>
@@ -29,6 +32,14 @@
     <servlet-mapping>
         <servlet-name>课程接口</servlet-name>
         <url-pattern>/api/ApiCourse/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>管理员接口</servlet-name>
+        <servlet-class>MyServlet.ApiAdmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>管理员接口</servlet-name>
+        <url-pattern>/api/ApiAdmin/*</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>欢迎页面</servlet-name>

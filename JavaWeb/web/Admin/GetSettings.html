@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width" name="viewport"/>
+    <link href="/wwwroot/lib/Bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="/wwwroot/css/WelcomeView.css" rel="stylesheet"/>
+    <script src="/wwwroot/lib/jQuery/jquery-3.3.1.js"></script>
+    <script src="/wwwroot/lib/Bootstrap/bootstrap.js"></script>
+    <script src="/wwwroot/js/CookieAbout.js" type="text/javascript"></script>
+    <script src="/wwwroot/js/AjaxAbout.js" type="text/javascript"></script>
+    <script src="/wwwroot/js/AdministratorFunction.js" type="text/javascript"></script>
+</head>
+<script>
+
+    window.onload = function () {
+        var User = getJSONCookie('User');
+        if (User.Role == 3) {
+            dataTypeChoose = 7;
+            onloadViewAdmin(admin_index, dataTypeChoose);
+            GetPageNumAdmin(dataTypeChoose);
+        }
+    }
+
+</script>
+<body>
+<div>
+    <div class="row mx-auto" id="settingList" style="text-align:center;width:60%">
+
+    </div>
+</div>
+</body>

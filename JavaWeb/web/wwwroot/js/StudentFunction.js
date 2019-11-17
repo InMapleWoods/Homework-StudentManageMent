@@ -2,6 +2,13 @@
 var student_size = 10;
 var student_index = 1;
 var dataTypeChoose = -1;
+window.onload = function () {
+    if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
+        location = '../';
+    } else {
+        deleteCookie('times');
+    }
+}
 var Id = getJSONCookie('User').UserID;
 var sqls = [
     window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
@@ -9,6 +16,14 @@ var sqls = [
     window.matchMedia('(max-width:992px)'),
     window.matchMedia('(max-width:1200px)')
 ]
+
+window.onload = function () {
+    if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
+        location = '../';
+    } else {
+        deleteCookie('times');
+    }
+}
 
 function mediaMatches() {
     if (sqls[0].matches) {
@@ -24,8 +39,10 @@ function mediaMatches() {
     }
     onloadViewStudent(student_index, dataTypeChoose, Id);
 }
+
 mediaMatches(); //页面首次加载
 onclickStudentTab('courseView');
+
 function onclickStudentTab(name) {
     if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
         location = '../';
@@ -33,8 +50,7 @@ function onclickStudentTab(name) {
     }
     if (name == 'courseView') {
         $('#StudentFrame').attr('src', '../Student/GetCourseView.html');
-    }
-    else if (name == 'chooseCourse') {
+    } else if (name == 'chooseCourse') {
         $('#StudentFrame').attr('src', '../Student/ChooseCourse.html');
     }
 }
@@ -42,6 +58,7 @@ function onclickStudentTab(name) {
 for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
+
 function onloadViewStudent(index, choose, userId) {
     if (choose == 1)
         onloadCourseView(index, userId);
@@ -63,8 +80,7 @@ function GetPageNumStudent(choose) {
                 location.reload();
             }
         });
-    }
-    else if (choose == 2) {
+    } else if (choose == 2) {
         $.ajax({
             type: "Get",
             url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum?id=' + Id + '&size=' + student_size,
@@ -106,10 +122,9 @@ function DeleteCourse(courseId, studentId) {
         type: "Delete",
         url: '../api/ApiCourse/DeleteStudentCourse?UserId=' + studentId + '&CourseId=' + courseId,
         success: function (data) {
-            if (data == true) {
+            if (data == 'true') {
                 alert('成功');
-            }
-            else {
+            } else {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);
@@ -150,10 +165,9 @@ function ChooseCourse(courseId, studentId) {
         type: "Put",
         url: '../api/ApiCourse/ChooseCourse?UserId=' + studentId + '&CourseId=' + courseId,
         success: function (data) {
-            if (data == true) {
+            if (data == 'true') {
                 alert('成功');
-            }
-            else {
+            } else {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);

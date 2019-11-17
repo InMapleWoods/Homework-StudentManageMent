@@ -26,6 +26,34 @@ function mediaMatches() {
 }
 mediaMatches(); //页面首次加载
 
+onclickAdminTab('ApplyTab');
+function onclickAdminTab(name) {
+    if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
+        location = '../';
+        return;
+    }
+    if (name == 'ApplyTab') {
+        $('#AdminFrame').attr('src', '../Admin/UserApply');
+    }
+    else if (name == 'ExamApply') {
+        $('#AdminFrame').attr('src', '../Admin/ExamApply');
+    }
+    else if (name == 'Exam') {
+        $('#AdminFrame').attr('src', '../Admin/GetExam');
+    }
+    else if (name == 'Student') {
+        $('#AdminFrame').attr('src', '../Admin/GetStudent');
+    }
+    else if (name == 'Teacher') {
+        $('#AdminFrame').attr('src', '.../Admin/GetTeacher');
+    }
+    else if (name == 'Course') {
+        $('#AdminFrame').attr('src', '../Admin/GetCourse');
+    }
+    else if (name == 'Setting') {
+        $('#AdminFrame').attr('src', '../Admin/GetSettings');
+    }
+}
 for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
@@ -44,13 +72,6 @@ function onloadViewAdmin(index, choose) {
         onloadExamView(index);
     else if (choose == 7)
         onloadSettingsView(index);
-    $('#AdminFrame_1').attr('src', '../Admin/UserApply');
-    $('#AdminFrame_2').attr('src', '../Admin/ExamApply');
-    $('#AdminFrame_3').attr('src', '../Admin/GetExam');
-    $('#AdminFrame_4').attr('src', '../Admin/GetStudent');
-    $('#AdminFrame_5').attr('src', '../Admin/GetTeacher');
-    $('#AdminFrame_6').attr('src', '../Admin/GetCourse');
-    $('#AdminFrame_7').attr('src', '../Admin/GetSettings');
 }
 
 function GetPageNumAdmin(choose) {
@@ -117,7 +138,7 @@ function onloadUserApplyView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=3',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=3',
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");
@@ -225,7 +246,7 @@ function onloadStudentView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=2',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=2',
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");
@@ -268,7 +289,7 @@ function onloadTeacherView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&&choose=1',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=1',
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");

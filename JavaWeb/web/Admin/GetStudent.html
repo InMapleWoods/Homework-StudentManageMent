@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width" name="viewport"/>
+    <link href="/wwwroot/lib/Bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="/wwwroot/css/WelcomeView.css" rel="stylesheet"/>
+    <script src="/wwwroot/lib/jQuery/jquery-3.3.1.js"></script>
+    <script src="/wwwroot/lib/Bootstrap/bootstrap.js"></script>
+    <script src="/wwwroot/js/CookieAbout.js" type="text/javascript"></script>
+    <script src="/wwwroot/js/AjaxAbout.js" type="text/javascript"></script>
+    <script src="/wwwroot/js/AdministratorFunction.js" type="text/javascript"></script>
+
+</head>
+<script>
+
+    window.onload = function () {
+        var User = getJSONCookie('User');
+        if (User.Role == 3) {
+            dataTypeChoose = 2;
+            onloadViewAdmin(admin_index, dataTypeChoose);
+            GetPageNumAdmin(dataTypeChoose);
+        }
+    }
+
+</script>
+<body>
+<div>
+    <table id="apply_table" style="margin:auto;text-align:center">
+        <thead>
+        <tr>
+            <td>账号</td>
+            <td>名称</td>
+            <td>删除</td>
+        </tr>
+        </thead>
+        <tbody id="apply_list">
+        </tbody>
+    </table>
+</div>
+<div style="text-align: center;">
+    <div class="mr-auto">
+        <button class="btn btn-info" onclick="LeftIndex()">&lt;</button>
+        <label id="index">1</label>
+        <label id="split">/</label>
+        <label id="page">3</label>
+        <button class="btn btn-info" onclick="RightIndex()">&gt;</button>
+    </div>
+</div>
+</body>
+</html>

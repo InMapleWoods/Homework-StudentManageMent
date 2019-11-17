@@ -29,7 +29,7 @@ public class ApiCourse extends HttpServlet {
         String UserId = request.getParameter("UserId");
         String CourseId = request.getParameter("CourseId");
         URL url = new URL("http://152.136.73.240:7723/api/ApiCourse/ChooseCourse?UserId="+UserId+"&CourseId="+CourseId);
-        transRequest.GetRequest(response, url);
+        transRequest.PutRequest(response, "", url);
     }
 
 
@@ -48,7 +48,7 @@ public class ApiCourse extends HttpServlet {
         String UserId = request.getParameter("UserId");
         String CourseId = request.getParameter("CourseId");
         URL url = new URL("http://152.136.73.240:7723/api/ApiCourse/DeleteStudentCourse?UserId="+UserId+"&CourseId="+CourseId);
-        transRequest.GetRequest(response, url);
+        transRequest.DeleteRequest(response, "", url);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

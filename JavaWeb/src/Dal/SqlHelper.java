@@ -36,6 +36,9 @@ public class SqlHelper {
                     case "java.lang.Boolean":
                         ps.setBoolean(i, (boolean) parameter[i-1]);
                         break;
+                    case "java.lang.Double":
+                        ps.setDouble(i, (double) parameter[i - 1]);
+                        break;
                     default:break;
                 }
             }
