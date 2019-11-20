@@ -4,7 +4,7 @@
     } else {
         deleteCookie('times');
     }
-}
+};
 
 function closePageForm() {
     if (confirm("确定要退出吗？")) {

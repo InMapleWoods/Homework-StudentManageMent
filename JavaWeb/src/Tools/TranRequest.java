@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class TranRequest {
 
@@ -23,7 +24,7 @@ public class TranRequest {
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
@@ -59,7 +60,7 @@ public class TranRequest {
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
@@ -73,6 +74,7 @@ public class TranRequest {
             response.getWriter().append(result);
         }
     }
+
     public void PutRequest(HttpServletResponse response, String data, URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("PUT");
@@ -94,7 +96,7 @@ public class TranRequest {
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
@@ -108,6 +110,7 @@ public class TranRequest {
             response.getWriter().append(result);
         }
     }
+
     public void DeleteRequest(HttpServletResponse response, String data, URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("DELETE");
@@ -129,7 +132,7 @@ public class TranRequest {
         }
         // 返回结果-字节输入流转换成字符输入流，控制台输出字符
         if (inputStream != null) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {

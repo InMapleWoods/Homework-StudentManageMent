@@ -1,28 +1,29 @@
-package Bll;
+package Service;
 
-import Dal.UserDal;
+import Dao.UserDao;
 import Model.User;
 
-public class UserBll {
+public class UserService {
 
-    UserDal userDal = new UserDal();
+    private UserDao userDao = new UserDao();
 
     public User GetAccountisExist(String account) throws Exception {
         account = account == null ? "" : account;
         User result;
         try {
-            result = userDal.GetAccountisExist(account);
+            result = userDao.GetAccountisExist(account);
         } catch (Exception e) {
             throw e;
         }
         return result;
     }
+
     public boolean Login(String account, String password, User user) throws Exception {
         account = account == null ? "" : account;
         password = password == null ? "" : password;
         boolean result;
         try {
-            result = userDal.Login(account, password, user);
+            result = userDao.Login(account, password, user);
         } catch (Exception e) {
             throw e;
         }

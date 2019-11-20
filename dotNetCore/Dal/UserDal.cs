@@ -14,7 +14,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        static readonly string sqlConnect = "server=152.136.73.240;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private static readonly string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
 
         /// <summary>
         /// 登录用户
@@ -29,7 +29,7 @@ namespace Dal
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+        private readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 登录操作
@@ -320,7 +320,7 @@ namespace Dal
         /// <param name="npwd">新密码</param>
         /// <param name="id">用户Id</param>
         /// <returns>成功与否</returns>
-        public bool ChangePassword(string opwd, string npwd,string id, out User user)
+        public bool ChangePassword(string opwd, string npwd, string id, out User user)
         {
             string sqlStr = "update tb_Users set Password=@password where Id=@Id";
             SqlParameter[] para = new SqlParameter[]

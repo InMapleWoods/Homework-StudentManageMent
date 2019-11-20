@@ -6,17 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="MyListener.HttpSessionCountListener" %>
 <html>
 
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <title>欢迎，学生好！</title>
-    <link rel="stylesheet" href="wwwroot/lib/Bootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="wwwroot/lib/Bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="wwwroot/css/WelcomeView.css"/>
-    <script src="wwwroot/lib/jQuery/jquery-3.3.1.js"></script>
-    <script src="wwwroot/lib/Bootstrap/bootstrap.js"></script>
+    <script src="wwwroot/lib/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="wwwroot/lib/Bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="wwwroot/js/CookieAbout.js"></script>
     <script type="text/javascript" src="wwwroot/js/AjaxAbout.js"></script>
     <script type="text/javascript" src="wwwroot/js/StudentFunction.js"></script>

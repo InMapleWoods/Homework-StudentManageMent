@@ -49,7 +49,7 @@ public class EscapeUnescape {
                     tmp.append(src.substring(lastPos));
                     lastPos = src.length();
                 } else {
-                    tmp.append(src.substring(lastPos, pos));
+                    tmp.append(src, lastPos, pos);
                     lastPos = pos;
                 }
             }

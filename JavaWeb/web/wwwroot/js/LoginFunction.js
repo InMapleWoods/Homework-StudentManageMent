@@ -1,7 +1,7 @@
 ﻿var validatestring = "";
 window.onload = function () {
     if (getCookie('islogin') == 'true') {
-         location='../Welcome';
+        location = '../Welcome';
     } else {
         if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
             if (getCookie('times') >= 5) {
@@ -36,7 +36,7 @@ window.onload = function () {
     });
 
 
-}
+};
 
 function getRandom() {
     var pic = $('#NumImage');
@@ -114,7 +114,7 @@ function LoginWithValidate() {
                         alert(UserRoleArray[t.role - 1] + "你好，欢迎登录");
                         resetJSONCookieExpires('User', UserArray, 3);
                         resetCookieExpires('islogin', 'true', 3);
-                        location='../Welcome';
+                        location = '../Welcome';
                     } else {
                         resetCookie('times', temp);
                         alert('登录失败');

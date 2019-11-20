@@ -13,7 +13,7 @@ namespace StudentManagement_Web.Controllers
     {  /// <summary>
        /// 课程操作对象
        /// </summary>
-        readonly CourseBll courseBll = new CourseBll();
+        private readonly CourseBll courseBll = new CourseBll();
         /// <summary>
         /// 获取全部课程
         /// </summary>

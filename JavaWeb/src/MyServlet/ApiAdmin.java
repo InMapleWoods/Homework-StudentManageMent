@@ -1,9 +1,9 @@
 package MyServlet;
 
+import Service.AdminService;
 import Tools.TranRequest;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,7 @@ import java.net.URL;
 
 public class ApiAdmin extends HttpServlet {
     private TranRequest transRequest = new TranRequest();
+    private AdminService adminService = new AdminService();
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String baseUri = request.getRequestURI();//这个位置进行url判别，看到底是请求什么功能的
@@ -20,7 +21,7 @@ public class ApiAdmin extends HttpServlet {
             return;
         }
         if (baseUri.endsWith("/RejectApply")) {
-            RejectApply(request, response);
+            RejectLog(request, response);
             return;
         }
         if (baseUri.endsWith("/UpdateSettings")) {
@@ -84,15 +85,25 @@ public class ApiAdmin extends HttpServlet {
     private void AcceptLog(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("unicode");
         String number = request.getParameter("number");
-        URL url = new URL("http://152.136.73.240:7723/api/ApiAdmin/AcceptLog?number=" + number);
-        transRequest.PutRequest(response, "", url);
+        boolean result = false;
+        try {
+            result = adminService.AcceptLog(number);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.getWriter().append(String.valueOf(result));
     }
 
-    private void RejectApply(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void RejectLog(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("unicode");
         String number = request.getParameter("number");
-        URL url = new URL("http://152.136.73.240:7723/api/ApiAdmin/RejectApply?number=" + number);
-        transRequest.PutRequest(response, "", url);
+        boolean result = false;
+        try {
+            result = adminService.RejectApply(number);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.getWriter().append(String.valueOf(result));
     }
 
     private void DeleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {

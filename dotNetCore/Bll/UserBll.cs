@@ -14,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 数据操作对象
         /// </summary>
-        readonly UserDal userDal = new UserDal();
+        private readonly UserDal userDal = new UserDal();
         /// <summary>
         /// 登录用户
         /// </summary>
@@ -206,7 +206,7 @@ namespace Bll
         /// <param name="npwd">新密码</param>
         /// <param name="id">用户Id</param>
         /// <returns>成功与否</returns>
-        public bool ChangePassword(string opwd, string npwd,string id)
+        public bool ChangePassword(string opwd, string npwd, string id)
         {
             bool result;
             try

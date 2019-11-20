@@ -1,7 +1,5 @@
 ﻿using Bll;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using Model;
 using System;
 using System.Linq;
@@ -18,7 +16,7 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 用户操作对象
         /// </summary>
-        readonly UserBll userBll = new UserBll();
+        private readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 获取全部用户
         /// </summary>

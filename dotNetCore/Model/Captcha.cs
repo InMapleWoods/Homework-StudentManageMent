@@ -59,7 +59,7 @@ namespace Model
             {
                 if (temp != -1)
                 {
-                    random = new Random(i * temp * ((int)DateTime.Now.Millisecond));
+                    random = new Random(i * temp * DateTime.Now.Millisecond);
                 }
                 int t = random.Next(35);
                 if (t == temp)

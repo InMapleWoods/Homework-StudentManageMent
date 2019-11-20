@@ -11,12 +11,12 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        const string sqlConnect = "server=152.136.73.240;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
 
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+        private readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         /// <summary>
         /// 获取全部课程
@@ -209,7 +209,7 @@ namespace Dal
         /// <param name="size">分页大小</param>
         /// <param name="Id">学生Id</param>
         /// <returns>分页数</returns>
-        public int GetStudentNoChooseCoursePageNum(int size,string Id)
+        public int GetStudentNoChooseCoursePageNum(int size, string Id)
         {
             string str = "select count(*) as Count from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_Grade.CId from tb_Grade where tb_Grade.SId = @Id and tb_Grade.EId = 0)";
             DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);

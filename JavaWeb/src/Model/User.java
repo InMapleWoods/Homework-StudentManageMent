@@ -23,57 +23,59 @@ public class User {
         Number = number;
     }
 
-    public String toString(){
-        return "{\"userID\":"+UserID+",\"number\":\""+Number+"\",\"userName\":\""+UserName+"\",\"password\":\"******\",\"role\":"+Role+"}";
+    public boolean equals(User user) {
+        if (this.getRole() != user.getRole())
+            return false;
+        if (!this.getUserName().equals(user.getUserName()))
+            return false;
+        if (!this.getNumber().equals(user.getNumber()))
+            return false;
+        if (this.getUserID() != user.getUserID())
+            return false;
+        return true;
     }
 
-    public int getUserID()
-    {
+    public String toString() {
+        return "{\"userID\":" + UserID + ",\"number\":\"" + Number + "\",\"userName\":\"" + UserName + "\",\"password\":\"******\",\"role\":" + Role + "}";
+    }
+
+    public int getUserID() {
         return UserID;
     }
 
-    public void setUserID(int userID)
-    {
-        UserID=userID;
+    public void setUserID(int userID) {
+        UserID = userID;
     }
 
-    public int getRole()
-    {
+    public int getRole() {
         return Role;
     }
 
-    public void setRole(int role)
-    {
-        Role=role;
+    public void setRole(int role) {
+        Role = role;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return UserName;
     }
 
-    public void setUserName(String userName)
-    {
-        UserName=userName;
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 
-    public String getNumber()
-    {
+    public String getNumber() {
         return Number;
     }
 
-    public void setNumber(String number)
-    {
-        Number=number;
+    public void setNumber(String number) {
+        Number = number;
     }
 
-    public String getPassWord()
-    {
+    public String getPassWord() {
         return PassWord;
     }
 
-    public void setPassWord(String passWord)
-    {
-        PassWord=passWord;
+    public void setPassWord(String passWord) {
+        PassWord = passWord;
     }
 }

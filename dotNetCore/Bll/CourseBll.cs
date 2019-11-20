@@ -14,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 课程数据操作对象
         /// </summary>
-        readonly CourseDal courseDal = new CourseDal();
+        private readonly CourseDal courseDal = new CourseDal();
 
         /// <summary>
         /// 获取全部课程

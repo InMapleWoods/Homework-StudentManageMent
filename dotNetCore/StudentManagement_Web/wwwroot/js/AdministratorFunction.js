@@ -45,7 +45,7 @@ function onclickAdminTab(name) {
         $('#AdminFrame').attr('src', '../Admin/GetStudent');
     }
     else if (name == 'Teacher') {
-        $('#AdminFrame').attr('src', '.../Admin/GetTeacher');
+        $('#AdminFrame').attr('src', '../Admin/GetTeacher');
     }
     else if (name == 'Course') {
         $('#AdminFrame').attr('src', '../Admin/GetCourse');

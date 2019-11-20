@@ -12,7 +12,7 @@ namespace WPF
         /// <summary>
         /// 用户操作对象
         /// </summary>
-        readonly UserBll userBll = new UserBll();
+        private readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 父登录窗体
         /// </summary>

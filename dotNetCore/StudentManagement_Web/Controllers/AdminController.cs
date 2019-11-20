@@ -1,8 +1,6 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using System;
-using System.Linq;
 
 namespace StudentManagement_Web.Controllers
 {
@@ -16,20 +14,20 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 表单选择教师
         /// </summary>
-        static public int choose_Teacher = 0x001;
+        public static int choose_Teacher = 0x001;
         /// <summary>
         /// 表单选择学生
         /// </summary>
-        static public int choose_Student = 0x002;
+        public static int choose_Student = 0x002;
         /// <summary>
         /// 表单选择未审核
         /// </summary>
-        static public int choose_Unchecked = 0x003;
+        public static int choose_Unchecked = 0x003;
 
         /// <summary>
         /// 管理员操作对象
         /// </summary>
-        readonly AdminBll adminBll = new AdminBll();
+        private readonly AdminBll adminBll = new AdminBll();
 
         /// <summary>
         /// 接收申请
@@ -155,7 +153,7 @@ namespace StudentManagement_Web.Controllers
         /// <returns>更改结果</returns>
         //PUT: api/ApiAdmin/UpdateSettings?name={name}&value={value}
         [HttpPut("UpdateSettings")]
-        public IActionResult UpdateSettings(string name,string value)
+        public IActionResult UpdateSettings(string name, string value)
         {
             try
             {

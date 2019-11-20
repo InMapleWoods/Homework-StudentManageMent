@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
-    <link href="wwwroot/lib/Bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="wwwroot/lib/Bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <link href="wwwroot/css/LoginView.css" rel="stylesheet"/>
-    <script src="wwwroot/lib/jQuery/jquery-3.3.1.js" type="text/javascript">
+    <script src="wwwroot/lib/jQuery/jquery-3.3.1.min.js" type="text/javascript">
     </script>
-    <script src="wwwroot/lib/Bootstrap/bootstrap.js" type="text/javascript"></script>
+    <script src="wwwroot/lib/Bootstrap/bootstrap.min.js" type="text/javascript"></script>
     <script src="wwwroot/js/CookieAbout.js" type="text/javascript"></script>
     <script src="wwwroot/js/AjaxAbout.js" type="text/javascript"></script>
     <script src="wwwroot/js/LoginFunction.js" type="text/javascript"></script>
@@ -25,33 +25,33 @@
                 <div class="input-group-append">
                     <span class="input-group-text">账号：</span>
                 </div>
-                <input type="text" class="form-control" id="txtAccount" />
+                <input class="form-control" id="txtAccount" type="text"/>
             </div>
             <div class="input-group">
                 <div class="input-group-append">
                     <span class="input-group-text">密码：</span>
                 </div>
-                <input type="password" class="form-control" id="txtPwd" />
+                <input class="form-control" id="txtPwd" type="password"/>
             </div>
         </div>
         <div class="col-md-2 col-sm-2"></div>
-        <div id="ValidateNum1" class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" style="display:none">
+        <div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" id="ValidateNum1" style="display:none">
             <div class="input-group">
                 <div class="input-group-append">
                     <span class="input-group-text">验证码:</span>
                 </div>
-                <input type="text" class="form-control" id="txtValidateNum" />
+                <input class="form-control" id="txtValidateNum" type="text"/>
             </div>
         </div>
-        <div id="ValidateNum2" class="col-xs-12 col-md-4 col-sm-4" style="display:none">
+        <div class="col-xs-12 col-md-4 col-sm-4" id="ValidateNum2" style="display:none">
             <p>
-                <img style="height: 100%;" onclick="getRandom()" id="NumImage" src="#" /> 请输入图片中验证码！
+                <img id="NumImage" onclick="getRandom()" src="#" style="height: 100%;"/> 请输入图片中验证码！
             </p>
         </div>
         <div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3 text-center">
             <div class="btn-group">
-                <input type="button" id="btnLogin" class='btn btn-success' onclick="Login()" value="登录" />
-                <input type="button" id="btnRegister" class="btn btn-success" onclick="Register()" value="注册" />
+                <input class='btn btn-success' id="btnLogin" onclick="Login()" type="button" value="登录"/>
+                <input class="btn btn-success" id="btnRegister" onclick="Register()" type="button" value="注册"/>
             </div>
         </div>
         <div class="col-md-2 col-sm-2"></div>

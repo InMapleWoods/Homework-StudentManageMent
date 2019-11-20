@@ -14,7 +14,7 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 考试操作对象
         /// </summary>
-        readonly ExaminationBll examinationBll = new ExaminationBll();
+        private readonly ExaminationBll examinationBll = new ExaminationBll();
 
         /// <summary>
         /// 获取考试分页列表

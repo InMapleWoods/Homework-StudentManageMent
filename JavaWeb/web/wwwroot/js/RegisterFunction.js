@@ -27,7 +27,7 @@
             Register();
         }
     });
-}
+};
 
 function PasswordCheck() {
     var pwd = $('#txtPwd').val();
@@ -75,7 +75,7 @@ function Register() {
                 if (data[0]) {
                     alert('注册成功');
                     var id = data[1];
-                    alert('请牢记登录账号为:' + id)
+                    alert('请牢记登录账号为:' + id);
                     location = '../';
                 } else {
                     alert('注册失败');

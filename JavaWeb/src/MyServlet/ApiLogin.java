@@ -1,7 +1,7 @@
 package MyServlet;
 
-import Bll.UserBll;
 import Model.User;
+import Service.UserService;
 import Tools.TranRequest;
 
 import javax.servlet.ServletException;
@@ -44,10 +44,10 @@ public class ApiLogin extends HttpServlet {
 
     private void GetLoginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String account = request.getParameter("account");
-        UserBll userBll = new UserBll();
+        UserService userService = new UserService();
         response.setCharacterEncoding("unicode");
         try {
-            User user = userBll.GetAccountisExist(account);
+            User user = userService.GetAccountisExist(account);
             response.getWriter().append(String.valueOf(user));
         } catch (Exception e) {
             response.setStatus(404);
@@ -109,11 +109,11 @@ public class ApiLogin extends HttpServlet {
             System.out.println("NO MATCH");
         }
         User user = new User();
-        UserBll userBll = new UserBll();
+        UserService userService = new UserService();
         response.setCharacterEncoding("unicode");
         try {
-            boolean result = userBll.Login(account, password, user);
-            response.getWriter().println(String.valueOf(result));
+            boolean result = userService.Login(account, password, user);
+            response.getWriter().println(result);
             session.setAttribute("User", user);
         } catch (Exception e) {
             response.setStatus(404);

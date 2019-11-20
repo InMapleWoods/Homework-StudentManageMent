@@ -13,19 +13,19 @@ namespace Bll
         /// <summary>
         /// 数据操作对象
         /// </summary>
-        readonly AdminDal adminDal = new AdminDal();
+        private readonly AdminDal adminDal = new AdminDal();
         /// <summary>
         /// 表单选择教师
         /// </summary>
-        static public int choose_Teacher = 0x001;
+        public static int choose_Teacher = 0x001;
         /// <summary>
         /// 表单选择学生
         /// </summary>
-        static public int choose_Student = 0x002;
+        public static int choose_Student = 0x002;
         /// <summary>
         /// 表单选择未审核
         /// </summary>
-        static public int choose_Unchecked = 0x003;
+        public static int choose_Unchecked = 0x003;
 
         /// <summary>
         /// 接收申请
@@ -210,10 +210,10 @@ namespace Bll
         /// <returns>设置列表</returns>
         public IEnumerable GetSettings()
         {
-            List <string[]> result = new List<string[]>();
+            List<string[]> result = new List<string[]>();
             try
             {
-                using (DataTable dataTable= adminDal.GetSettings())
+                using (DataTable dataTable = adminDal.GetSettings())
                 {
                     foreach (DataRow dr in dataTable.Rows)
                     {
@@ -235,13 +235,13 @@ namespace Bll
         /// <param name="name">设置名</param>
         /// <param name="value">设置值</param>
         /// <returns>更改结果</returns>
-        public string UpdateSettings(string name,string value)
+        public string UpdateSettings(string name, string value)
         {
-            if(name== "RegisterOpenState")
+            if (name == "RegisterOpenState")
             {
                 return ReverseRegisterOpenState();
             }
-            else if(name== "CourseChooseOpenState")
+            else if (name == "CourseChooseOpenState")
             {
                 return ReverseCourseChooseOpenState();
             }

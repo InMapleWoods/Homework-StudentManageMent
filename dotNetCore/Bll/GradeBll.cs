@@ -14,7 +14,7 @@ namespace Bll
         /// <summary>
         /// 课程数据操作对象
         /// </summary>
-        readonly GradeDal gradeDal = new GradeDal();
+        private readonly GradeDal gradeDal = new GradeDal();
 
         /// <summary>
         /// 获取学生成绩

@@ -8,14 +8,14 @@ window.onload = function () {
     } else {
         deleteCookie('times');
     }
-}
+};
 var Id = getJSONCookie('User').UserID;
 var sqls = [
     window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
     window.matchMedia('(max-width:768px)'),
     window.matchMedia('(max-width:992px)'),
     window.matchMedia('(max-width:1200px)')
-]
+];
 
 window.onload = function () {
     if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
@@ -23,7 +23,7 @@ window.onload = function () {
     } else {
         deleteCookie('times');
     }
-}
+};
 
 function mediaMatches() {
     if (sqls[0].matches) {

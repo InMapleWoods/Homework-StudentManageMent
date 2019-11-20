@@ -1,5 +1,4 @@
-﻿
-var validatestring = "";
+﻿var validatestring = "";
 window.onload = function () {
     if (getCookie('islogin') == 'true') {
         location = '../Welcome';
@@ -38,6 +37,7 @@ window.onload = function () {
 
 
 }
+
 function getRandom() {
     var pic = $('#NumImage');
     $.ajax({

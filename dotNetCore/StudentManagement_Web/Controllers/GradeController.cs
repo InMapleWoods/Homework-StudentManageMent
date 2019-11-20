@@ -14,7 +14,7 @@ namespace StudentManagement_Web.Controllers
         /// <summary>
         /// 成绩操作对象
         /// </summary>
-        readonly GradeBll gradeBll = new GradeBll();
+        private readonly GradeBll gradeBll = new GradeBll();
         /// <summary>
         /// 获取学生成绩
         /// </summary>

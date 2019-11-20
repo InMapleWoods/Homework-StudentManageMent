@@ -24,8 +24,10 @@ function mediaMatches() {
     }
     onloadViewStudent(student_index, dataTypeChoose, Id);
 }
+
 mediaMatches(); //页面首次加载
 onclickStudentTab('courseView');
+
 function onclickStudentTab(name) {
     if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
         location = '../';
@@ -33,14 +35,11 @@ function onclickStudentTab(name) {
     }
     if (name == 'courseView') {
         $('#StudentFrame').attr('src', '../Student/GetCourseView');
-    }
-    else if (name == 'chooseCourse') {
+    } else if (name == 'chooseCourse') {
         $('#StudentFrame').attr('src', '../Student/ChooseCourse');
-    }
-    else if (name == 'gradeView') {
+    } else if (name == 'gradeView') {
         $('#StudentFrame').attr('src', '../Student/GetGradeView');
-    }
-    else if (name == 'Exam') {
+    } else if (name == 'Exam') {
         $('#StudentFrame').attr('src', '../Student/GetExam');
     }
 }
@@ -48,6 +47,7 @@ function onclickStudentTab(name) {
 for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
+
 function onloadViewStudent(index, choose, userId) {
     if (choose == 1)
         onloadCourseView(index, userId);
@@ -74,8 +74,7 @@ function GetPageNumStudent(choose) {
                 location.reload();
             }
         });
-    }
-    else if (choose == 2) {
+    } else if (choose == 2) {
         $.ajax({
             type: "Get",
             url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum/' + Id + '?size=' + student_size,
@@ -119,8 +118,7 @@ function DeleteCourse(courseId, studentId) {
         success: function (data) {
             if (data == true) {
                 alert('成功');
-            }
-            else {
+            } else {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);
@@ -163,8 +161,7 @@ function ChooseCourse(courseId, studentId) {
         success: function (data) {
             if (data == true) {
                 alert('成功');
-            }
-            else {
+            } else {
                 alert('失败');
             }
             onloadViewStudent(student_index, dataTypeChoose, studentId);
@@ -198,6 +195,7 @@ function onloadCourseSelectList(userId) {
         }
     });
 }
+
 function onloadExamSelectList() {
     var courseId = $("#courseSelect").val();
     if ((courseId == '') || (courseId == null))
@@ -230,8 +228,7 @@ function onloadGradeView() {
     if ((examId == '') || (examId == '0') || examId == null) {
         examId = '0';
         $('#examName').text('总成绩');
-    }
-    else {
+    } else {
         $('#examName').text('考试名称');
     }
     $.ajax({
@@ -269,6 +266,7 @@ function RightIndex() {
         student_index = student_page;
     onloadViewStudent(student_index, dataTypeChoose, Id);
 }
+
 $(document).ready(function () {
     $("#courseSelect").change(function () {
         $("#examSelect").empty();

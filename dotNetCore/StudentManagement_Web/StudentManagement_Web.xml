@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StudentManagement_Web</name>
+    </assembly>
+    <members>
+        <member name="T:StudentManagement_Web.Controllers.ApiAdminController">
+            <summary>
+                管理员控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiAdminController.choose_Teacher">
+            <summary>
+                表单选择教师
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiAdminController.choose_Student">
+            <summary>
+                表单选择学生
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiAdminController.choose_Unchecked">
+            <summary>
+                表单选择未审核
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiAdminController.adminBll">
+            <summary>
+                管理员操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.AcceptLog(System.String)">
+            <summary>
+                接收申请
+            </summary>
+            <param name="number">申请用户账号</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.RejectionLog(System.String)">
+            <summary>
+                拒绝申请
+            </summary>
+            <param name="number">申请用户账号</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.DeleteUser(System.String)">
+            <summary>
+                删除用户
+            </summary>
+            <param name="number">用户账号</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetPaperUsersArray(System.Int32,System.Int32,System.Int32)">
+            <summary>
+                获取分页后的用户名单
+            </summary>
+            <param name="index">索引</param>
+            <param name="size">分页大小</param>
+            <param name="choose">分页选项</param>
+            <returns>分页后名单</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetAllPageNum(System.Int32,System.Int32)">
+            <summary>
+                获取未审核用户分页总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <param name="choose">分页选项</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetSettings">
+            <summary>
+                获取设置列表
+            </summary>
+            <returns>设置列表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.UpdateSettings(System.String,System.String)">
+            <summary>
+                更改设置
+            </summary>
+            <param name="name">设置名</param>
+            <param name="value">设置值</param>
+            <returns>更改结果</returns>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiCourseController">
+            <summary>
+                课程控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiCourseController.courseBll">
+            <summary>
+                课程操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetAllCourseArray">
+            <summary>
+                获取全部课程
+            </summary>
+            <returns>全部课程数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetPaperCourseArray(System.Int32,System.Int32)">
+            <summary>
+                获取分页后的课程
+            </summary>
+            <param name="index">索引</param>
+            <param name="size">分页大小</param>
+            <returns>分页后课程</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetAllPageNum(System.Int32)">
+            <summary>
+                获取分页后的课程列表总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetStudentNoChooseCoursePageNum(System.Int32,System.String)">
+            <summary>
+                获取学生未选课程总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetStudentAllCoursePageNum(System.Int32,System.String)">
+            <summary>
+                获取学生已选课程总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetStudentAllCourseArray(System.String,System.Int32,System.Int32)">
+            <summary>
+                获取学生已选课程
+            </summary>
+            <returns>全部课程数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.GetStudentNoChooseCourseArray(System.String,System.Int32,System.Int32)">
+            <summary>
+                获取学生未选课程
+            </summary>
+            <returns>全部课程数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.AddCourse(System.String,System.String)">
+            <summary>
+                增加课程
+            </summary>
+            <param name="name">课程名称</param>
+            <param name="teacherId">教师Id</param>
+            <returns>增加成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.ChooseCourse(System.String,System.String)">
+            <summary>
+                学生选课
+            </summary>
+            <param name="UserId">学生Id</param>
+            <param name="CourseId">课程Id</param>
+            <returns>选课成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.DeleteStudentCourse(System.String,System.String)">
+            <summary>
+                删除选择课程
+            </summary>
+            <param name="UserId">学生Id</param>
+            <param name="CourseId">课程Id</param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiCourseController.DeleteCourse(System.String)">
+            <summary>
+                删除课程
+            </summary>
+            <param name="CourseId">课程Id</param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiExaminationController">
+            <summary>
+                考试控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiExaminationController.examinationBll">
+            <summary>
+                考试操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExam(System.Int32,System.Int32)">
+            <summary>
+                获取考试分页列表
+            </summary>
+            <param name="index">页索引</param>
+            <param name="size">页容量</param>
+            <returns>考试列表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetAllPageNum(System.Int32)">
+            <summary>
+                获取分页后的考试列表总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExaminationById(System.Int32)">
+            <summary>
+                按Id获取考试
+            </summary>
+            <param name="id">考试Id</param>
+            <returns>符合条件的考试</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExaminationByCourseId(System.Int32)">
+            <summary>
+                按课程Id获取考试
+            </summary>
+            <param name="courseId">课程Id</param>
+            <returns>符合条件的考试</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.UpdateExaminationTime(System.Int32,System.DateTime)">
+            <summary>
+                修改考试时间
+            </summary>
+            <param name="time">考试时间</param>
+            <param name="id">需要修改的考试id</param>
+            <returns>修改成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.UpdateExaminationName(System.Int32,System.String)">
+            <summary>
+                修改考试名称
+            </summary>
+            <param name="name">考试名称</param>
+            <param name="id">需要修改的考试id</param>
+            <returns>修改成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.DeleteExamination(System.Int32)">
+            <summary>
+                删除考试
+            </summary>
+            <param name="id">考试Id</param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExamApply(System.Int32,System.Int32)">
+            <summary>
+                获取考试申请分页列表
+            </summary>
+            <param name="index">页索引</param>
+            <param name="size">页容量</param>
+            <returns>考试申请列表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetAllPageApplyNum(System.Int32)">
+            <summary>
+                获取分页后的考试申请列表总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <returns>分页数</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.AddExamApply(System.Object)">
+            <summary>
+                增加考试申请
+            </summary>
+            <param name="examApply">考试申请</param>
+            <returns>增加成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.AccpetExamApply(System.Int32)">
+            <summary>
+                接受考试申请
+            </summary>
+            <param name="id">考试申请Id</param>
+            <returns>接受成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.RejectExamApply(System.Int32)">
+            <summary>
+                拒绝考试申请
+            </summary>
+            <param name="id">考试申请Id</param>
+            <returns>拒绝成功与否</returns>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiGradeController">
+            <summary>
+                成绩控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiGradeController.gradeBll">
+            <summary>
+                成绩操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiGradeController.GetStudentGradeArray(System.String,System.String,System.String)">
+            <summary>
+                获取学生成绩
+            </summary>
+            <param name="id">学生Id</param>
+            <param name="courseId">课程Id</param>
+            <param name="examId">考试Id</param>
+            <returns>全部学生成绩数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiGradeController.GetCourseGradeArray(System.String)">
+            <summary>
+                教师获取学生成绩
+            </summary>
+            <returns>全部学生成绩数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiGradeController.ChangeCourseGrade(System.String,System.String,System.String)">
+            <summary>
+                更改学生成绩
+            </summary>
+            <param name="score">成绩</param>
+            <param name="studenid">学生Id</param>
+            <param name="courseid">课程Id</param>
+            <returns>修改是否成功</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiGradeController.ChangeExamGrade(System.String,System.String,System.String)">
+            <summary>
+                更改学生某考试成绩
+            </summary>
+            <param name="score">成绩</param>
+            <param name="studenid">学生Id</param>
+            <param name="examid">考试Id</param>
+            <returns>修改是否成功</returns>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiLoginController">
+            <summary>
+                登录API控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiLoginController.userBll">
+            <summary>
+                用户操作对象
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiLoginController.captcha">
+            <summary>
+                验证码对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiLoginController.Login(System.Object)">
+            <summary>
+                登录
+            </summary>
+            <param name="account">账号</param>
+            <param name="password">密码</param>
+            <returns>登录成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiLoginController.GetLoginUser(System.String)">
+            <summary>
+                获取登录用户
+            </summary>
+            <param name="account">账号</param>
+            <returns>登录用户</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiLoginController.Validate">
+            <summary>
+                获取验证码
+            </summary>
+            <returns>验证码</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiLoginController.Register(System.String,System.String,System.String,System.Int32)">
+            <summary>
+                注册
+            </summary>
+            <param name="name">名字</param>
+            <param name="password">密码</param>
+            <param name="repeat">重复密码</param>
+            <param name="role">角色</param>
+            <returns>登录成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiLoginController.SetCookies(System.String,System.String,System.Int32)">
+            <summary>
+                设置本地cookie
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+            <param name="minutes">过期时长，单位：分钟</param>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.LoginController">
+            <summary>
+                登录控制器
+            </summary>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiUserController">
+            <summary>
+                用户控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiUserController.userBll">
+            <summary>
+                用户操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiUserController.GetAllUserArray">
+            <summary>
+                获取全部用户
+            </summary>
+            <returns>用户数组</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiUserController.GetCurrentUser(System.String)">
+            <summary>
+                获取当前用户
+            </summary>
+            <returns>当前用户</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiUserController.ChangedName(System.String,System.String)">
+            <summary>
+                修改昵称
+            </summary>
+            <param name="id">用户ID</param>
+            <param name="changedName">要修改的昵称</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiUserController.UserNameCheck(System.String)">
+            <summary>
+                用户名是否存在
+            </summary>
+            <param name="userName">用户名</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiUserController.ChangePassword(System.String,System.String,System.String)">
+            <summary>
+                修改密码
+            </summary>
+            <param name="opwd">旧密码</param>
+            <param name="npwd">新密码</param>
+            <param name="userid">用户Id</param>
+            <returns>成功与否</returns>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.UserController">
+            <summary>
+                用户页面
+            </summary>
+        </member>
+        <member name="T:StudentManagement_Web.Controllers.WelcomeController">
+            <summary>
+                主页面
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.WelcomeController.Index">
+            <summary>
+                Index页面
+            </summary>
+            <returns>返回视图</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Middleware.IsLoginMiddleware.GetCookies(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                获取cookies
+            </summary>
+            <param name="key">键</param>
+            <returns>返回对应的值</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Middleware.WelcomeAuthorizeMiddleware.GetCookies(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                获取cookies
+            </summary>
+            <param name="key">键</param>
+            <returns>返回对应的值</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Middleware.WelcomeAuthorizeMiddleware.DeleteCookies(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                删除指定的cookie
+            </summary>
+            <param name="key">键</param>
+        </member>
+    </members>
+</doc>

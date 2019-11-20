@@ -1,13 +1,11 @@
 ﻿using Bll;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using Model;
 using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 
 namespace StudentManagement_Web.Controllers
 {

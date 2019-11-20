@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
-    <link href="wwwroot/lib/Bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="wwwroot/lib/Bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <link href="wwwroot/css/LoginView.css" rel="stylesheet"/>
-    <script src="wwwroot/lib/jQuery/jquery-3.3.1.js" type="text/javascript">
+    <script src="wwwroot/lib/jQuery/jquery-3.3.1.min.js" type="text/javascript">
     </script>
-    <script src="wwwroot/lib/Bootstrap/bootstrap.js" type="text/javascript"></script>
+    <script src="wwwroot/lib/Bootstrap/bootstrap.min.js" type="text/javascript"></script>
     <script src="wwwroot/js/CookieAbout.js" type="text/javascript"></script>
     <script src="wwwroot/js/AjaxAbout.js" type="text/javascript"></script>
     <script src="wwwroot/js/RegisterFunction.js" type="text/javascript"></script>
@@ -25,19 +25,19 @@
                 <div class="input-group-append">
                     <span class="input-group-text">用户名：&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <input type="text" class="form-control" id="txtUserName" />
+                <input class="form-control" id="txtUserName" type="text"/>
             </div>
             <div class="input-group">
                 <div class="input-group-append">
                     <span class="input-group-text">密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <input type="password" class="form-control" id="txtRegisterPwd" />
+                <input class="form-control" id="txtRegisterPwd" type="password"/>
             </div>
             <div class="input-group">
                 <div class="input-group-append">
                     <span class="input-group-text">重复密码：</span>
                 </div>
-                <input type="password" class="form-control" id="txtRepwd" />
+                <input class="form-control" id="txtRepwd" type="password"/>
             </div>
             <div class="input-group">
                 <div class="input-group-append">
@@ -49,15 +49,15 @@
                 </select>
             </div>
         </div>
-        <div id="tipdiv" class="tip centerdiv col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3">
+        <div class="tip centerdiv col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" id="tipdiv">
             以上内容均为必填项，请认真填写
         </div>
-        <div id="errortipdiv" class="errortip centerdiv col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3">
+        <div class="errortip centerdiv col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" id="errortipdiv">
 
         </div>
         <div class="centerdiv col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3">
-            <input id="btnOK" type="button" value="注册" class="btn btn-block btn-danger" onclick="btnOK_Click()" />
-            <input id="btnBack" type="button" value="返回" class="btn btn-block btn-info" onclick="btnBack_Click()" />
+            <input class="btn btn-block btn-danger" id="btnOK" onclick="btnOK_Click()" type="button" value="注册"/>
+            <input class="btn btn-block btn-info" id="btnBack" onclick="btnBack_Click()" type="button" value="返回"/>
 
         </div>
         <div class="col-xs-12 col-md-2 col-sm-2">

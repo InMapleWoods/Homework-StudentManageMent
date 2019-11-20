@@ -1,4 +1,4 @@
-package Dal;
+package Dao;
 
 import Model.User;
 
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserDal {
-    SqlHelper sqlHelper = new SqlHelper("jdbc:sqlserver://152.136.73.240:1433;databaseName=db_StudentManage;user=Lsa;password=llfllf");
+public class UserDao {
+    SqlHelper sqlHelper = new SqlHelper();
 
     public User GetAccountisExist(String account) throws Exception {
         try {
@@ -57,7 +57,6 @@ public class UserDal {
         String[] paras = new String[]{account, pwd};
         //将返回的结果保存在datatable中
         ResultSet dataTable = sqlHelper.ExecuteQuery(sqlstr, paras);
-        ResultSet rs;
         dataTable.last(); //移到最后一行
         int rowCount = dataTable.getRow(); //得到当前行号，也就是记录数
         dataTable.beforeFirst(); //如果还要用结果集，就把指针再移到初始化的位置

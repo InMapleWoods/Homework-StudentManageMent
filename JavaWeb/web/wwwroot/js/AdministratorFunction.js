@@ -8,7 +8,7 @@ var sqls = [
     window.matchMedia('(max-width:768px)'),
     window.matchMedia('(max-width:992px)'),
     window.matchMedia('(max-width:1200px)')
-]
+];
 
 function mediaMatches() {
     if (sqls[0].matches) {

@@ -63,6 +63,7 @@ function PasswordReCheck() {
         }
     }
 }
+
 function Register() {
     if (PasswordCheck() && PasswordReCheck()) {
         $.ajax({

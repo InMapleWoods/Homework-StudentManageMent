@@ -5,12 +5,10 @@ import Tools.EscapeUnescape;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 public class Welcome extends HttpServlet {
 
@@ -19,11 +17,60 @@ public class Welcome extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!isEqual(request, response)) {
+            Cookie cookie = new Cookie("User", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            Cookie cookie2 = new Cookie("islogin", "");
+            cookie2.setMaxAge(0);
+            response.addCookie(cookie2);
+            response.sendRedirect("/#");
+            return;
+        }
+        User user = getCookieUser(request, response);
+        assert user != null;
+        switch (user.getRole()) {
+            case 1: {
+                response.sendRedirect("Student.jsp");
+                return;
+            }
+            case 3: {
+                response.sendRedirect("Administrator.jsp");
+                return;
+            }
+        }
+
+    }
+
+    private boolean isEqual(HttpServletRequest request, HttpServletResponse response) {
+        User sessionUser = getSessionUser(request, response);
+        User cookieUser = getCookieUser(request, response);
+        if (sessionUser == null)
+            return false;
+        if (cookieUser == null)
+            return false;
+        return sessionUser.equals(cookieUser);
+    }
+
+    private User getSessionUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Enumeration<String> sessionAttributeNames = session.getAttributeNames();
+        while (sessionAttributeNames.hasMoreElements()) {
+            String key = sessionAttributeNames.nextElement();
+            if (key.equals("User")) {
+                User user = (User) session.getAttribute("User");
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private User getCookieUser(HttpServletRequest request, HttpServletResponse response) {
         String header = request.getHeader("Cookie");
         if (header != null)
             header = header.trim();
         else
-            return;
+            return null;
         String[] temp = header.split(";");
         ArrayList<Cookie> cookies = new ArrayList<Cookie>() {
         };
@@ -41,7 +88,7 @@ public class Welcome extends HttpServlet {
                 String name = cookie.getName();
                 //5 判断Cookie的名称是否存在是id
                 if (name.equals("islogin")) {
-                    if ("true".equals(cookie.getValue().toString())) {
+                    if ("true".equals(cookie.getValue())) {
                         if (cookies != null) {
                             //3 遍历Request对象中的所有Cookie
                             for (Cookie _cookie : cookies) {
@@ -52,29 +99,14 @@ public class Welcome extends HttpServlet {
                                     Gson gson = new Gson();
                                     User user = gson.fromJson(_cookie.getValue(), User.class);
                                     user.setUserName(EscapeUnescape.unescape(user.getUserName()));
-                                    switch (user.getRole()) {
-                                        case 1:
-                                            response.sendRedirect("Student.jsp");
-                                            return;
-                                        case 3:
-                                            response.sendRedirect("Administrator.jsp");
-                                            return;
-                                    }
-                   /* String[] roles=new String[]{"未注册","学生","老师","管理员"};
-                    response.setCharacterEncoding("unicode");
-                    response.getWriter().append("你的角色是" + roles[user.getRole()]);
-                    response.getWriter().append("你的名称是" + user.getUserName());*/
+                                    return user;
                                 }
                             }
                         }
-                    } else {
-                        response.sendRedirect("/#");
                     }
                 }
             }
-            response.sendRedirect("/#");
         }
-
+        return null;
     }
-
 }

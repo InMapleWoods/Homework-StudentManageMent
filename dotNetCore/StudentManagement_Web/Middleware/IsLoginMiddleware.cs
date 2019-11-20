@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StudentManagement_Web.Middleware
 {
@@ -40,7 +39,7 @@ namespace StudentManagement_Web.Middleware
             StringValues values;
             httpContext.Request.Headers.TryGetValue("Cookie", out values);
             var cookies = values.ToString().Split(';').ToList();
-            if(cookies[0]=="")
+            if (cookies[0] == "")
                 return String.Empty;
             var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
             if (result != null)

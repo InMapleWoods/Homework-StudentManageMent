@@ -16,7 +16,7 @@ namespace WPF
         /// <summary>
         /// 用户操作对象
         /// </summary>
-        readonly UserBll userBll = new UserBll();
+        private readonly UserBll userBll = new UserBll();
         /// <summary>
         /// 登录失败次数
         /// </summary>

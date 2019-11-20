@@ -13,12 +13,12 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        const string sqlConnect = "server=152.136.73.240;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
 
         /// <summary>
         /// SQL帮助类
         /// </summary>
-        readonly SQLHelper helper = new SQLHelper(sqlConnect);
+        private readonly SQLHelper helper = new SQLHelper(sqlConnect);
 
         #region 考试相关
         /// <summary>
