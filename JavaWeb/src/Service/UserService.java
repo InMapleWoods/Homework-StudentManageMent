@@ -1,6 +1,6 @@
 package Service;
 
-import Dao.UserDao;
+import Dao.*;
 import Model.User;
 
 public class UserService {

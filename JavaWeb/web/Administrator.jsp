@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <%@ page import="MyListener.HttpSessionCountListener" %>
+<%@ page import="java.util.ArrayList" %>
 <html>
 
 <head>
@@ -35,6 +36,23 @@
         </div>
         <div class="col-4 col-md-4 col-sm-4">
             <div>在线人数为：<%=HttpSessionCountListener.getActiveSessions() %>
+            </div>
+            <div>在线列表：
+            </div>
+            <div>
+                <select>
+                    <%
+                        ArrayList<String> arrayList = HttpSessionCountListener.getActiveUsers();
+                        if (arrayList.size() != 0) {
+                            for (String i : arrayList) {
+                    %>
+                    <option value='<%=i%>'><%=i%>
+                    </option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
             </div>
             <a id="reLogin" onclick="ReLogin()" href="#">重新登录</a>
             <a id="exitSystem" onclick="closePageForm()" href="#">退出系统</a>

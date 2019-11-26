@@ -1,6 +1,7 @@
 package MyServlet;
 
 import Model.User;
+import MyListener.HttpSessionCountListener;
 import Tools.EscapeUnescape;
 import com.google.gson.Gson;
 
@@ -13,6 +14,9 @@ import java.util.Enumeration;
 public class Welcome extends HttpServlet {
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSessionCountListener.decActiveSessions();
+        User user = getCookieUser(request, response);
+        HttpSessionCountListener.decActiveUsers(user.getUserName());
         request.getSession().invalidate();
     }
 
@@ -45,10 +49,13 @@ public class Welcome extends HttpServlet {
     private boolean isEqual(HttpServletRequest request, HttpServletResponse response) {
         User sessionUser = getSessionUser(request, response);
         User cookieUser = getCookieUser(request, response);
-        if (sessionUser == null)
-            return false;
         if (cookieUser == null)
             return false;
+        if (sessionUser == null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("User", cookieUser);
+            return false;
+        }
         return sessionUser.equals(cookieUser);
     }
 

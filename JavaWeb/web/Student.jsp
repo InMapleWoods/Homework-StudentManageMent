@@ -1,4 +1,6 @@
-<%--
+<%@ page import="Model.User" %>
+<%@ page import="MyListener.HttpSessionCountListener" %>
+<%@ page import="java.util.Enumeration" %><%--
   Created by IntelliJ IDEA.
   User: 96464
   Date: 2019/11/15
@@ -6,6 +8,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    try {
+        User user = new User();
+        Enumeration<String> sessionAttributeNames = session.getAttributeNames();
+        while (sessionAttributeNames.hasMoreElements()) {
+            String key = sessionAttributeNames.nextElement();
+            if (key.equals("User")) {
+                user = (User) session.getAttribute("User");
+            }
+        }
+        HttpSessionCountListener.addActiveSessions();
+        HttpSessionCountListener.addActiveUsers(user.getUserName());
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendRedirect("/");
+    }
+%>
 <html>
 
 <head>

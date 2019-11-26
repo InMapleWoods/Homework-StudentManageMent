@@ -42,10 +42,12 @@ public class CourseService {
             str += "],";
         }
         str += "[";
-        for (int j = 0; j < temp.get(temp.size() - 1).length - 1; j++) {
-            str += "\"" + temp.get(temp.size() - 1)[j] + "\",";
+        if (temp.size() - 1 >= 0) {
+            for (int j = 0; j < temp.get(temp.size() - 1).length - 1; j++) {
+                str += "\"" + temp.get(temp.size() - 1)[j] + "\",";
+            }
+            str += "\"" + temp.get(temp.size() - 1)[temp.get(temp.size() - 1).length - 1] + "\"";
         }
-        str += "\"" + temp.get(temp.size() - 1)[temp.get(temp.size() - 1).length - 1] + "\"";
         str += "]]";
         return str;
     }
