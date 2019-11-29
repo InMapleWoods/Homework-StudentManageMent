@@ -51,6 +51,24 @@ namespace Dal
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
+        /// <summary>
+        /// 获取分页后的考试列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="studentId">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetAllPageNum(int size, int studentId)
+        {
+            string str = "select count(*) as ALLCOUNT from tb_Examination where tb_Examination.CourseId in (select tb_Course.Id from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id and tb_Grade.EId = 0)";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@id",studentId),
+            };
+            DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text);
+            int num = (int)dataTable.Rows[0]["ALLCOUNT"];
+            num = num / size + (num % size == 0 ? 0 : 1);
+            return num;
+        }
 
         /// <summary>
         /// 获取全部考试
@@ -83,7 +101,8 @@ namespace Dal
                 int courseId = (int)dataRow["CourseId"];
                 DateTime time = (DateTime)dataRow["Time"];
                 string examName = dataRow["Name"].ToString();
-                Examination examination = new Examination(examId, courseId, time, examName);
+                int duration = (int)dataRow["Duration"];
+                Examination examination = new Examination(examId, courseId, time, examName, duration);
                 return examination;
             }
             return null;
@@ -114,12 +133,13 @@ namespace Dal
         {
             if (examination == null)
                 return false;
-            string str = "insert into tb_Examination(CourseId,Time,Name) Values(@courseid,@time,@examname)";
+            string str = "insert into tb_Examination(CourseId,Time,Name,Duration) Values(@courseid,@time,@examname,@duration)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@courseid",examination.CourseId),
                 new SqlParameter("@time",examination.Time),
                 new SqlParameter("@examname",examination.Name),
+                new SqlParameter("@duration",examination.Duration),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -228,7 +248,7 @@ namespace Dal
         {
             if (examination == null)
                 return false;
-            string str = "insert into tb_ExamApplyLog(TeacherId,CourseId,Time,ExamName,IsChecked) Values(@teacherid,@courseid,@time,@examname,@ischecked)";
+            string str = "insert into tb_ExamApplyLog(TeacherId,CourseId,Time,ExamName,IsChecked,Duration) Values(@teacherid,@courseid,@time,@examname,@ischecked,@duration)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@teacherid",teacherId),
@@ -236,6 +256,7 @@ namespace Dal
                 new SqlParameter("@time",examination.Time),
                 new SqlParameter("@examname",examination.Name),
                 new SqlParameter("@ischecked",false),
+                new SqlParameter("@duration",examination.Duration),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -284,7 +305,8 @@ namespace Dal
                 int courseId = (int)dataRow["CourseId"];
                 DateTime time = (DateTime)dataRow["Time"];
                 string examName = dataRow["ExamName"].ToString();
-                examination = new Examination(examId, courseId, time, examName);
+                int duration = (int)dataRow["Duration"];
+                examination = new Examination(examId, courseId, time, examName, duration);
             }
             if (examination != null)
             {

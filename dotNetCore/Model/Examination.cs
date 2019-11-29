@@ -19,6 +19,10 @@ namespace Model
         [Key]
         public int CourseId { get; set; }
         /// <summary>
+        /// 考试时长
+        /// </summary>
+        public int Duration { get; set; }
+        /// <summary>
         /// 考试时间
         /// </summary>
         public DateTime Time { get; set; }
@@ -37,6 +41,7 @@ namespace Model
             CourseId = 0;
             Time = DateTime.Now;
             Name = "";
+            Duration = 120;
         }
         /// <summary>
         /// 有参构造函数
@@ -45,12 +50,14 @@ namespace Model
         /// <param name="courseId">课程Id</param>
         /// <param name="time">考试时间</param>
         /// <param name="name">考试名称</param>
-        public Examination(int id, int courseId, DateTime time, string name)
+        /// <param name="duration">考试时长</param>
+        public Examination(int id, int courseId, DateTime time, string name,int duration)
         {
             Id = id;
             CourseId = courseId;
             Time = time;
             Name = name;
+            Duration = duration;
         }
     }
 }

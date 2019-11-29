@@ -58,6 +58,8 @@ function onloadViewStudent(index, choose, userId) {
         onloadExamSelectList();
         onloadGradeView();
     }
+    else if (choose == 4)
+        onloadExamView(index, userId);
 }
 
 function GetPageNumStudent(choose) {
@@ -78,6 +80,20 @@ function GetPageNumStudent(choose) {
         $.ajax({
             type: "Get",
             url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum/' + Id + '?size=' + student_size,
+            success: function (data) {
+                student_page = data;
+                $("#page").text(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location.reload();
+            }
+        });
+
+    } else if (choose == 4) {
+        $.ajax({
+            type: "Get",
+            url: '../api/ApiExamination/GetAllPageNum/' + Id + '?size=' + student_size,
             success: function (data) {
                 student_page = data;
                 $("#page").text(data);
@@ -249,6 +265,49 @@ function onloadGradeView() {
             location.reload();
         }
     });
+}
+
+function onloadExamView(index, userId) {
+    $("#index").text(student_index);
+    $.ajax({
+        type: "Get",
+        url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=1&size=500',
+        success: function (data) {
+            var applyList = data;
+            $('#apply_list_student_4').html("");
+            for (i = 0; i < applyList.length; i++) {
+                var Id = applyList[i][0];
+                $.ajax({
+                    type: "Get",
+                    url: '../api/ApiExamination/GetExam/' + Id + '?index=' + index + '&size=' + student_size,
+                    success: function (data) {
+                        var applyList = data;
+                        for (i = 0; i < applyList.length; i++) {
+                            var Id = applyList[i][0];
+                            var CourseName = applyList[i][1];
+                            var ExamTime = new Date(applyList[i][2]).toLocaleString();
+                            var ExamName = applyList[i][3];
+                            var ExamDuration = applyList[i][4];
+                            var isPassed = applyList[i][5];
+                            var tempStr = "<td><button class='btn btn-block btn-danger' onclick=TakeExam('" + Id + "')>参加考试</button></td>";
+                            if (!isPassed) {
+                                tempStr = "";
+                            }
+                            $('#apply_list_student_4').append("<tr><td>" + Id + "</td><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + ExamTime + "</td><td>" + ExamDuration + "</td>" + tempStr + "</tr>");
+                        }
+                    },
+                });
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
+
+function TakeExam(courseId) {
+    location = '../Student/ExamView/' + courseId;
 }
 
 function LeftIndex() {

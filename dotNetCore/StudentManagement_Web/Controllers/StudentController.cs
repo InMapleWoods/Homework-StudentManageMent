@@ -20,5 +20,9 @@ namespace StudentManagement_Web.Controllers
         {
             return View();
         }
+        public IActionResult ExamView(int id)
+        {
+            return View(id);
+        }
     }
 }

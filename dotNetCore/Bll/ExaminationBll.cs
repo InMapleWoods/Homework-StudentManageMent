@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Bll
 {
@@ -51,10 +52,38 @@ namespace Bll
                 DataTable datatable = examinationDal.GetPaperExam(index, size);
                 foreach (DataRow dr in datatable.Rows)
                 {
-                    ExamTemp examination = new ExamTemp((int)dr["考试ID"], dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString());
+                    ExamTemp examination = new ExamTemp((int)dr["考试ID"], dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString(), (int)dr["考试时长"]);
                     examinations.Add(examination);
                 }
                 return examinations;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
+        /// <summary>
+        /// 获取分页后的考试数组
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <param name="courseId">课程Id</param>
+        /// <returns>分页后名单数组</returns>
+        public IEnumerable GetPageExamArray(int index, int size, int courseId)
+        {
+            List<object[]> examinations = new List<object[]>();
+            try
+            {
+                DataTable datatable = examinationDal.GetPaperExam(index, size);
+                foreach (DataRow dr in datatable.Rows)
+                {
+                    object[] examination = new object[] { dr["考试ID"], dr["课程名称"].ToString(), dr["考试时间"], dr["考试名称"].ToString(), dr["课程Id"].ToString(), (int)dr["考试时长"] };
+                    examinations.Add(examination);
+                }
+                var exams = from exam in examinations
+                            where (string)exam[4] == courseId.ToString()
+                            select new object[] { exam[0].ToString(), (string)exam[1], (DateTime)exam[2], exam[3], exam[5], (((DateTime)exam[2]).CompareTo(DateTime.Now) > 0 ? true : false) };
+                return exams;
             }
             catch (Exception e)
             {
@@ -73,6 +102,26 @@ namespace Bll
             try
             {
                 result = examinationDal.GetAllPageNum(size);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取分页后的考试列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="studentId">学生Id</param>
+        /// <returns>分页数</returns>
+        public int GetAllPageNum(int size, int studentId)
+        {
+            int result = 0;
+            try
+            {
+                result = examinationDal.GetAllPageNum(size, studentId);
             }
             catch (Exception e)
             {
@@ -156,7 +205,8 @@ namespace Bll
                     string Name = dr["Name"].ToString();
                     int CourseId = (int)dr["CourseId"];
                     DateTime Time = (DateTime)dr["Time"];
-                    Examination t = new Examination(Id, CourseId, Time, Name);
+                    int Duration = (int)dr["Duration"];
+                    Examination t = new Examination(Id, CourseId, Time, Name, Duration);
                     temp.Add(t);
                 }
                 return temp;
@@ -279,7 +329,7 @@ namespace Bll
                 DataTable result = examinationDal.GetPaperExamApply(index, size);
                 foreach (DataRow dr in result.Rows)
                 {
-                    examApplyLogArray.Add(new ExamApply((int)dr["考试ID"], dr["老师名称"].ToString(), dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString()));
+                    examApplyLogArray.Add(new ExamApply((int)dr["考试ID"], dr["老师名称"].ToString(), dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString(), (int)dr["考试时长"]));
                 }
                 return examApplyLogArray;
             }
@@ -380,13 +430,15 @@ namespace Bll
             public string CourseName { get; set; }
             public DateTime Time { get; set; }
             public string ExamName { get; set; }
-            public ExamApply(int id, string teacherName, string courseName, DateTime time, string examName)
+            public int ExamDuration { get; set; }
+            public ExamApply(int id, string teacherName, string courseName, DateTime time, string examName, int duration)
             {
                 Id = id;
                 TeacherName = teacherName;
                 CourseName = courseName;
                 Time = time;
                 ExamName = examName;
+                ExamDuration = duration;
             }
         }
         /// <summary>
@@ -398,12 +450,14 @@ namespace Bll
             public string CourseName { get; set; }
             public DateTime Time { get; set; }
             public string ExamName { get; set; }
-            public ExamTemp(int id, string courseName, DateTime time, string examName)
+            public int ExamDuration { get; set; }
+            public ExamTemp(int id, string courseName, DateTime time, string examName, int duration)
             {
                 Id = id;
                 CourseName = courseName;
                 Time = time;
                 ExamName = examName;
+                ExamDuration = duration;
             }
         }
     }

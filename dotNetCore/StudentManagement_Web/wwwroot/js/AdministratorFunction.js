@@ -209,8 +209,9 @@ function onloadExamView(index) {
                 var Id = applyList[i].id;
                 var CourseName = applyList[i].courseName;
                 var ExamName = applyList[i].examName;
-                var Time = applyList[i].time;
-                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Time + "</td><td><button class='btn btn-block btn-danger' onclick=DeleteExam('" + Id + "')>删除</button></td></tr>");
+                var ExamDuration = applyList[i].examDuration;
+                var Time = new Date(applyList[i].time).toLocaleString();
+                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Time + "</td><td>" + ExamDuration + "</td><td><button class='btn btn-block btn-danger' onclick=DeleteExam('" + Id + "')>删除</button></td></tr>");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

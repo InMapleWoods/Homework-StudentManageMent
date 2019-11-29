@@ -37,6 +37,27 @@ namespace StudentManagement_Web.Controllers
         }
 
         /// <summary>
+        /// 获取考试分页列表
+        /// </summary>
+        /// <param name="index">页索引</param>
+        /// <param name="size">页容量</param>
+        /// <param name="id">课程Id</param>
+        /// <returns>考试列表</returns>
+        // GET: api/ApiExamination/GetExam/{id}?index={index}&size={size}
+        [HttpGet("GetExam/{id}")]
+        public IActionResult GetExam(int index, int size, int id)
+        {
+            try
+            {
+                return Ok(examinationBll.GetPageExamArray(index, size, id));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        /// <summary>
         /// 获取分页后的考试列表总页数
         /// </summary>
         /// <param name="size">分页大小</param>
@@ -48,6 +69,26 @@ namespace StudentManagement_Web.Controllers
             try
             {
                 return Ok(examinationBll.GetAllPageNum(size));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取分页后的考试列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="id">学生Id</param>
+        /// <returns>分页数</returns>
+        // GET: api/ApiExamination/GetAllPageNum/{id}?size={size}
+        [HttpGet("GetAllPageNum/{id}")]
+        public IActionResult GetAllPageNum(int size, int id)
+        {
+            try
+            {
+                return Ok(examinationBll.GetAllPageNum(size, id));
             }
             catch (Exception e)
             {
@@ -212,8 +253,9 @@ namespace StudentManagement_Web.Controllers
                 int examId = examApplyObject.examination.Id;
                 int courseId = examApplyObject.examination.CourseId;
                 DateTime time = ConvertTime((long)examApplyObject.examination.Time);
+                int duration = examApplyObject.examination.Duration;
                 string name = examApplyObject.examination.Name;
-                Model.Examination examination = new Model.Examination(examId, courseId, time, name);
+                Model.Examination examination = new Model.Examination(examId, courseId, time, name, duration);
                 bool result = examinationBll.AddExamApply(examination, teacherId);
                 return Ok(result);
             }
