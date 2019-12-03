@@ -86,6 +86,31 @@ namespace Bll
             }
         }
         /// <summary>
+        /// 获取教师课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        public IEnumerable GetTeacherAllCourseArray(string Id, int index, int size)
+        {
+            List<string[]> temp = null;
+            try
+            {
+                DataTable dataTable = courseDal.GetTeacherAllCourse(Id, index, size);
+                temp = new List<string[]>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    int CourseId = (int)dr["Id"];
+                    string Name = dr["Name"].ToString();
+                    string[] t = new string[] { CourseId.ToString(), Name };
+                    temp.Add(t);
+                }
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
+        /// <summary>
         /// 获取学生未选课程
         /// </summary>
         /// <returns>全部课程数据表</returns>

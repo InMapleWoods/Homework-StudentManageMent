@@ -26,13 +26,13 @@ function mediaMatches() {
 }
 mediaMatches(); //页面首次加载
 
-onclickAdminTab('ApplyTab');
+onclickAdminTab('UserApply');
 function onclickAdminTab(name) {
     if (getCookie('islogin') == 'false' || !isExistCookie('islogin')) {
         location = '../';
         return;
     }
-    if (name == 'ApplyTab') {
+    if (name == 'UserApply') {
         $('#AdminFrame').attr('src', '../Admin/UserApply');
     }
     else if (name == 'ExamApply') {

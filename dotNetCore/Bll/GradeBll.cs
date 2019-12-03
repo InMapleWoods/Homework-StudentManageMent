@@ -68,17 +68,45 @@ namespace Bll
         /// <returns>全部学生成绩数据表</returns>
         public IEnumerable GetCourseGradeArray(string Id)
         {
-            List<GradeObject> temp = null;
+            List<string[]> temp = null;
             try
             {
                 DataTable dataTable = gradeDal.GetCourseGrade(Id);
-                temp = new List<GradeObject>();
+                temp = new List<string[]>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    string ExamName = dr["考试名"].ToString();
-                    string CourseName = dr["课程名"].ToString();
-                    int Score = (int)dr["成绩"];
-                    GradeObject t = new GradeObject(CourseName, ExamName, Score);
+                    string Number = dr["学生学号"].ToString();
+                    string Name = dr["学生姓名"].ToString();
+                    string Score = dr["课程分数"].ToString();
+                    string[] t = new string[] { Number, Name, Score };
+                    temp.Add(t);
+                }
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
+
+        /// <summary>
+        /// 教师获取学生某考试成绩
+        /// </summary>
+        /// <param name="Id">考试Id</param>
+        /// <returns>全部学生成绩数据表</returns>
+        public IEnumerable GetExamGradeArray(string Id)
+        {
+            List<string[]> temp = null;
+            try
+            {
+                DataTable dataTable = gradeDal.GetCourseGrade(Id);
+                temp = new List<string[]>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    string Number = dr["学生学号"].ToString();
+                    string Name = dr["学生姓名"].ToString();
+                    string Score = dr["课程分数"].ToString();
+                    string[] t = new string[] { Number, Name, Score };
                     temp.Add(t);
                 }
                 return temp;

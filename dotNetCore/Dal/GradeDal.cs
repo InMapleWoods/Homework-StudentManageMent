@@ -45,7 +45,22 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetCourseGrade(string Id)
         {
-            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_Grade.Score as 课程分数 from tb_Grade,tb_Users where  CId=@id and tb_Grade.SId=tb_Users.Id";//SQL执行字符串
+            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Users where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Users.Id";//SQL执行字符串
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@id",Id),
+            };
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
+            return dataTable;
+        }
+        /// <summary>
+        /// 教师获取学生某考试成绩
+        /// </summary>
+        /// <param name="Id">考试Id</param>
+        /// <returns>全部学生成绩数据表</returns>
+        public DataTable GetExamGrade(string Id)
+        {
+            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_CourseGrade.SId=tb_Users.Id";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
@@ -63,7 +78,7 @@ namespace Dal
         /// <returns>修改是否成功</returns>
         public bool ChangeCourseGrade(string score, string studenid, string courseid)
         {
-            string sqlstr = "UPDATE tb_Grade SET Score=@score where SId=@studenid and CId=@courseid and Eid=0";
+            string sqlstr = "UPDATE tb_CourseGrade SET Score=@score where SId=@studenid and CId=@courseid";
             //储存Datatable
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
@@ -90,7 +105,7 @@ namespace Dal
         /// <returns>修改是否成功</returns>
         public bool ChangeExamGrade(string score, string studenid, string examid)
         {
-            string sqlstr = "UPDATE tb_Grade SET Score=@score where SId=@studenid and Eid=@examid";
+            string sqlstr = "UPDATE tb_ExamGrade SET Score=@score where SId=@studenid and Eid=@examid";
             //储存Datatable
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {

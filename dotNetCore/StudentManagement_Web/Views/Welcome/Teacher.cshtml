@@ -3,5 +3,18 @@
     ViewData["Title"] = "老师";
     ViewData["JsFunction"] = "TeacherFunction.js";
 }
-
-<h1>Index</h1>
+<div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-TeacherView-tab" data-toggle="tab" href="#nav-TeacherView" role="tab" aria-controls="nav-TeacherView" aria-selected="true" onclick="onclickTeacherTab('addCourse')">增加课程</a>
+            <a class="nav-item nav-link" id="nav-TeacherView-tab" data-toggle="tab" href="#nav-TeacherView" role="tab" aria-controls="nav-TeacherView" aria-selected="false" onclick="onclickTeacherTab('applyExam')">申请考试</a>
+            <a class="nav-item nav-link" id="nav-TeacherView-tab" data-toggle="tab" href="#nav-TeacherView" role="tab" aria-controls="nav-TeacherView" aria-selected="false" onclick="onclickTeacherTab('gradeView')">成绩管理</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-TeacherView" role="tabpanel" aria-labelledby="nav-TeacherView-tab">
+            <iframe id="TeacherFrame" src="../Teacher/AddCourse" style=" width: -webkit-fill-available; border: none; margin: auto;height: -webkit-fill-available;">
+            </iframe>
+        </div>
+    </div>
+</div>

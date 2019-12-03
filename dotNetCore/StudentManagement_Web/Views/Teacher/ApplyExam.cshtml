@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_UserLayout";
+    ViewData["JsFunction"] = "TeacherFunction.js";
+}
+
+<script>
+
+    window.onload = function () {
+        var User = getJSONCookie('User');
+        var Id = User.UserID;
+        if (User.Role == 2) {
+            dataTypeChoose = 2;
+            onloadViewTeacher(teacher_index, dataTypeChoose, Id);
+            GetPageNumTeacher(dataTypeChoose);
+        }
+    }
+
+</script>

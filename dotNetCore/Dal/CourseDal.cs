@@ -35,7 +35,7 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetStudentNoChooseCourse(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Users.Name 教师名称 from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_Grade.CId from tb_Grade where tb_Grade.SId = @Id and tb_Grade.EId = 0) order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Users.Name 教师名称 from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id) order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
             SqlParameter[] para = new SqlParameter[] {
                 new SqlParameter("@id",Id),
                 new SqlParameter("@index",index),
@@ -51,7 +51,23 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetStudentAllCourse(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id and tb_Grade.EId = 0 order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
+            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@id",Id),
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+            };
+            DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);
+            return dataTable;
+        }
+        /// <summary>
+        /// 获取教师课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        public DataTable GetTeacherAllCourse(string Id, int index, int size)
+        {
+            string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course where TeacherId=@id order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
@@ -211,7 +227,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetStudentNoChooseCoursePageNum(int size, string Id)
         {
-            string str = "select count(*) as Count from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_Grade.CId from tb_Grade where tb_Grade.SId = @Id and tb_Grade.EId = 0)";
+            string str = "select count(*) as Count from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id)";
             DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
             DataRow dr = dataTable.Rows[0];
             int num = (int)dr["Count"];
@@ -226,7 +242,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetStudentAllCoursePageNum(int size, string Id)
         {
-            string str = "select count(*) as Count from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id";
+            string str = "select count(*) as Count from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id";
             DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
             DataRow dr = dataTable.Rows[0];
             int num = (int)dr["Count"];

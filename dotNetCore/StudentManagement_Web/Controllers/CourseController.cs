@@ -107,6 +107,23 @@ namespace StudentManagement_Web.Controllers
             }
         }
         /// <summary>
+        /// 获取教师课程
+        /// </summary>
+        /// <returns>全部课程数据表</returns>
+        //GET: api/ApiCourse/GetTeacherAllCourseArray/{Id}?index={index}&size={size}
+        [HttpGet("GetTeacherAllCourseArray/{Id}")]
+        public IActionResult GetTeacherAllCourseArray(string Id, int index, int size)
+        {
+            try
+            {
+                return Ok(courseBll.GetTeacherAllCourseArray(Id, index, size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
         /// 获取学生已选课程
         /// </summary>
         /// <returns>全部课程数据表</returns>

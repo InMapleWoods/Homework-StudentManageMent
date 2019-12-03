@@ -59,7 +59,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllPageNum(int size, int studentId)
         {
-            string str = "select count(*) as ALLCOUNT from tb_Examination where tb_Examination.CourseId in (select tb_Course.Id from tb_Course inner join tb_Grade on tb_Grade.SId=@id and tb_Grade.CId=tb_Course.Id and tb_Grade.EId = 0)";
+            string str = "select count(*) as ALLCOUNT from tb_Examination where tb_Examination.CourseId in (select tb_Course.Id from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@id",studentId),

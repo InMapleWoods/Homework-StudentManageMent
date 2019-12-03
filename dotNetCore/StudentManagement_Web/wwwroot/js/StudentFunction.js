@@ -291,7 +291,7 @@ function onloadExamView(index, userId) {
                             var isPassed = applyList[i][5];
                             var tempStr = "<td><button class='btn btn-block btn-danger' onclick=TakeExam('" + Id + "')>参加考试</button></td>";
                             if (!isPassed) {
-                                tempStr = "";
+                                tempStr = "<td><button class='btn btn-block btn-info disabled'>参加考试</button></td>";
                             }
                             $('#apply_list_student_4').append("<tr><td>" + Id + "</td><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + ExamTime + "</td><td>" + ExamDuration + "</td>" + tempStr + "</tr>");
                         }

@@ -1,19 +1,7 @@
 ﻿@{
-    Layout = "";
+    Layout = "_UserLayout";
     ViewData["JsFunction"] = "StudentFunction.js";
 }
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/WelcomeView.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/js/CookieAbout.js"></script>
-    <script type="text/javascript" src="~/js/AjaxAbout.js"></script>
-    <script type="text/javascript" src="~/js/@ViewData["JsFunction"]"></script>
-
-</head>
 <script>
 
     window.onload = function () {
@@ -22,7 +10,7 @@
         if (User.Role == 1) {
             dataTypeChoose = 3;
             onloadViewStudent(student_index, dataTypeChoose, Id);
-            GetPageNumStudent(dataTypeChoose, Id);
+            GetPageNumStudent(dataTypeChoose);
         }
     }
 

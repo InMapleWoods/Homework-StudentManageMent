@@ -37,11 +37,29 @@ namespace StudentManagement_Web.Controllers
         }
 
         /// <summary>
+        /// 教师获取学生某考试成绩
+        /// </summary>
+        /// <param name="id">考试Id</param>
+        /// <returns>全部学生成绩数据表</returns>
+        //GET: api/ApiGrade/GetExamGradeArray/{id}
+        [HttpGet("GetExamGradeArray/{id}")]
+        public IActionResult GetExamGradeArray(string id)
+        {
+            try
+            {
+                return Ok(gradeBll.GetExamGradeArray(id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        //GET: api/ApiGrade/GetCourseGradeArray/{Id}
-        [HttpGet("{id}", Name = "GetCourseGradeArray")]
+        //GET: api/ApiGrade/GetCourseGradeArray/{id}
+        [HttpGet("GetCourseGradeArray/{id}")]
         public IActionResult GetCourseGradeArray(string Id)
         {
             try
