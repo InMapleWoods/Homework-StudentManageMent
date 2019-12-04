@@ -40,14 +40,16 @@ namespace StudentManagement_Web.Controllers
         /// 教师获取学生某考试成绩
         /// </summary>
         /// <param name="id">考试Id</param>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
         /// <returns>全部学生成绩数据表</returns>
-        //GET: api/ApiGrade/GetExamGradeArray/{id}
+        //GET: api/ApiGrade/GetExamGradeArray/{id}?index={index}&size={size}
         [HttpGet("GetExamGradeArray/{id}")]
-        public IActionResult GetExamGradeArray(string id)
+        public IActionResult GetExamGradeArray(string id, int index, int size)
         {
             try
             {
-                return Ok(gradeBll.GetExamGradeArray(id));
+                return Ok(gradeBll.GetExamGradeArray(id, index, size));
             }
             catch (Exception ex)
             {
@@ -58,13 +60,13 @@ namespace StudentManagement_Web.Controllers
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        //GET: api/ApiGrade/GetCourseGradeArray/{id}
+        //GET: api/ApiGrade/GetCourseGradeArray/{id}?index={index}&size={size}
         [HttpGet("GetCourseGradeArray/{id}")]
-        public IActionResult GetCourseGradeArray(string Id)
+        public IActionResult GetCourseGradeArray(string id, int index, int size)
         {
             try
             {
-                return Ok(gradeBll.GetCourseGradeArray(Id));
+                return Ok(gradeBll.GetCourseGradeArray(id, index, size));
             }
             catch (Exception ex)
             {
@@ -72,6 +74,44 @@ namespace StudentManagement_Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取教师获取学生成绩列表总页数
+        /// </summary>
+        /// <param name="id">课程Id</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        //GET: api/ApiGrade/GetAllCoursePageNum/{id}?size={size}
+        [HttpGet("GetAllCoursePageNum/{id}")]
+        public IActionResult GetAllCoursePageNum(string id, int size)
+        {
+            try
+            {
+                return Ok(gradeBll.GetAllCoursePageNum(id, size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 获取学生某考试成绩列表总页数
+        /// </summary>
+        /// <param name="id">考试Id</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        //GET: api/ApiGrade/GetAllExamPageNum/{id}?size={size}
+        [HttpGet("GetAllExamPageNum/{id}")]
+        public IActionResult GetAllExamPageNum(string id, int size)
+        {
+            try
+            {
+                return Ok(gradeBll.GetAllExamPageNum(id, size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
         /// <summary>
         /// 更改学生成绩
         /// </summary>
@@ -99,8 +139,8 @@ namespace StudentManagement_Web.Controllers
         /// <param name="studenid">学生Id</param>
         /// <param name="examid">考试Id</param>
         /// <returns>修改是否成功</returns>
-        //PUT: api/ApiGrade/ChangeCourseGrade?score={score}&studenid={studenid}&courseid={courseid}
-        [HttpPut("ChangeCourseGrade")]
+        //PUT: api/ApiGrade/ChangeExamGrade?score={score}&studenid={studenid}&examid={examid}
+        [HttpPut("ChangeExamGrade")]
         public IActionResult ChangeExamGrade(string score, string studenid, string examid)
         {
             try

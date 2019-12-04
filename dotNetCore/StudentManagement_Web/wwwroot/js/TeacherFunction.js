@@ -3,6 +3,8 @@ var teacher_size = 10;
 var teacher_index = 1;
 var dataTypeChoose = -1;
 var Id = getJSONCookie('User').UserID;
+var changeStr = "";
+var scoreVal = "";
 var sqls = [
     window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
     window.matchMedia('(max-width:768px)'),
@@ -47,14 +49,15 @@ for (var i = 0; i < sqls.length; i++) {
 }
 
 function onloadViewTeacher(index, choose, userId) {
+    GetPageNumTeacher(choose)
     if (choose == 1)
-        onloadAddCourseView(index, userId);
+        onloadAddCourseView(index);
     else if (choose == 2)
         onloadApplyExamView(index, userId);
     else if (choose == 3) {
         onloadCourseSelectList(userId);
         onloadExamSelectList();
-        onloadManageGradeView(index, userId);
+        onloadManageGradeView(index);
     }
 }
 
@@ -62,9 +65,10 @@ function GetPageNumTeacher(choose) {
     if (choose == 1) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiCourse/GetAllPageNum?size=' + teacher_size,
             success: function (data) {
-                admin_page = data;
+                teacher_page = data;
                 $("#page").text(data);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -72,10 +76,22 @@ function GetPageNumTeacher(choose) {
                 location.reload();
             }
         });
-    } else if (choose == 3) {
+    }
+    else if (choose == 3) {
+        var courseId = $("#selectCourse").val();
+        if ((courseId == '') || (courseId == null))
+            return;
+        var examId = $("#selectExam").val();
+        var str = '';
+        if ((examId == '') || (examId == '0') || examId == null) {
+            str = '../api/ApiGrade/GetAllCoursePageNum/' + courseId + '?size=' + teacher_size;
+        } else {
+            str = '../api/ApiGrade/GetAllExamPageNum/' + examId + '?size=' + teacher_size;
+        }
         $.ajax({
             type: "Get",
-            url: '../api/ApiExamination/GetAllPageNum/' + Id + '?size=' + teacher_size,
+            url: str,
+            async: false,
             success: function (data) {
                 teacher_page = data;
                 $("#page").text(data);
@@ -88,10 +104,11 @@ function GetPageNumTeacher(choose) {
     }
 }
 
-function onloadAddCourseView(index, userId) {
+function onloadAddCourseView(index) {
     $("#index").text(teacher_index);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetPaperCourseArray?index=' + index + '&size=' + teacher_size,
         success: function (data) {
             var applyList = data;
@@ -118,6 +135,7 @@ function AddCourse() {
     }
     $.ajax({
         type: "Put",
+        async: false,
         url: '../api/ApiCourse/AddCourse?name=' + name + '&teacherId=' + Id,
         success: function (data) {
             if (data == true) {
@@ -136,8 +154,10 @@ function AddCourse() {
 }
 
 function onloadCourseSelectList(userId) {
+    $('#message').text('');
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetTeacherAllCourseArray/' + userId + '?index=1&size=500',
         success: function (data) {
             var courselist = data;
@@ -157,11 +177,15 @@ function onloadCourseSelectList(userId) {
 }
 
 function onloadExamSelectList() {
+    $('#message').text('');
     var courseId = $("#selectCourse").val();
-    if ((courseId == '') || (courseId == null))
+    if ((courseId == '') || (courseId == null)) {
+        $('#selectExam').html("<option value='0'>总成绩</option>");
         return;
+    }
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiExamination/GetExaminationByCourseId/' + courseId,
         success: function (data) {
             var examlist = data;
@@ -180,28 +204,33 @@ function onloadExamSelectList() {
     });
 }
 
-function onloadManageGradeView() {
+function onloadManageGradeView(index) {
     var courseId = $("#selectCourse").val();
-    if ((courseId == '') || (courseId == null))
+    if ((courseId == '') || (courseId == null)) {
         return;
+    }
     var examId = $("#selectExam").val();
     var str = '';
     if ((examId == '') || (examId == '0') || examId == null) {
+        examId = '0';
+        $('#examName').text('总成绩');
         str = '../api/ApiGrade/GetCourseGradeArray/' + courseId;
     } else {
+        $('#examName').text('考试名称');
         str = '../api/ApiGrade/GetExamGradeArray/' + examId;
     }
     $.ajax({
         type: "Get",
-        url: str,
+        async: false,
+        url: str + '?index=' + index + '&size=' + teacher_size,
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");
-            for (i = 0; i < applyList.length; i++) {
+            for (var i = 0; i < applyList.length; i++) {
                 var Number = applyList[i][0];
                 var Name = applyList[i][1];
                 var Score = applyList[i][2];
-                $('#apply_list').append("<tr><td>" + Number + "</td><td>" + Name + "</td><td>" + Score + "</td></tr>");
+                $('#apply_list').append("<tr><td id='" + Number + "'>" + Number + "</td><td>" + Name + "</td><td onclick='FocusScore(this)'>" + Score + "</td></tr>");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -210,6 +239,68 @@ function onloadManageGradeView() {
         }
     });
 }
+
+function FocusScore(focus) {
+    var td = focus;
+    var parent = td.parentNode;
+    var input = document.createElement('input');
+    input.setAttribute("onblur", "UnFocusScore(this)");
+    input.setAttribute("class", "text-center");
+    input.value = td.innerHTML;
+    scoreVal = input.value;
+    input.style.height = parseInt(td.offsetHeight) + "px";
+    input.style.width = parseInt(td.offsetWidth) + "px";
+    parent.removeChild(td);
+    parent.appendChild(input);
+    input.focus();
+}
+
+function UnFocusScore(blur) {
+    var input = blur;
+    var parent = input.parentNode;
+    changeStr = parent.childNodes[0].id
+    var td = document.createElement('td');
+    td.setAttribute("onclick", "FocusScore(this)");
+    td.innerHTML = input.value;
+    td.style.height = parseInt(input.offsetHeight) + "px";
+    td.style.width = parseInt(input.offsetWidth) + "px";
+    parent.removeChild(input);
+    parent.appendChild(td);
+    if (scoreVal == td.innerHTML) {
+        $('#message').text('');
+        return;
+    }
+    var courseId = $("#selectCourse").val();
+    if ((courseId == '') || (courseId == null)) {
+        return;
+    }
+    var examId = $("#selectExam").val();
+    var str = '';
+    if ((examId == '') || (examId == '0') || examId == null) {
+        examId = '0';
+        str = '../api/ApiGrade/ChangeCourseGrade?score=' + input.value + '&studenid=' + changeStr + '&courseid=' + courseId;
+    } else {
+        str = '../api/ApiGrade/ChangeExamGrade?score=' + input.value + '&studenid=' + changeStr + '&examid=' + examId;
+    }
+    $.ajax({
+        type: "put",
+        async: false,
+        url: str,
+        success: function (data) {
+            if (data == true) {
+                $('#message').text('成功');
+            } else {
+                $('#message').text('失败');
+            }
+            onloadManageGradeView(teacher_index);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
+
 
 
 function LeftIndex() {
@@ -227,22 +318,3 @@ function RightIndex() {
         teacher_index = teacher_page;
     onloadViewTeacher(teacher_index, dataTypeChoose, Id);
 }
-
-$(document).ready(function () {
-    $("#selectCourse").change(function () {
-        $("#selectExam").empty();
-        onloadExamSelectList();
-        onloadGradeView();
-    });
-    $("#selectExam").change(function () {
-        onloadGradeView();
-    });
-    $("#selectCourse").click(function () {
-        $("#selectExam").empty();
-        onloadExamSelectList();
-        onloadGradeView();
-    });
-    $("#selectExam").click(function () {
-        onloadGradeView();
-    });
-})

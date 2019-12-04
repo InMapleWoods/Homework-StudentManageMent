@@ -66,6 +66,7 @@ function GetPageNumStudent(choose) {
     if (choose == 1) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiCourse/GetStudentAllCoursePageNum/' + Id + '?size=' + student_size,
             success: function (data) {
                 student_page = data;
@@ -79,6 +80,7 @@ function GetPageNumStudent(choose) {
     } else if (choose == 2) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiCourse/GetStudentNoChooseCoursePageNum/' + Id + '?size=' + student_size,
             success: function (data) {
                 student_page = data;
@@ -93,6 +95,7 @@ function GetPageNumStudent(choose) {
     } else if (choose == 4) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiExamination/GetAllPageNum/' + Id + '?size=' + student_size,
             success: function (data) {
                 student_page = data;
@@ -110,6 +113,7 @@ function onloadCourseView(index, userId) {
     $("#index").text(student_index);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
         success: function (data) {
             var applyList = data;
@@ -152,6 +156,7 @@ function onloadChooseCourseView(index, userId) {
     $("#index").text(student_index);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetStudentNoChooseCourseArray/' + userId + '?index=' + index + '&size=' + student_size,
         success: function (data) {
             var applyList = data;
@@ -194,6 +199,7 @@ function ChooseCourse(courseId, studentId) {
 function onloadCourseSelectList(userId) {
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetStudentAllCourseArray/' + userId + '?index=1&size=200',
         success: function (data) {
             var courselist = data;
@@ -218,6 +224,7 @@ function onloadExamSelectList() {
         return;
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiExamination/GetExaminationByCourseId/' + courseId,
         success: function (data) {
             var examlist = data;
@@ -249,6 +256,7 @@ function onloadGradeView() {
     }
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiGrade/GetStudentGradeArray/' + Id + '?courseId=' + courseId + '&examId=' + examId,
         success: function (data) {
             var applyList = data;

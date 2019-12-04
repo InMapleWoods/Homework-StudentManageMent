@@ -7,6 +7,6 @@
 
 function GetUserNameAndNumber() {
     var user = getJSONCookie("User");
-    $("#userName").text(user.UserName);
+    $("#userName").text(unescape(user.UserName));
     $("#userNumber").text(user.Number);
 }

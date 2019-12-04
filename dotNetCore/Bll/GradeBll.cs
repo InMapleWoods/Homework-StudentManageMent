@@ -49,12 +49,12 @@ namespace Bll
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        public DataTable GetCourseGrade(string Id)
+        public DataTable GetCourseGrade(string Id, int index, int size)
         {
             DataTable dataTable = null;
             try
             {
-                dataTable = gradeDal.GetCourseGrade(Id);
+                dataTable = gradeDal.GetCourseGrade(Id, index, size);
             }
             catch (Exception e)
             {
@@ -66,12 +66,12 @@ namespace Bll
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
-        public IEnumerable GetCourseGradeArray(string Id)
+        public IEnumerable GetCourseGradeArray(string Id, int index, int size)
         {
             List<string[]> temp = null;
             try
             {
-                DataTable dataTable = gradeDal.GetCourseGrade(Id);
+                DataTable dataTable = gradeDal.GetCourseGrade(Id, index, size);
                 temp = new List<string[]>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
@@ -94,12 +94,12 @@ namespace Bll
         /// </summary>
         /// <param name="Id">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
-        public IEnumerable GetExamGradeArray(string Id)
+        public IEnumerable GetExamGradeArray(string Id, int index, int size)
         {
             List<string[]> temp = null;
             try
             {
-                DataTable dataTable = gradeDal.GetCourseGrade(Id);
+                DataTable dataTable = gradeDal.GetCourseGrade(Id, index, size);
                 temp = new List<string[]>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
@@ -117,6 +117,38 @@ namespace Bll
             }
         }
 
+        /// <summary>
+        /// 获取教师获取学生成绩列表总页数
+        /// </summary>
+        /// <param name="id">课程Id</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        public int GetAllCoursePageNum(string id, int size)
+        {
+            int result;
+            try
+            {
+                result = gradeDal.GetAllCoursePageNum(id, size);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
+        /// <summary>
+        /// 获取学生某考试成绩列表总页数
+        /// </summary>
+        /// <param name="id">考试Id</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        public int GetAllExamPageNum(string id, int size)
+        {
+            int result;
+            try
+            {
+                result = gradeDal.GetAllExamPageNum(id, size);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); throw e; }
+            return result;
+        }
         /// <summary>
         /// 更改学生成绩
         /// </summary>

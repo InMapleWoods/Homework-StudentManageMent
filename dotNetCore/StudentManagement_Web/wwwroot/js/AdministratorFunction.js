@@ -78,6 +78,7 @@ function GetPageNumAdmin(choose) {
     if ((choose == 1) || (choose == 2) || (choose == 3)) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiAdmin/GetAllPageNum?size=' + admin_size + '&choose=' + choose,
             success: function (data) {
                 admin_page = data;
@@ -92,6 +93,7 @@ function GetPageNumAdmin(choose) {
     else if (choose == 4) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiExamination/GetAllPageApplyNum?size=' + admin_size,
             success: function (data) {
                 admin_page = data;
@@ -106,6 +108,7 @@ function GetPageNumAdmin(choose) {
     else if (choose == 5) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiCourse/GetAllPageNum?size=' + admin_size,
             success: function (data) {
                 admin_page = data;
@@ -120,6 +123,7 @@ function GetPageNumAdmin(choose) {
     else if (choose == 6) {
         $.ajax({
             type: "Get",
+            async: false,
             url: '../api/ApiExamination/GetAllPageNum?size=' + admin_size,
             success: function (data) {
                 admin_page = data;
@@ -138,6 +142,7 @@ function onloadUserApplyView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=3',
         success: function (data) {
             var applyList = data;
@@ -159,6 +164,7 @@ function onloadUserApplyView(index) {
 function AccpetApply(num) {
     $.ajax({
         type: "put",
+        async: false,
         url: '../api/ApiAdmin/AcceptLog?number=' + num,
         success: function (data) {
             if (data == true) {
@@ -179,6 +185,7 @@ function AccpetApply(num) {
 function RejectApply(num) {
     $.ajax({
         type: "PUT",
+        async: false,
         url: '../api/ApiAdmin/RejectionLog?number=' + num,
         success: function (data) {
             if (data == true) {
@@ -201,6 +208,7 @@ function onloadExamView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiExamination/GetExam?index=' + index + '&size=' + admin_size,
         success: function (data) {
             var applyList = data;
@@ -225,6 +233,7 @@ function DeleteExam(num) {
 
     $.ajax({
         type: "DELETE",
+        async: false,
         url: '../api/ApiExamination/' + num,
         success: function (data) {
             if (data == true) {
@@ -247,6 +256,7 @@ function onloadStudentView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=2',
         success: function (data) {
             var applyList = data;
@@ -268,6 +278,7 @@ function DeleteStudent(num) {
 
     $.ajax({
         type: "DELETE",
+        async: false,
         url: '../api/ApiAdmin?number=' + num,
         success: function (data) {
             if (data == true) {
@@ -290,6 +301,7 @@ function onloadTeacherView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=1',
         success: function (data) {
             var applyList = data;
@@ -311,6 +323,7 @@ function DeleteTeacher(num) {
 
     $.ajax({
         type: "DELETE",
+        async: false,
         url: '../api/ApiAdmin?number=' + num,
         success: function (data) {
             if (data == true) {
@@ -333,6 +346,7 @@ function onloadCourseView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiCourse/GetPaperCourseArray?index=' + index + '&size=' + admin_size,
         success: function (data) {
             var applyList = data;
@@ -355,6 +369,7 @@ function DeleteCourse(num) {
 
     $.ajax({
         type: "DELETE",
+        async: false,
         url: '../api/ApiCourse/DeleteCourse?CourseId=' + num,
         success: function (data) {
             if (data == true) {
@@ -377,6 +392,7 @@ function onloadExamApplyView(index) {
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiExamination/GetExamApply?index=' + index + '&size=' + admin_size,
         success: function (data) {
             var applyList = data;
@@ -400,6 +416,7 @@ function onloadExamApplyView(index) {
 function AccpetExamApply(num) {
     $.ajax({
         type: "put",
+        async: false,
         url: '../api/ApiExamination/Accpet/' + num,
         success: function (data) {
             if (data == true) {
@@ -420,6 +437,7 @@ function AccpetExamApply(num) {
 function RejectExamApply(num) {
     $.ajax({
         type: "PUT",
+        async: false,
         url: '../api/ApiExamination/Reject/' + num,
         success: function (data) {
             if (data == true) {
@@ -440,6 +458,7 @@ function RejectExamApply(num) {
 function onloadSettingsView(index) {
     $.ajax({
         type: "Get",
+        async: false,
         url: '../api/ApiAdmin/GetSettings',
         success: function (data) {
             $('#settingList').html('');
@@ -471,6 +490,7 @@ function onloadSettingsView(index) {
 function updateSettings(name, value) {
     $.ajax({
         type: "put",
+        async: false,
         url: '../api/ApiAdmin/UpdateSettings?name=' + name + '&value=' + value,
         success: function (data) {
             alert(data);
