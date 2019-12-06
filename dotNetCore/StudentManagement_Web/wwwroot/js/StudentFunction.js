@@ -60,6 +60,7 @@ function onloadViewStudent(index, choose, userId) {
     }
     else if (choose == 4)
         onloadExamView(index, userId);
+    $("#index").text(student_index);
 }
 
 function GetPageNumStudent(choose) {
@@ -314,8 +315,27 @@ function onloadExamView(index, userId) {
     });
 }
 
-function TakeExam(courseId) {
-    location = '../Student/ExamView/' + courseId;
+function TakeExam(examId) {
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../api/ApiGrade/GetStudentGradeArray/' + Id + '?courseId=' + courseId + '&examId=' + examId,
+        success: function (data) {
+            var applyList = data;
+            $('#apply_list_student_3').html("");
+            for (i = 0; i < applyList.length; i++) {
+                var CourseName = applyList[i][0];
+                var ExamName = applyList[i][1];
+                var Score = applyList[i][2];
+                $('#apply_list_student_3').append("<tr><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Score + "</td></tr>");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+    location = '../Student/ExamView/' + examId;
 }
 
 function LeftIndex() {

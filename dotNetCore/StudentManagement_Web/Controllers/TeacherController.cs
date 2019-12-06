@@ -16,5 +16,9 @@ namespace StudentManagement_Web.Controllers
         {
             return View();
         }
+        public IActionResult AllGrade()
+        {
+            return View();
+        }
     }
 }

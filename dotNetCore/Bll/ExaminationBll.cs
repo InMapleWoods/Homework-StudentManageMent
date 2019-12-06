@@ -320,13 +320,18 @@ namespace Bll
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
+        /// <param name="id">教师Id</param>
         /// <returns>分页后名单数组</returns>
-        public IEnumerable GetPageExamApplyArray(int index, int size)
+        public IEnumerable GetPageExamApplyArray(int index, int size, int id = 0)
         {
             List<ExamApply> examApplyLogArray = new List<ExamApply>();
             try
             {
-                DataTable result = examinationDal.GetPaperExamApply(index, size);
+                DataTable result;
+                if (id != 0)
+                    result = examinationDal.GetPaperExamApply(id, index, size);
+                else
+                    result = examinationDal.GetPaperExamApply(index, size);
                 foreach (DataRow dr in result.Rows)
                 {
                     examApplyLogArray.Add(new ExamApply((int)dr["考试ID"], dr["老师名称"].ToString(), dr["课程名称"].ToString(), (DateTime)dr["考试时间"], dr["考试名称"].ToString(), (int)dr["考试时长"]));
@@ -343,13 +348,17 @@ namespace Bll
         /// 获取分页后的考试申请列表总页数
         /// </summary>
         /// <param name="size">分页大小</param>
+        /// <param name="id">教师Id</param>
         /// <returns>分页数</returns>
-        public int GetAllPageApplyNum(int size)
+        public int GetAllPageApplyNum(int size, int id = 0)
         {
             int result = 0;
             try
             {
-                result = examinationDal.GetAllPageApplyNum(size);
+                if (id == 0)
+                    result = examinationDal.GetAllPageApplyNum(size);
+                else
+                    result = examinationDal.GetAllPageApplyNum(id, size);
             }
             catch (Exception e)
             {

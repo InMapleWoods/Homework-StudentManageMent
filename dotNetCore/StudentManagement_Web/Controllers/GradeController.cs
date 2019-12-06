@@ -75,6 +75,27 @@ namespace StudentManagement_Web.Controllers
         }
 
         /// <summary>
+        /// 获取全部学生全部成绩
+        /// </summary>
+        /// <param name="id">教师Id</param>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>全部学生成绩数据表</returns>
+        //GET: api/ApiGrade/GetAllStudentAllGrade/{id}?index={index}&size={size}
+        [HttpGet("GetAllStudentAllGrade/{id}")]
+        public IActionResult GetAllStudentAllGrade(string id, int index, int size)
+        {
+            try
+            {
+                return Ok(gradeBll.GetAllStudentAllGrade(id, index, size));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 获取教师获取学生成绩列表总页数
         /// </summary>
         /// <param name="id">课程Id</param>

@@ -56,13 +56,32 @@ namespace Dal
             return dataTable;
         }
         /// <summary>
+        /// 获取全部学生全部成绩
+        /// </summary>
+        /// <param name="Id">教师Id</param>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>全部学生成绩数据表</returns>
+        public DataTable GetAllStudentAllGrade(string Id, int index, int size)
+        {
+            string str = "GetAllStudentAllGrade";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+                new SqlParameter("@teacherid",Id),
+            };
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
+            return dataTable;
+        }
+        /// <summary>
         /// 教师获取学生某考试成绩
         /// </summary>
         /// <param name="Id">考试Id</param>
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetExamGrade(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_CourseGrade.SId=tb_Users.Id order by tb_Users.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Users.Id order by tb_Users.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
@@ -97,7 +116,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllExamPageNum(string id, int size)
         {
-            string sqlstr = "select count(*) from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_CourseGrade.SId=tb_Users.Id";//SQL执行字符串
+            string sqlstr = "select count(*) from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Users.Id";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",id),

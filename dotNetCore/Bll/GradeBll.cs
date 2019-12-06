@@ -46,6 +46,36 @@ namespace Bll
         }
 
         /// <summary>
+        /// 获取全部学生全部成绩
+        /// </summary>
+        /// <param name="Id">教师Id</param>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>全部学生成绩数据表</returns>
+        public IEnumerable GetAllStudentAllGrade(string Id, int index, int size)
+        {
+            List<string[]> temp = null;
+            try
+            {
+                DataTable dataTable = gradeDal.GetAllStudentAllGrade(Id, index, size);
+                temp = new List<string[]>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    List<string> t = new List<string>();
+                    foreach(var obj in dr.ItemArray)
+                    {
+                        t.Add(obj.ToString());
+                    }
+                    temp.Add(t.ToArray());
+                }
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
+        /// <summary>
         /// 教师获取学生成绩
         /// </summary>
         /// <returns>全部学生成绩数据表</returns>
@@ -99,7 +129,7 @@ namespace Bll
             List<string[]> temp = null;
             try
             {
-                DataTable dataTable = gradeDal.GetCourseGrade(Id, index, size);
+                DataTable dataTable = gradeDal.GetExamGrade(Id, index, size);
                 temp = new List<string[]>();
                 foreach (DataRow dr in dataTable.Rows)
                 {
@@ -158,6 +188,15 @@ namespace Bll
         /// <returns>修改是否成功</returns>
         public bool ChangeCourseGrade(string score, string studenid, string courseid)
         {
+            try
+            {
+                int _score = Int32.Parse(score);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw new Exception("成绩格式不正确");
+            }
             bool result = false;
             try
             {
@@ -180,6 +219,15 @@ namespace Bll
         /// <returns>修改是否成功</returns>
         public bool ChangeExamGrade(string score, string studenid, string examid)
         {
+            try
+            {
+                int _score = Int32.Parse(score);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message); 
+                throw new Exception("成绩格式不正确");
+            }
             bool result = false;
             try
             {

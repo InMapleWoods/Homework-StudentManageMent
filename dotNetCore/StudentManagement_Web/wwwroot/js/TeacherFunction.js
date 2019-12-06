@@ -41,6 +41,8 @@ function onclickTeacherTab(name) {
         $('#TeacherFrame').attr('src', '../Teacher/ApplyExam');
     } else if (name == 'gradeView') {
         $('#TeacherFrame').attr('src', '../Teacher/ManageGrade');
+    } else if (name == 'allGrade') {
+        $('#TeacherFrame').attr('src', '../Teacher/allGrade');
     }
 }
 
@@ -52,13 +54,17 @@ function onloadViewTeacher(index, choose, userId) {
     GetPageNumTeacher(choose)
     if (choose == 1)
         onloadAddCourseView(index);
-    else if (choose == 2)
-        onloadApplyExamView(index, userId);
+    else if (choose == 2) {
+        onloadCourseSelectList(userId);
+        onloadApplyExamView(index);
+    }
     else if (choose == 3) {
         onloadCourseSelectList(userId);
         onloadExamSelectList();
         onloadManageGradeView(index);
     }
+    else if (choose == 4)
+        onloadAllGradeView(index, userId);
 }
 
 function GetPageNumTeacher(choose) {
@@ -76,6 +82,22 @@ function GetPageNumTeacher(choose) {
                 location.reload();
             }
         });
+    }
+    else if (choose == 2) {
+        $.ajax({
+            type: "Get",
+            async: false,
+            url: '../api/ApiExamination/GetAllPageApplyNum/' + Id + '?size=' + teacher_size,
+            success: function (data) {
+                teacher_page = data;
+                $("#page").text(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location.reload();
+            }
+        });
+
     }
     else if (choose == 3) {
         var courseId = $("#selectCourse").val();
@@ -102,6 +124,103 @@ function GetPageNumTeacher(choose) {
             }
         });
     }
+    else if (choose == 4) {
+        $.ajax({
+            type: "Get",
+            async: false,
+            url: '../api/ApiAdmin/GetAllPageNum?size=' + teacher_size + '&choose=2',
+            success: function (data) {
+                teacher_page = data;
+                $("#page").text(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location.reload();
+            }
+        });
+    }
+}
+
+function onloadApplyExamView(index) {
+    $("#index").text(teacher_index);
+    var mintime = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+    var maxtime = new Date(new Date().setMonth(new Date().getMonth() + 6));
+    $('#datetimeInput').attr('min', mintime.toJSON().split('.')[0]);
+    $('#datetimeInput').attr('max', maxtime.toJSON().split('.')[0]);
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../api/ApiExamination/GetExamApply/' + Id + '?index=' + index + '&size=' + teacher_size,
+        success: function (data) {
+            var applyList = data;
+            $('#apply_list').html("");
+            for (i = 0; i < applyList.length; i++) {
+                var Id = applyList[i].id;
+                var CourseName = applyList[i].courseName;
+                var Time = applyList[i].time;
+                var ExamName = applyList[i].examName;
+                var ExamDuration = applyList[i].examDuration;
+                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + CourseName + "</td><td>" + Time + "</td><td>" + ExamName + "</td><td>" + ExamDuration + "</td></tr>");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
+
+function applyExam() {
+    var courseId = $("#selectCourse").val();
+    if ((courseId == '') || (courseId == null)) {
+        alert('请选择课程');
+        return;
+    }
+    var datetime = $("#datetimeInput").val();
+    if ((datetime == '') || (datetime == null)) {
+        alert('请输入考试日期');
+        return;
+    }
+    var duration = $("#durationInput").val();
+    if ((duration == '') || (duration == null)) {
+        alert('请输入考试时长');
+        return;
+    }
+    var name = $("#nameInput").val();
+    if ((name == '') || (name == null)) {
+        alert('请输入考试名称');
+        return;
+    }
+    var examApplyObj = {
+        teacherId: Id,
+        examination: {
+            Id: 0,
+            CourseId: courseId,
+            Time: datetime,
+            Name: name,
+            Duration: duration
+        }
+    };
+    $.ajax({
+        type: "Post",
+        async: false,
+        url: '../api/ApiExamination/AddExamApply',
+        accepts: "application/json",
+        contentType: "application/json",
+        data: JSON.stringify(examApplyObj),
+        success: function (data) {
+            if (data == true) {
+                alert('成功');
+            } else {
+                alert('失败');
+            }
+            onloadViewTeacher(teacher_index, dataTypeChoose, Id);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
 }
 
 function onloadAddCourseView(index) {
@@ -301,6 +420,50 @@ function UnFocusScore(blur) {
     });
 }
 
+function onloadAllGradeView(index) {
+    $("#index").text(teacher_index);
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../api/ApiCourse/GetTeacherAllCourseArray/' + Id + '?index=1&size=500',
+        success: function (data) {
+            var courselist = data;
+            $('#headGrade').html("<td>学号</td><td>姓名</td>");
+            for (i = 0; i < courselist.length; i++) {
+                var Name = courselist[i][1];
+                $('#headGrade').append("<td>" + Name + "</td>");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../api/ApiGrade/GetAllStudentAllGrade/' + Id + '?index=' + index + '&size=' + teacher_size,
+        success: function (data) {
+            var applyList = data;
+            $('#apply_list').html("");
+            var strGrade = '';
+            for (var i = 0; i < applyList.length; i++) {
+                strGrade += '<tr>';
+                for (var j = 0; j < applyList[i].length; j++) {
+                    strGrade += '<td>';
+                    strGrade += applyList[i][j];
+                    strGrade += '</td>';
+                }
+                strGrade += '</tr>';
+            }
+            $('#apply_list').append(strGrade);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
 
 
 function LeftIndex() {

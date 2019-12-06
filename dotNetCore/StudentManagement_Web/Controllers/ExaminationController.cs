@@ -231,6 +231,46 @@ namespace StudentManagement_Web.Controllers
                 return NotFound(e.Message);
             }
         }
+        /// <summary>
+        /// 获取考试申请分页列表
+        /// </summary>
+        /// <param name="id">教师Id</param>
+        /// <param name="index">页索引</param>
+        /// <param name="size">页容量</param>
+        /// <returns>考试申请列表</returns>
+        // GET: api/ApiExamination/GetExamApply/{id}?index={index}&size={size}
+        [HttpGet("GetExamApply/{id}")]
+        public IActionResult GetExamApply(int id, int index, int size)
+        {
+            try
+            {
+                return Ok(examinationBll.GetPageExamApplyArray(index, size, id));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取分页后的考试申请列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <param name="id">教师Id</param>
+        /// <returns>分页数</returns>
+        // GET: api/ApiExamination/GetAllPageApplyNum/{id}?size={size}
+        [HttpGet("GetAllPageApplyNum/{id}")]
+        public IActionResult GetAllPageApplyNum(int id, int size)
+        {
+            try
+            {
+                return Ok(examinationBll.GetAllPageApplyNum(size, id));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
 
         /// <summary>
         /// 增加考试申请
@@ -243,16 +283,11 @@ namespace StudentManagement_Web.Controllers
         {
             try
             {
-                static DateTime ConvertTime(long milliTime)
-                {
-                    long timeTricks = new DateTime(1970, 1, 1).Ticks + milliTime * 10000 + TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).Hours * 3600 * (long)10000000;
-                    return new DateTime(timeTricks);
-                }
                 dynamic examApplyObject = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(examApply.ToString());
                 int teacherId = examApplyObject.teacherId;
                 int examId = examApplyObject.examination.Id;
                 int courseId = examApplyObject.examination.CourseId;
-                DateTime time = ConvertTime((long)examApplyObject.examination.Time);
+                DateTime time = examApplyObject.examination.Time;
                 int duration = examApplyObject.examination.Duration;
                 string name = examApplyObject.examination.Name;
                 Model.Examination examination = new Model.Examination(examId, courseId, time, name, duration);

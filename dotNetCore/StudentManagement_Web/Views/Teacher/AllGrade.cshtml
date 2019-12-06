@@ -8,7 +8,7 @@
         var User = getJSONCookie('User');
         var Id = User.UserID;
         if (User.Role == 2) {
-            dataTypeChoose = 1;
+            dataTypeChoose = 4;
             onloadViewTeacher(teacher_index, dataTypeChoose, Id);
             GetPageNumTeacher(dataTypeChoose);
         }
@@ -16,25 +16,9 @@
 
 </script>
 <div>
-    <table style="margin:auto;text-align:center">
-        <tr>
-            <td>课程名：</td>
-            <td>
-                <input class="form-control" id="CourseName" type="text" placeholder="课程名" />
-            </td>
-            <td>
-                <button class="btn btn-success" onclick="AddCourse()">增加课程</button>
-            </td>
-        </tr>
-    </table>
-</div><div style="height: 70px;"></div>
-<div>
-    <table id="apply_table" style="margin:auto;text-align:center">
+    <table border="1" id="apply_table" style="margin:auto;text-align:center">
         <thead>
-            <tr>
-                <td>课程ID</td>
-                <td>课程名称</td>
-                <td>教师名称</td>
+            <tr id="headGrade">
             </tr>
         </thead>
         <tbody id="apply_list">

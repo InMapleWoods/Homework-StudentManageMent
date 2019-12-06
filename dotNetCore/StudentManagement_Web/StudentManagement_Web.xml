@@ -269,6 +269,23 @@
             <param name="size">分页大小</param>
             <returns>分页数</returns>
         </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExamApply(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取考试申请分页列表
+            </summary>
+            <param name="id">教师Id</param>
+            <param name="index">页索引</param>
+            <param name="size">页容量</param>
+            <returns>考试申请列表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetAllPageApplyNum(System.Int32,System.Int32)">
+            <summary>
+            获取分页后的考试申请列表总页数
+            </summary>
+            <param name="size">分页大小</param>
+            <param name="id">教师Id</param>
+            <returns>分页数</returns>
+        </member>
         <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.AddExamApply(System.Object)">
             <summary>
             增加考试申请
@@ -322,6 +339,15 @@
             <summary>
             教师获取学生成绩
             </summary>
+            <returns>全部学生成绩数据表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiGradeController.GetAllStudentAllGrade(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取全部学生全部成绩
+            </summary>
+            <param name="id">教师Id</param>
+            <param name="index">索引</param>
+            <param name="size">分页大小</param>
             <returns>全部学生成绩数据表</returns>
         </member>
         <member name="M:StudentManagement_Web.Controllers.ApiGradeController.GetAllCoursePageNum(System.String,System.Int32)">

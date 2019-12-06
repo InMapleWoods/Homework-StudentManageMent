@@ -403,7 +403,8 @@ function onloadExamApplyView(index) {
                 var CourseName = applyList[i].courseName;
                 var Time = applyList[i].time;
                 var ExamName = applyList[i].examName;
-                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + TeacherName + "</td><td>" + CourseName + "</td><td>" + Time + "</td><td>" + ExamName + "</td><td><button class='btn btn-block btn-danger' onclick=AccpetExamApply('" + Id + "')>通过</button></td><td><button class='btn btn-block btn-danger' onclick=RejectExamApply('" + Id + "')>拒绝</button></td></tr>");
+                var ExamDuration = applyList[i].examDuration;
+                $('#apply_list').append("<tr><td>" + Id + "</td><td>" + TeacherName + "</td><td>" + CourseName + "</td><td>" + Time + "</td><td>" + ExamName + "</td><td>" + ExamDuration + "</td><td><button class='btn btn-block btn-danger' onclick=AccpetExamApply('" + Id + "')>通过</button></td><td><button class='btn btn-block btn-danger' onclick=RejectExamApply('" + Id + "')>拒绝</button></td></tr>");
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

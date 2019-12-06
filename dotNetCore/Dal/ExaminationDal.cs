@@ -237,6 +237,37 @@ namespace Dal
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
+        /// <summary>
+        /// 获取分页后的教师考试申请列表
+        /// </summary>
+        /// <param name="id">教师Id</param>
+        /// <param name="index">索引</param>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页后名单</returns>
+        public DataTable GetPaperExamApply(int id, int index, int size)
+        {
+            string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Users.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Users where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Users.Id = tb_ExamApplyLog.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_ExamApplyLog.TeacherId=@id order by tb_ExamApplyLog.Id offset((@index -1)*@size ) rows fetch next @size rows only; ";
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@id",id),
+                new SqlParameter("@index",index),
+                new SqlParameter("@size",size),
+            };
+            DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.Text);//储存Datatable
+            return dataTable;
+        }
+
+        /// <summary>
+        /// 获取分页后的教师考试申请列表总页数
+        /// </summary>
+        /// <param name="size">分页大小</param>
+        /// <returns>分页数</returns>
+        public int GetAllPageApplyNum(int id, int size)
+        {
+            int num = helper.sqlNum("tb_ExamApplyLog where TeacherId=" + id.ToString());
+            num = num / size + (num % size == 0 ? 0 : 1);
+            return num;
+        }
 
         /// <summary>
         /// 增加考试申请
@@ -248,9 +279,10 @@ namespace Dal
         {
             if (examination == null)
                 return false;
-            string str = "insert into tb_ExamApplyLog(TeacherId,CourseId,Time,ExamName,IsChecked,Duration) Values(@teacherid,@courseid,@time,@examname,@ischecked,@duration)";
+            string str = "AddExamApply";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
+                new SqlParameter("@out",SqlDbType.VarChar,200),
                 new SqlParameter("@teacherid",teacherId),
                 new SqlParameter("@courseid",examination.CourseId),
                 new SqlParameter("@time",examination.Time),
@@ -258,7 +290,11 @@ namespace Dal
                 new SqlParameter("@ischecked",false),
                 new SqlParameter("@duration",examination.Duration),
             };
-            int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
+            sqlParameters[0].Direction = ParameterDirection.Output;
+            int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.StoredProcedure);
+            string output = sqlParameters[0].Value.ToString();
+            if (output != "")
+                throw new Exception(output);
             if (result > 0)
                 return true;
             return false;
