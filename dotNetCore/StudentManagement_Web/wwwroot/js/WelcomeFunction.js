@@ -38,7 +38,7 @@ function ChangeUserPassword() {
                 if (confirm("确定要修改密码为" + newpwd + "吗？")) {
                     $.ajax({
                         type: "PUT",
-                        url: '../api/ApiUser/ChangePassword?opwd=' + oldpwd + '&npwd=' + newpwd + '&userid=' + UserId,
+                        url: '../api/ApiUser/ChangePassword?opwd=' + oldpwd + '&npwd=' + newpwd + '&userid=' + Number,
                         success: function (data) {
                             if (data) {
                                 alert('修改成功，密码已修改为' + newpwd);
@@ -67,7 +67,7 @@ function ChangeUserPassword() {
 
 function ChangeUserName() {
     var User = getJSONCookie('User');
-    var UserId = User.UserID;
+    var UserId = User.Number;
     var name = prompt("请输入新名字"); // 弹出input框
     if (name == null)
         return;

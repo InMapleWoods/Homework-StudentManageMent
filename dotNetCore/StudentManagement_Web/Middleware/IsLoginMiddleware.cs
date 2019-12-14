@@ -19,7 +19,8 @@ namespace StudentManagement_Web.Middleware
 
         public Task Invoke(HttpContext httpContext)
         {
-            if (httpContext.Request.Path.ToString().ToLower() != "/")
+            string path = httpContext.Request.Path.ToString().ToLower();
+            if ((path != "/")&&(path!= "/login/register"))
             {
                 if ((GetCookies("islogin", httpContext) == null) || (GetCookies("islogin", httpContext) != "true"))
                 {

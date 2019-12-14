@@ -231,6 +231,13 @@
             <param name="courseId">课程Id</param>
             <returns>符合条件的考试</returns>
         </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExaminationByTeacherId(System.Int32)">
+            <summary>
+            按教师Id获取考试
+            </summary>
+            <param name="id">教师Id</param>
+            <returns>符合条件的考试</returns>
+        </member>
         <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.UpdateExaminationTime(System.Int32,System.DateTime)">
             <summary>
             修改考试时间

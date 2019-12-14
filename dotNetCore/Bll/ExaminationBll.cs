@@ -207,6 +207,36 @@ namespace Bll
                     DateTime Time = (DateTime)dr["Time"];
                     int Duration = (int)dr["Duration"];
                     Examination t = new Examination(Id, CourseId, Time, Name, Duration);
+                    if(Time>=DateTime.Now)
+                        temp.Add(t);
+                }
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+        }
+        /// <summary>
+        /// 按教师Id获取考试
+        /// </summary>
+        /// <param name="id">教师Id</param>
+        /// <returns>符合条件的所有考试</returns>
+        public IEnumerable GetExaminationByTeacherIdArray(int id)
+        {
+            List<string[]> temp = null;
+            try
+            {
+                DataTable dataTable = examinationDal.GetExaminationByTeacherId(id);
+                temp = new List<string[]>();
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    int ExamId = (int)dr[0];
+                    string CourseName = dr[1].ToString();
+                    string ExamName = dr[2].ToString();
+                    DateTime Time = (DateTime)dr[3];
+                    int Duration = (int)dr[4];
+                    string[] t = new string[] { ExamId.ToString(), CourseName, ExamName, Time.ToString(), Duration.ToString() };
                     temp.Add(t);
                 }
                 return temp;

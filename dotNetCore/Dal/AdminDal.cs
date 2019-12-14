@@ -70,7 +70,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool DeleteUser(string number)
         {
-            string sqlStr = "delete from tb_Users where Number=@number";
+            string sqlStr = "delete from " + helper.GetUserRole(number) + " where Number=@number";
             SqlParameter[] para = new SqlParameter[]
              {
                 new SqlParameter("@number",number)
@@ -163,7 +163,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllPageNum_Teacher(int size)
         {
-            int num = helper.sqlNum("tb_Users where Role=2");
+            int num = helper.sqlNum("tb_Teachers");
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -175,7 +175,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllPageNum_Student(int size)
         {
-            int num = helper.sqlNum("tb_Users where Role=1");
+            int num = helper.sqlNum("tb_Students");
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -191,14 +191,13 @@ namespace Dal
         public bool AddUser(string account, string name, string password, int role)
         {
             //向User表中插入数据
-            string sqlStr = "INSERT INTO tb_Users(Name,Password,Role,Number) VALUES(@name,@password,@role,@number)";
+            string sqlStr = "INSERT INTO " + helper.GetTableNameByRole(role) + "(Name,Password,Number) VALUES(@name,@password,@number)";
             //储存Datatable
             SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
                 new SqlParameter("@number",account),
                 new SqlParameter("@name",name),
                 new SqlParameter("@passWord",helper.GetMD5(password)),
-                new SqlParameter("@role",role),
             };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)

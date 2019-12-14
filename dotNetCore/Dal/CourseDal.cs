@@ -24,7 +24,7 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetAllCourse()
         {
-            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名, tb_Users.Name as 教师名 from tb_Course LEFT OUTER JOIN tb_Users on tb_Users.Id=tb_Course.TeacherId";//SQL执行字符串
+            string sqlstr = "select tb_Course.Id as 课程ID,tb_Course.Name as 课程名, tb_Teachers.Name as 教师名 from tb_Course LEFT OUTER JOIN tb_Teachers on tb_Teachers.Id=tb_Course.TeacherId";//SQL执行字符串
             DataTable dataTable = helper.reDt(sqlstr);
             return dataTable;
         }
@@ -35,7 +35,7 @@ namespace Dal
         /// <returns>全部课程数据表</returns>
         public DataTable GetStudentNoChooseCourse(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Users.Name 教师名称 from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id) order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Teachers.Name 教师名称 from tb_Course, tb_Teachers where tb_Course.TeacherId = tb_Teachers.Id and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id) order by tb_Course.Id offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
             SqlParameter[] para = new SqlParameter[] {
                 new SqlParameter("@id",Id),
                 new SqlParameter("@index",index),
@@ -227,7 +227,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetStudentNoChooseCoursePageNum(int size, string Id)
         {
-            string str = "select count(*) as Count from tb_Course, tb_Users where tb_Course.TeacherId = tb_Users.Id and tb_Users.Role = 2 and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id)";
+            string str = "select count(*) as Count from tb_Course, tb_Teachers where tb_Course.TeacherId = tb_Teachers.Id and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id)";
             DataTable dataTable = helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
             DataRow dr = dataTable.Rows[0];
             int num = (int)dr["Count"];

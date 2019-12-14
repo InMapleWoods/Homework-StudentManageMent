@@ -292,7 +292,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool ChangedName(string id, string changedName, out User user)
         {
-            string sqlStr = "update tb_Users set Name=@name where Id=@Id";
+            string sqlStr = "update " + helper.GetUserRole(id) + " set Name=@name where Id=dbo.GetUserIdByNumber(@Id)";
             SqlParameter[] para = new SqlParameter[]
              {
                 new SqlParameter("@name",changedName),
@@ -322,7 +322,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool ChangePassword(string opwd, string npwd, string id, out User user)
         {
-            string sqlStr = "update tb_Users set Password=@password where Id=@Id";
+            string sqlStr = "update " + helper.GetUserRole(id) + " set Password=@password where Id=dbo.GetUserIdByNumber(@Id)";
             SqlParameter[] para = new SqlParameter[]
              {
                 new SqlParameter("@password",helper.GetMD5(npwd)),

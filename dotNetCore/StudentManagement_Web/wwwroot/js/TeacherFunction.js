@@ -57,6 +57,7 @@ function onloadViewTeacher(index, choose, userId) {
     else if (choose == 2) {
         onloadCourseSelectList(userId);
         onloadApplyExamView(index);
+        onloadMyExamView();
     }
     else if (choose == 3) {
         onloadCourseSelectList(userId);
@@ -139,6 +140,30 @@ function GetPageNumTeacher(choose) {
             }
         });
     }
+}
+
+function onloadMyExamView() {
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../api/ApiExamination/GetExaminationByTeacherId/' + Id,
+        success: function (data) {
+            var applyList = data;
+            $('#exam_list').html("");
+            for (i = 0; i < applyList.length; i++) {
+                var Id = applyList[i][0];
+                var CourseName = applyList[i][1];
+                var ExamName = applyList[i][2];
+                var Time = applyList[i][3];
+                var ExamDuration = applyList[i][4];
+                $('#exam_list').append("<tr><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Time + "</td><td>" + ExamDuration + "</td><td><a class='btn btn-block btn-success' href='../Teacher/ManageExamQuestion/" + Id + "'>题目管理</a></td></tr>");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
 }
 
 function onloadApplyExamView(index) {

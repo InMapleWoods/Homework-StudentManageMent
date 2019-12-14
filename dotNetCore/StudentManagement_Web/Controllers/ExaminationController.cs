@@ -135,6 +135,25 @@ namespace StudentManagement_Web.Controllers
         }
 
         /// <summary>
+        /// 按教师Id获取考试
+        /// </summary>
+        /// <param name="id">教师Id</param>
+        /// <returns>符合条件的考试</returns>
+        // GET: api/ApiExamination/GetExaminationByTeacherId/5
+        [HttpGet("GetExaminationByTeacherId/{id}")]
+        public IActionResult GetExaminationByTeacherId(int id)
+        {
+            try
+            {
+                return Ok(examinationBll.GetExaminationByTeacherIdArray(id));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        /// <summary>
         /// 修改考试时间
         /// </summary>
         /// <param name="time">考试时间</param>

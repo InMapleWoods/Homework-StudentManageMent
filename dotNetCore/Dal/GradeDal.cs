@@ -45,7 +45,7 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetCourseGrade(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Users where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Users.Id order by tb_Users.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id order by tb_Students.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
@@ -81,7 +81,7 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetExamGrade(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Users.Number as 学生学号,tb_Users.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Users.Id order by tb_Users.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
+            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id order by tb_Students.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",Id),
@@ -98,7 +98,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllCoursePageNum(string id, int size)
         {
-            string sqlstr = "select count(*) from tb_CourseGrade,tb_Users where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Users.Id ";//SQL执行字符串
+            string sqlstr = "select count(*) from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id ";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",id),
@@ -116,7 +116,7 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllExamPageNum(string id, int size)
         {
-            string sqlstr = "select count(*) from tb_ExamGrade,tb_Users where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Users.Id";//SQL执行字符串
+            string sqlstr = "select count(*) from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id";//SQL执行字符串
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",id),

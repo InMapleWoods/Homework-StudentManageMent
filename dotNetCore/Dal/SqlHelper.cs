@@ -274,6 +274,70 @@ namespace Dal
             return str;
         }
 
+        /// <summary>
+        /// 获取账号对应的用户表
+        /// </summary>
+        /// <param name="number">用户账号</param>
+        /// <returns>表名称</returns>
+        public string GetUserRole(string number)
+        {
+            string sqlStr = "select Role from tb_Users where Number=@number";
+            getconn();
+            int res = 0;
+            try
+            {
+                using (cmd = new SqlCommand(sqlStr, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add(new SqlParameter("@number", number));
+                    res = (int)cmd.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                res = -1;
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            string result = GetTableNameByRole(res);
+            return result;
+        }
+
+        /// <summary>
+        /// 获取角色对应的表
+        /// </summary>
+        /// <param name="res">角色</param>
+        /// <returns>表名</returns>
+        public string GetTableNameByRole(int res)
+        {
+            string result = "";
+            switch (res)
+            {
+                case 0:
+                    result = "tb_UnCheckedUsers";
+                    break;
+                case 1:
+                    result = "tb_Students";
+                    break;
+                case 2:
+                    result = "tb_Teachers";
+                    break;
+                case 3:
+                    result = "tb_Administrators";
+                    break;
+                default:
+                    result = "Error";
+                    break;
+            }
+
+            return result;
+        }
     }
 }
 
