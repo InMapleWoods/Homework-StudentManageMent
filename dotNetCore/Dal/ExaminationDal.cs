@@ -262,7 +262,7 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExamApply(int id, int index, int size)
         {
-            string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Teachers.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Teachers where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Teachers.Id = tb_ExamApplyLog.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_ExamApplyLog.TeacherId=@id order by tb_ExamApplyLog.Id offset((@index -1)*@size ) rows fetch next @size rows only; ";
+            string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Teachers.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Teachers where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Teachers.Id = tb_Course.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_Course.TeacherId=@id order by tb_ExamApplyLog.Id offset((@index -1)*@size ) rows fetch next @size rows only; ";
             SqlParameter[] paras = new SqlParameter[]
             {
                 new SqlParameter("@id",id),
