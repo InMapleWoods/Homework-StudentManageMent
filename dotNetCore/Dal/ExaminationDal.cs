@@ -280,7 +280,8 @@ namespace Dal
         /// <returns>分页数</returns>
         public int GetAllPageApplyNum(int id, int size)
         {
-            int num = helper.sqlNum("tb_ExamApplyLog where TeacherId=" + id.ToString());
+            string str = "select count(*) from tb_ExamApplyLog,tb_Course where tb_ExamApplyLog.CourseId=tb_Course.Id and tb_Course.TeacherId=@id";
+            int num = (int)helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", id) }, CommandType.Text).Rows[0][0];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
