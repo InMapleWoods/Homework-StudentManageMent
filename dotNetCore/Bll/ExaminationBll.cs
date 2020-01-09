@@ -207,8 +207,7 @@ namespace Bll
                     DateTime Time = (DateTime)dr["Time"];
                     int Duration = (int)dr["Duration"];
                     Examination t = new Examination(Id, CourseId, Time, Name, Duration);
-                    if(Time>=DateTime.Now)
-                        temp.Add(t);
+                    temp.Add(t);
                 }
                 return temp;
             }
