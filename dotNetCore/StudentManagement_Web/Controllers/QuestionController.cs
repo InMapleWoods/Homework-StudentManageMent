@@ -1,43 +1,38 @@
-﻿using Dal;
+﻿using Bll;
+using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 
-namespace Bll
+namespace StudentManagement_Web.Controllers
 {
     /// <summary>
-    /// 题目用户层
+    /// 考试题目控制器
     /// </summary>
-    public class QuestionBll
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ApiQuestionController : ControllerBase
     {
         /// <summary>
         /// 题目数据操作对象
         /// </summary>
-        private readonly QuestionDal questionDal = new QuestionDal();
+        private readonly QuestionBll questionBll = new QuestionBll();
 
         /// <summary>
         /// 获取指定考试的所有题目
         /// </summary>
         /// <param name="examid">考试Id</param>
         /// <returns>题目表</returns>
-        public IEnumerable GetExamAllQuestions(int examid)
+        // GET: api/ApiQuestion/GetExamAllQuestions?examid={examid}
+        [HttpGet("GetExamAllQuestions")]
+        public IActionResult GetExamAllQuestions(int examid)
         {
-            List<ExamQuestion> result = new List<ExamQuestion>();
             try
             {
-                DataTable datatable = questionDal.GetExamAllQuestions(examid);
-                foreach (DataRow dr in datatable.Rows)
-                {
-                    ExamQuestion question = new ExamQuestion((int)dr["id"], (int)dr["ExamId"], dr["QuestionText"].ToString());
-                    result.Add(question);
-                }
-                return result;
+                return Ok(questionBll.GetExamAllQuestions(examid));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); throw e;
+                return NotFound(e.Message);
             }
         }
 
@@ -46,18 +41,18 @@ namespace Bll
         /// </summary>
         /// <param name="questionId">题目Id</param>
         /// <returns>符合条件的题目</returns>
-        public ExamQuestion GetExaminationQuestionById(int questionId)
+        // GET: api/ApiQuestion/GetExaminationQuestionById?questionId={questionId}
+        [HttpGet("GetExaminationQuestionById")]
+        public IActionResult GetExaminationQuestionById(int questionId)
         {
-            ExamQuestion result = null;
             try
             {
-                result = questionDal.GetExaminationQuestionById(questionId);
+                return Ok(questionBll.GetExaminationQuestionById(questionId));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); throw e;
+                return NotFound(e.Message);
             }
-            return result;
         }
 
         /// <summary>
@@ -65,18 +60,18 @@ namespace Bll
         /// </summary>
         /// <param name="id">题目Id</param>
         /// <returns>删除成功与否</returns>
-        public bool DeleteExaminationQuestion(int id)
+        // DELETE: api/ApiQuestion/DeleteExaminationQuestion/{id}
+        [HttpDelete("DeleteExaminationQuestion/{id}")]
+        public IActionResult DeleteExaminationQuestion(int id)
         {
-            bool result = false;
             try
             {
-                result = questionDal.DeleteExaminationQuestion(id);
+                return Ok(questionBll.DeleteExaminationQuestion(id));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); throw e;
+                return NotFound(e.Message);
             }
-            return result;
         }
 
         #region 增加题目
@@ -89,18 +84,19 @@ namespace Bll
         /// <param name="stem">题目题干</param>
         /// <param name="parameters">题目参数</param>
         /// <returns>增加成功与否</returns>
-        public bool AddExamQuestion(ExamQuestion.QuestionType type, int examid, string stem, object[] parameters)
+        // POST: api/ApiQuestion/AddExamQuestion?type={type}&examid={examid}&stem={stem}
+        [HttpPost("AddExamQuestion")]
+        public IActionResult AddExamQuestion(int type, int examid, string stem, [FromBody]object[] parameters)
         {
-            bool result = false;
             try
             {
-                result = questionDal.AddExamQuestion(type, examid, stem, parameters);
+                ExamQuestion.QuestionType questionType = (ExamQuestion.QuestionType)type;
+                return Ok(questionBll.AddExamQuestion(questionType, examid, stem, parameters));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); throw e;
+                return NotFound(e.Message);
             }
-            return result;
         }
         #endregion
 
@@ -115,18 +111,18 @@ namespace Bll
         /// <param name="stem">题目题干</param>
         /// <param name="parameters">题目参数</param>
         /// <returns>更改成功与否</returns>
-        public bool UpdateExamQuestion(ExamQuestion.QuestionType type, int id, int examid, string stem, object[] parameters)
+        // PUT: api/ApiQuestion/UpdateExamQuestion/{id}?type={type}&examid={examid}&stem={stem}
+        [HttpPut("UpdateExamQuestion/{id}")]
+        public IActionResult UpdateExamQuestion(ExamQuestion.QuestionType type, int id, int examid, string stem, [FromBody]object[] parameters)
         {
-            bool result = false;
             try
             {
-                result = questionDal.UpdateExamQuestion(type, id, examid, stem, parameters);
+                return Ok(questionBll.UpdateExamQuestion(type, id, examid, stem, parameters));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); throw e;
+                return NotFound(e.Message);
             }
-            return result;
         }
         #endregion
     }

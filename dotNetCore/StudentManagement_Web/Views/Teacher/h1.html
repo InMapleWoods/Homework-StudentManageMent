@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../wwwroot/css/WelcomeView.css" />
+    <script src="../../wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../wwwroot/js/CookieAbout.js"></script>
+    <script type="text/javascript" src="../../wwwroot/js/AjaxAbout.js"></script>
+    <script type="text/javascript" src="../../wwwroot/js/TeacherFunction.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-12 text-center">
+            <nav class=" text-center nav-fill">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-item nav-link active" id="nav-tab-choice" data-toggle="tab"
+                        href="#nav-QuestionView-choice" role="tab" aria-controls="nav-QuestionView-choice"
+                        aria-selected="true">选择</button>
+                    <button class="nav-item nav-link" id="nav-tab-gapFill" data-toggle="tab"
+                        href="#nav-QuestionView-gapFill" role="tab" aria-controls="nav-QuestionView-gapFill"
+                        aria-selected="false">填空</button>
+                    <button class="nav-item nav-link" id="nav-tab-Truefalse" data-toggle="tab"
+                        href="#nav-QuestionView-Truefalse" role="tab" aria-controls="nav-QuestionView-Truefalse"
+                        aria-selected="false">判断</button>
+                    <button class="nav-item nav-link" id="nav-tab-tab" data-toggle="tab"
+                        href="#nav-QuestionView-shortAnswer" role="shortAnswer"
+                        aria-controls="nav-QuestionView-shortAnswer" aria-selected="false">简答</button>
+                </div>
+            </nav>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show text-left active" id="nav-QuestionView-choice" role="tabpanel"
+                aria-labelledby="nav-tab-choice">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&emsp;题干&emsp;</span>
+                    </div>
+                    <textarea rows="4" class="form-control" id="txtChoiceStem"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&emsp;选项&emsp;</span>
+                    </div>
+                    <textarea rows="1" class="form-control" id="txtChoiceOp"></textarea>
+                    <button class="btn btn-outline-info" type="button" id="addOp"
+                        onclick="addChoiceOptions()">增加</button>
+                </div>
+                <div class="col-8 offset-2">
+                    <table id="Choiceoptions" style="
+                    width: inherit;"></table>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">正确答案</span>
+                    </div>
+                    <select class="form-control" id="inputGroupChoiceQuelist">
+                    </select>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-QuestionView-gapFill" role="tabpanel" aria-labelledby="nav-tab-gapFill">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&emsp;题干&emsp;</span>
+                    </div>
+                    <textarea rows="4" class="form-control" id="txtGapFillStem"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">参考答案</span>
+                    </div>
+                    <input class="form-control" id="inputGapFillAns" type="text">
+                    </input>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="nav-QuestionView-Truefalse" role="tabpanel"
+                aria-labelledby="nav-tab-Truefalse">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&emsp;题干&emsp;</span>
+                    </div>
+                    <textarea rows="4" class="form-control" id="txtTruefalseStem"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">正确答案</span>
+                    </div>
+                    <select class="custom-select" id="inputTruefalseAns">
+                        <option value="1" selected>正确</option>
+                        <option value="2">错误</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-QuestionView-shortAnswer" role="tabpanel"
+                aria-labelledby="nav-tab-shortAnswer">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&emsp;题干&emsp;</span>
+                    </div>
+                    <textarea rows="4" class="form-control" id="txtshortAnswerStem"></textarea>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">参考答案</span>
+                    </div>
+                    <textarea rows="4" class="form-control" id="txtshortAnswer"></textarea>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-block btn-outline-primary" onclick="addQuestion()">提交题目</button>
+        </div>
+    </div>
+</body>
+<script>
+    var ChoiceQuelist = {};
+    var Choicecount = 0;
+
+    function addChoiceOptions() {
+        var str = $('#txtChoiceOp').val();
+        ChoiceQuelist["Choiceop" + Choicecount] = str;
+        Choicecount = Choicecount + 1;
+        showChoiceQue();
+    }
+
+    function removeChoiceQue(index) {
+        $('#' + index).remove();
+        //存在则删除
+        if (!!ChoiceQuelist[index]) {
+            delete(ChoiceQuelist[index]);
+        }
+        //!!把一个任意类型的值转换为布尔类型,存在为true，不存在为false
+        showChoiceQue();
+    }
+
+    function showChoiceQue() {
+        var Quelistindex = 0;
+        $('#Choiceoptions').html("");
+        $('#inputGroupChoiceQuelist').html("");
+        for (var i in ChoiceQuelist) {
+            var opstr = '<tr id="' + i + '"><td style="width:70%"><label>' + String.fromCharCode(Quelistindex + 65) +
+                ':' +
+                ChoiceQuelist[i] +
+                '</label></td><td style="width:30%"><button class="btn btn-block btn-outline-danger align-content-between" onclick="removeChoiceQue(\'' +
+                i +
+                '\')">删除</button></td></tr>';
+            $('#Choiceoptions').append(opstr);
+            $('#inputGroupChoiceQuelist').append("<option value='" + Quelistindex + "'>" + String.fromCharCode(
+                Quelistindex + 65) + "</option>")
+            Quelistindex = Quelistindex + 1;
+        }
+    }
+
+    function openWindow(htmlurl, tmpWidth, tmpHeight, itop, ileft) {
+        if (!tmpWidth) {
+            tmpWidth = 500;
+        }
+        if (!tmpHeight) {
+            tmpHeight = 500;
+        }
+        var top = ((window.screen.availHeight - 30 - tmpHeight) / 2);
+        if (itop != null && itop != "") {
+            top = itop;
+        }
+        var left = ((window.screen.availWidth - 10 - tmpWidth) / 2);
+        if (ileft != null && ileft != "") {
+            left = ileft;
+        }
+
+        window.open(htmlurl, "_blank",
+            "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,top=" +
+            top + ",left=" + left + ",width=" + tmpWidth + "px,height=" + tmpHeight + "px");
+    }
+
+    function addQuestion() {
+        var title = $("div button.nav-item.nav-link.active").text();
+        if (title === '选择') {
+            var a = []
+            for (var i in ChoiceQuelist) {
+                a.push(ChoiceQuelist[i])
+            }
+            var list = [$("#inputGroupChoiceQuelist").val(), a];
+
+            $.ajax({
+                type: "post",
+                accepts: "application/json",
+                url: "../../api/ApiQuestion/AddExamQuestion?type=0&examid=5&stem=ssss",
+                contentType: "application/json",
+                data: JSON.stringify(list),
+                success: function (data) {
+                    if (data == true) {
+                        alert('登陆成功');
+                    } else {
+                        alert('data');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    ajaxError(XMLHttpRequest, textStatus);
+                }
+            });
+
+        } else if (title === '填空') {
+            alert("2");
+        } else if (title === '判断') {
+            alert("3");
+        } else if (title === '简答') {
+            alert("4");
+        }
+    }
+</script>
+
+</html>

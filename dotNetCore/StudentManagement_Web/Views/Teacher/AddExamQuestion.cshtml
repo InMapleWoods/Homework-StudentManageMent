@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "_UserLayout";
+    ViewData["JsFunction"] = "TeacherFunction.js";
+}
+<div class="container">
+    <div class="col-12 text-center">
+        <nav class=" text-center nav-fill">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-item nav-link active" id="nav-tab-choice" data-toggle="tab"
+                        href="#nav-QuestionView-choice" role="tab" aria-controls="nav-QuestionView-choice"
+                        aria-selected="true">
+                    选择
+                </button>
+                <button class="nav-item nav-link" id="nav-tab-gapFill" data-toggle="tab"
+                        href="#nav-QuestionView-gapFill" role="tab" aria-controls="nav-QuestionView-gapFill"
+                        aria-selected="false">
+                    填空
+                </button>
+                <button class="nav-item nav-link" id="nav-tab-Truefalse" data-toggle="tab"
+                        href="#nav-QuestionView-Truefalse" role="tab" aria-controls="nav-QuestionView-Truefalse"
+                        aria-selected="false">
+                    判断
+                </button>
+                <button class="nav-item nav-link" id="nav-tab-shortAnswer" data-toggle="tab"
+                        href="#nav-QuestionView-shortAnswer" role="tab" aria-controls="nav-QuestionView-shortAnswer"
+                        aria-selected="false">
+                    简答
+                </button>
+            </div>
+        </nav>
+    </div>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show text-left active" id="nav-QuestionView-choice" role="tabpanel"
+             aria-labelledby="nav-tab-choice">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtChoiceStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;选项&emsp;</span>
+                </div>
+                <textarea rows="1" class="form-control" id="txtChoiceOp"></textarea>
+                <button class="btn btn-outline-info" type="button" id="addOp" onclick="addChoiceOptions()">
+                    增加
+                </button>
+            </div>
+            <div class="col-8 offset-2">
+                <table id="Choiceoptions" style="
+                    width: inherit;"></table>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">正确答案</span>
+                </div>
+                <select class="form-control" id="inputGroupChoiceQuelist">
+                </select>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-QuestionView-gapFill" role="tabpanel" aria-labelledby="nav-tab-gapFill">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtGapFillStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">参考答案</span>
+                </div>
+                <input class="form-control" id="inputGapFillAns" type="text" />
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="nav-QuestionView-Truefalse" role="tabpanel" aria-labelledby="nav-tab-Truefalse">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtTruefalseStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">正确答案</span>
+                </div>
+                <select class="custom-select" id="inputTruefalseAns">
+                    <option value="1" selected>正确</option>
+                    <option value="0">错误</option>
+                </select>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-QuestionView-shortAnswer" role="tabpanel"
+             aria-labelledby="nav-tab-shortAnswer">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtshortAnswerStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">参考答案</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtshortAnswer"></textarea>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-block btn-outline-primary" onclick="addQuestion()">提交题目</button>
+    </div>
+    <div>
+        <a class="btn btn-block btn-outline-success" onclick="goBack()">返回</a>
+    </div>
+</div>
+<script>
+    var examid = @Html.ViewContext.RouteData.Values["id"];
+    function goBack() {
+        location = '../ManageExamQuestion/' + examid;
+    }
+</script>
+<script type="text/javascript" src="~/js/QuestionFunction.js"></script>

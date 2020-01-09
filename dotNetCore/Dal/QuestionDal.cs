@@ -1,5 +1,7 @@
 ﻿using Model;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -87,10 +89,9 @@ namespace Dal
         {
             if (question == null)
                 return false;
-            string str = "insert into tb_ExamQuestion(Id,ExamId,QuestionText) Values(@questionid,@examid,@questiontext)";
+            string str = "insert into tb_ExamQuestion(ExamId,QuestionText) Values(@examid,@questiontext)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@questionid",question.Id),
                 new SqlParameter("@examid",question.ExamId),
                 new SqlParameter("@questiontext",question.QuestionText),
             };
@@ -118,7 +119,8 @@ namespace Dal
                 case ExamQuestion.QuestionType.ChoiceQuestion:
                     if (parameters.Length == 2)
                     {
-                        question = new ChoiceQuestion((int)parameters[0], (ArrayList)parameters[1]);
+                        List<string> ops = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(parameters[1].ToString());
+                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray());
                     }
                     else
                         return false;
@@ -142,7 +144,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.TrueOrFalseQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new TrueOrFalseQuestion((bool)parameters[0]);
+                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()));
                     }
                     else
                         return false;
@@ -153,7 +155,6 @@ namespace Dal
             question.Stem = stem;
             ExamQuestion examQuestion = new ExamQuestion(0, examid, question);
             return AddExaminationQuestion(examQuestion);
-
         }
         #endregion
 
@@ -197,7 +198,8 @@ namespace Dal
                 case ExamQuestion.QuestionType.ChoiceQuestion:
                     if (parameters.Length == 2)
                     {
-                        question = new ChoiceQuestion((int)parameters[0], (ArrayList)parameters[1]);
+                        List<string> ops = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(parameters[1].ToString());
+                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray());
                     }
                     else
                         return false;
@@ -221,7 +223,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.TrueOrFalseQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new TrueOrFalseQuestion((bool)parameters[0]);
+                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()));
                     }
                     else
                         return false;

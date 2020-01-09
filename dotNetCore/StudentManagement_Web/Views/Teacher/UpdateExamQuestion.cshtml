@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "_UserLayout";
+    ViewData["JsFunction"] = "TeacherFunction.js";
+}
+<div class="container">
+    <div class="tab-content" id="nav-tabContent">
+        <div id="nav-QuestionView-choice">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtChoiceStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;选项&emsp;</span>
+                </div>
+                <textarea rows="1" class="form-control" id="txtChoiceOp"></textarea>
+                <button class="btn btn-outline-info" type="button" id="addOp" onclick="addChoiceOptions()">
+                    增加
+                </button>
+            </div>
+            <div class="col-8 offset-2">
+                <table id="Choiceoptions" style="
+                    width: inherit;"></table>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">正确答案</span>
+                </div>
+                <select class="form-control" id="inputGroupChoiceQuelist">
+                </select>
+            </div>
+        </div>
+        <div id="nav-QuestionView-gapFill">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtGapFillStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">参考答案</span>
+                </div>
+                <input class="form-control" id="inputGapFillAns" type="text" />
+            </div>
+
+        </div>
+        <div id="nav-QuestionView-Truefalse">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtTruefalseStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">正确答案</span>
+                </div>
+                <select class="custom-select" id="inputTruefalseAns">
+                    <option value="1" selected>正确</option>
+                    <option value="0">错误</option>
+                </select>
+            </div>
+        </div>
+        <div id="nav-QuestionView-shortAnswer">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">&emsp;题干&emsp;</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtshortAnswerStem"></textarea>
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">参考答案</span>
+                </div>
+                <textarea rows="4" class="form-control" id="txtshortAnswer"></textarea>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-block btn-outline-primary" onclick="updateQuestion()">修改题目</button>
+    </div>
+    <div>
+        <a class="btn btn-block btn-outline-success" onclick="goBack()">返回</a>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/QuestionFunction.js"></script>
+<script>
+    var questionid = @Html.ViewContext.RouteData.Values["id"];
+    var examid = -1;
+    var title = "";
+    window.onload=function () {
+        onloadUpdateQuestion();
+    }
+    function goBack() {
+        location = '../ManageExamQuestion/' + examid;
+    }
+</script>

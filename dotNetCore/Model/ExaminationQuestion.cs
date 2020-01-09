@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Model
@@ -118,21 +119,21 @@ namespace Model
         /// <summary>
         /// 正确答案
         /// </summary>
-        private int rightAnswer;
+        public int choiceRightAnswer;
 
         /// <summary>
         /// 选项
         /// </summary>
-        private readonly ArrayList options = new ArrayList();
+        public readonly IEnumerable options = new List<string>();
 
         /// <summary>
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
         /// <param name="options">选项</param>
-        public ChoiceQuestion(int rightAnswer, ArrayList options)
+        public ChoiceQuestion(int rightAnswer, IEnumerable options)
         {
-            this.rightAnswer = rightAnswer;
+            choiceRightAnswer = rightAnswer;
             this.options = options;
         }
 
@@ -142,7 +143,7 @@ namespace Model
         /// <param name="strOp">选项内容</param>
         public void AddOption(string strOp)
         {
-            options.Add(strOp);
+            ((List<string>)options).Add(strOp);
         }
 
         /// <summary>
@@ -152,8 +153,8 @@ namespace Model
         /// <param name="strOp">更改后内容</param>
         public void ChangeOption(int index, string strOp)
         {
-            options.RemoveAt(index);
-            options.Insert(index, strOp);
+            ((List<string>)options).RemoveAt(index);
+            ((List<string>)options).Insert(index, strOp);
         }
 
         /// <summary>
@@ -162,14 +163,14 @@ namespace Model
         /// <param name="index">选项索引</param>
         public void RemoveOption(int index)
         {
-            options.RemoveAt(index);
+            ((List<string>)options).RemoveAt(index);
         }
 
         /// <summary>
         /// 获取选项列表
         /// </summary>
         /// <returns></returns>
-        public ArrayList GetOption()
+        public IEnumerable GetOption()
         {
             return options;
         }
@@ -180,7 +181,7 @@ namespace Model
         /// <returns></returns>
         public int GetRightAnswer()
         {
-            return rightAnswer;
+            return choiceRightAnswer;
         }
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace Model
         /// <param name="index">选项索引</param>
         public void SetRightAnswer(int index)
         {
-            rightAnswer = index;
+            choiceRightAnswer = index;
         }
     }
 
@@ -201,7 +202,7 @@ namespace Model
         /// <summary>
         /// 正确答案
         /// </summary>
-        private bool rightAnswer { get; set; }
+        public bool TOFRightAnswer { get; set; }
 
         /// <summary>
         /// 有参构造函数
@@ -209,7 +210,7 @@ namespace Model
         /// <param name="rightAnswer">正确答案</param>
         public TrueOrFalseQuestion(bool rightAnswer)
         {
-            this.rightAnswer = rightAnswer;
+            TOFRightAnswer = rightAnswer;
         }
     }
 
@@ -221,7 +222,7 @@ namespace Model
         /// <summary>
         /// 参考答案
         /// </summary>
-        private string rightAnswer { get; set; }
+        public string shortAnsRightAnswer { get; set; }
 
         /// <summary>
         /// 有参构造函数
@@ -229,7 +230,7 @@ namespace Model
         /// <param name="rightAnswer">正确答案</param>
         public ShortAnswerQuestion(string rightAnswer)
         {
-            this.rightAnswer = rightAnswer;
+            shortAnsRightAnswer = rightAnswer;
         }
     }
 
@@ -241,14 +242,14 @@ namespace Model
         /// <summary>
         /// 参考答案
         /// </summary>
-        private string rightAnswer { get; set; }
+        public string gapFillRightAnswer { get; set; }
         /// <summary>
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
         public GapFillingQuestion(string rightAnswer)
         {
-            this.rightAnswer = rightAnswer;
+            gapFillRightAnswer = rightAnswer;
         }
     }
 

@@ -2,4 +2,52 @@
     Layout = "_UserLayout";
     ViewData["JsFunction"] = "TeacherFunction.js";
 }
-@Html.ViewContext.RouteData.Values["id"]
+<div class="container">
+    <div>
+        <a class="btn btn-block btn-outline-success" onclick="goBack()">返回</a>
+    </div>
+    <div>
+        <a class='btn btn-block btn-success' href='../AddExamQuestion/@Html.ViewContext.RouteData.Values["id"]'>增加题目</a>
+    </div>
+    <table class="text-center m-auto">
+        <thead>
+            <tr>
+                <td colspan="3">
+                    选择题
+                </td>
+            </tr>
+            <tr>
+                <td>题目</td>
+                <td>修改</td>
+                <td>删除</td>
+            </tr>
+        </thead>
+        <tbody id="ChoiceQuestions">
+        </tbody>
+        <tr>
+            <td colspan="3">
+                填空题
+            </td>
+        </tr>
+        <tbody id="GapFillQuestions"></tbody>
+        <tr>
+            <td colspan="3">
+                判断题
+            </td>
+        </tr>
+        <tbody id="TrueOrFalseQuestions"></tbody>
+        <tr>
+            <td colspan="3">
+                简答题
+            </td>
+        </tr>
+        <tbody id="ShortAnswerQuestions"></tbody>
+    </table>
+</div>
+<script>
+    var examid=@Html.ViewContext.RouteData.Values["id"];
+    onloadExamQuestions();
+    function goBack() {
+        location = '../ApplyExam';
+    }
+</script>

@@ -450,6 +450,58 @@
             登录控制器
             </summary>
         </member>
+        <member name="T:StudentManagement_Web.Controllers.ApiQuestionController">
+            <summary>
+            考试题目控制器
+            </summary>
+        </member>
+        <member name="F:StudentManagement_Web.Controllers.ApiQuestionController.questionBll">
+            <summary>
+            题目数据操作对象
+            </summary>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiQuestionController.GetExamAllQuestions(System.Int32)">
+            <summary>
+            获取指定考试的所有题目
+            </summary>
+            <param name="examid">考试Id</param>
+            <returns>题目表</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiQuestionController.GetExaminationQuestionById(System.Int32)">
+            <summary>
+            通过Id获取题目
+            </summary>
+            <param name="questionId">题目Id</param>
+            <returns>符合条件的题目</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiQuestionController.DeleteExaminationQuestion(System.Int32)">
+            <summary>
+            按id删除题目
+            </summary>
+            <param name="id">题目Id</param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiQuestionController.AddExamQuestion(System.Int32,System.Int32,System.String,System.Object[])">
+            <summary>
+            通过题目类型增加题目
+            </summary>
+            <param name="type">题目类型</param>
+            <param name="examid">考试Id</param>
+            <param name="stem">题目题干</param>
+            <param name="parameters">题目参数</param>
+            <returns>增加成功与否</returns>
+        </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiQuestionController.UpdateExamQuestion(Model.ExamQuestion.QuestionType,System.Int32,System.Int32,System.String,System.Object[])">
+            <summary>
+            通过题目类型更改题目
+            </summary>
+            <param name="type">题目类型</param>
+            <param name="id">题目Id</param>
+            <param name="examid">考试Id</param>
+            <param name="stem">题目题干</param>
+            <param name="parameters">题目参数</param>
+            <returns>更改成功与否</returns>
+        </member>
         <member name="T:StudentManagement_Web.Controllers.ApiUserController">
             <summary>
             用户控制器

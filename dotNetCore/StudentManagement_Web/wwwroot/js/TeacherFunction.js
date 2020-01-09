@@ -42,7 +42,7 @@ function onclickTeacherTab(name) {
     } else if (name == 'gradeView') {
         $('#TeacherFrame').attr('src', '../Teacher/ManageGrade');
     } else if (name == 'allGrade') {
-        $('#TeacherFrame').attr('src', '../Teacher/allGrade');
+        $('#TeacherFrame').attr('src', '../Teacher/AllGrade');
     }
 }
 
@@ -488,6 +488,72 @@ function onloadAllGradeView(index) {
             location.reload();
         }
     });
+}
+
+function onloadExamQuestions() {
+    $.ajax({
+        type: "Get",
+        async: false,
+        url: '../../api/ApiQuestion/GetExamAllQuestions?examid=' + examid,
+        success: function (data) {
+            var Questions = data;
+            $('#ChoiceQuestions').html("");
+            $('#GapFillQuestions').html("");
+            $('#TrueOrFalseQuestions').html("");
+            $('#ShortAnswerQuestions').html("");
+            for (var i = 0; i < Questions.length; i++) {
+                var Id = Questions[i].id;
+                var questionText = Questions[i].questionText;
+                var stem = JSON.parse(questionText).Stem.substring(0, 10);
+                var count = 10 - stem.length;
+                if (count >= 0) {
+                    for (var j = 0; j < parseInt(count / 2); j++) {
+                        stem = '&emsp;' + stem + '&emsp;';
+                    }
+                }
+                var temp = "";
+                if (questionText.indexOf("\"choiceRightAnswer\":") != -1) {
+                    temp = '#ChoiceQuestions';
+                } else if (questionText.indexOf("\"gapFillRightAnswer\":") != -1) {
+                    temp = '#GapFillQuestions';
+                } else if (questionText.indexOf("\"TOFRightAnswer\":") != -1) {
+                    temp = '#TrueOrFalseQuestions';
+                } else if (questionText.indexOf("\"shortAnsRightAnswer\":") != -1) {
+                    temp = '#ShortAnswerQuestions';
+                }
+                $(temp).append("<tr><td>" + stem +
+                    "</td><td><a class='btn btn-block btn-danger' href='../UpdateExamQuestion/" +
+                    Id +
+                    "'>修改</a></td><td><button class='btn btn-block btn-danger' onclick='DeleteQuestion(" + Id + ")'>删除</button></td></tr>");
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
+}
+
+function DeleteQuestion(id) {
+    if (confirm("是否删除?")) {
+        $.ajax({
+            type: "Delete",
+            async: false,
+            url: '../../api/ApiQuestion/DeleteExaminationQuestion/' + id,
+            success: function (data) {
+                if (data == true) {
+                    alert('成功');
+                } else {
+                    alert('失败');
+                }
+                onloadExamQuestions();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location.reload();
+            }
+        });
+    }
 }
 
 

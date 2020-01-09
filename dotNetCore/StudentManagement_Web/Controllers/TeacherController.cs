@@ -25,5 +25,13 @@ namespace StudentManagement_Web.Controllers
         {
             return View(id);
         }
+        public IActionResult AddExamQuestion(int id)
+        {
+            return View(id);
+        }
+        public IActionResult UpdateExamQuestion(int id)
+        {
+            return View(id);
+        }
     }
 }
