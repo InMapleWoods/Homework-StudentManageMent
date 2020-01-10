@@ -316,18 +316,31 @@ function onloadExamView(index, userId) {
 }
 
 function TakeExam(examId) {
+    location = '../Student/ExamView/' + examId;
+}
+
+function onloadExamQuestions(examid) {
+    var ChoiceQue = [];
+    var GapFillQue = [];
+    var TOFQue = [];
+    var ShortAnsQue = [];
     $.ajax({
         type: "Get",
         async: false,
-        url: '../api/ApiGrade/GetStudentGradeArray/' + Id + '?courseId=' + courseId + '&examId=' + examId,
+        url: '../../api/ApiQuestion/GetExamAllQuestions?examid=' + examid,
         success: function (data) {
-            var applyList = data;
-            $('#apply_list_student_3').html("");
-            for (i = 0; i < applyList.length; i++) {
-                var CourseName = applyList[i][0];
-                var ExamName = applyList[i][1];
-                var Score = applyList[i][2];
-                $('#apply_list_student_3').append("<tr><td>" + CourseName + "</td><td>" + ExamName + "</td><td>" + Score + "</td></tr>");
+            var Questions = data;
+            for (var i = 0; i < Questions.length; i++) {
+                var questionText = Questions[i].questionText;
+                if (questionText.indexOf("\"choiceRightAnswer\":") != -1) {
+                    ChoiceQue.push(Questions[i]);
+                } else if (questionText.indexOf("\"gapFillRightAnswer\":") != -1) {
+                    GapFillQue.push(Questions[i]);
+                } else if (questionText.indexOf("\"TOFRightAnswer\":") != -1) {
+                    TOFQue.push(Questions[i]);
+                } else if (questionText.indexOf("\"shortAnsRightAnswer\":") != -1) {
+                    ShortAnsQue.push(Questions[i]);
+                }
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -335,9 +348,35 @@ function TakeExam(examId) {
             location.reload();
         }
     });
-    location = '../Student/ExamView/' + examId;
+    var tempStr = "";
+    var questionCount = 0;
+    tempStr += "<table class='col-12'><thead class='text-center'><tr><td colspan=\"10\">选择题</td></tr></thead><tbody>";
+    for (var i in ChoiceQue) {
+        questionCount = questionCount + 1;
+        tempStr += "<tr><td colspan='" + JSON.parse(ChoiceQue[i].questionText).options.length + "'>" + questionCount + ". " + JSON.parse(ChoiceQue[i].questionText).Stem + "</td></tr><tr>";
+        for (var j = 0; j < JSON.parse(ChoiceQue[i].questionText).options.length; j++) {
+            tempStr += "<td>" + String.fromCharCode('A'.charCodeAt() + j) + "." + JSON.parse(ChoiceQue[i].questionText).options[j] + "</td>";
+        }
+        tempStr += "</tr>";
+    }
+    tempStr += "</tbody></table><table class='col-12'><thead class='text-center'><tr><td>填空题</td></tr></thead><tbody>";
+    for (var i in GapFillQue) {
+        questionCount = questionCount + 1;
+        tempStr += "<tr><td>" + questionCount + ". " + JSON.parse(GapFillQue[i].questionText).Stem + "__________</td></tr>";
+    }
+    tempStr += "</tbody></table><table class='col-12'><thead class='text-center'><tr><td>判断题</td></tr></thead><tbody>";
+    for (var i in TOFQue) {
+        questionCount = questionCount + 1;
+        tempStr += "<tr><td>" + questionCount + ". " + JSON.parse(TOFQue[i].questionText).Stem + "(&emsp;&emsp;)</td></tr>";
+    }
+    tempStr += "</tbody></table><table class='col-12'><thead class='text-center'><tr><td>简答题</td></tr></thead><tbody>";
+    for (var i in ShortAnsQue) {
+        questionCount = questionCount + 1;
+        tempStr += "<tr><td>" + questionCount + ". " + JSON.parse(ShortAnsQue[i].questionText).Stem + "</td></tr><tr><td><textarea rows=\"4\" class=\"form-control\"></textarea></td></tr>";
+    }
+    tempStr += "</tbody></table>";
+    $('#ExamQuestions').append(tempStr);
 }
-
 function LeftIndex() {
     if (student_index - 1 > 1)
         student_index = student_index - 1;

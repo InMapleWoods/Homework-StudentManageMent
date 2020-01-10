@@ -300,7 +300,6 @@ namespace Dal
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@out",SqlDbType.VarChar,200),
-                new SqlParameter("@teacherid",teacherId),
                 new SqlParameter("@courseid",examination.CourseId),
                 new SqlParameter("@time",examination.Time),
                 new SqlParameter("@examname",examination.Name),

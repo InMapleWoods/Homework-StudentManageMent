@@ -172,6 +172,7 @@ function onloadApplyExamView(index) {
     var maxtime = new Date(new Date().setMonth(new Date().getMonth() + 6));
     $('#datetimeInput').attr('min', mintime.toJSON().split('.')[0]);
     $('#datetimeInput').attr('max', maxtime.toJSON().split('.')[0]);
+    $('#datetimeInput').val(new Date().toJSON().split('T')[0] + "T08:00:00");
     $.ajax({
         type: "Get",
         async: false,

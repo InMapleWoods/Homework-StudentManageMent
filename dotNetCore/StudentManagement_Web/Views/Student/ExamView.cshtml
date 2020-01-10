@@ -1,4 +1,19 @@
 ﻿@{
-    Layout = "";
+    Layout = "_UserLayout";
+    ViewData["JsFunction"] = "StudentFunction.js";
 }
-@Html.ViewContext.RouteData.Values["id"]
+<script>
+    window.onload = function () {
+        onloadExamQuestions(@Html.ViewContext.RouteData.Values["id"]);
+    }
+    function goBack() {
+        location = '../GetExam';
+    }
+</script>
+<div class="container">
+    <div>
+        <a class="btn btn-block btn-outline-success" onclick="goBack()">返回</a>
+    </div>
+    <div class="row" id="ExamQuestions">
+    </div>
+</div>
