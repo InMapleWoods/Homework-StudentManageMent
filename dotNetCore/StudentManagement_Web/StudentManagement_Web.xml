@@ -261,6 +261,14 @@
             <param name="id">考试Id</param>
             <returns>删除成功与否</returns>
         </member>
+        <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.StudentJoinExam(System.String,System.Int32)">
+            <summary>
+            学生参加考试
+            </summary>
+            <param name="studentId">学生Id</param>
+            <param name="id">考试Id</param>
+            <returns>修改成功与否</returns>
+        </member>
         <member name="M:StudentManagement_Web.Controllers.ApiExaminationController.GetExamApply(System.Int32,System.Int32)">
             <summary>
             获取考试申请分页列表
