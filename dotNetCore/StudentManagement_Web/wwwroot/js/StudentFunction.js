@@ -317,6 +317,23 @@ function onloadExamView(index, userId) {
 
 function TakeExam(examId) {
     location = '../Student/ExamView/' + examId;
+    $.ajax({
+        type: "Put",
+        url: '../api/ApiExamination/StudentJoinExam/' + examId + '?studentId=' + Id,
+        success: function (data) {
+            if (data == true) {
+                alert('成功');
+            } else {
+                alert('失败');
+            }
+            onloadViewStudent(student_index, dataTypeChoose, studentId);
+            onloadCourseView(student_index, studentId);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            ajaxError(XMLHttpRequest, textStatus);
+            location.reload();
+        }
+    });
 }
 
 function onloadExamQuestions(examid) {

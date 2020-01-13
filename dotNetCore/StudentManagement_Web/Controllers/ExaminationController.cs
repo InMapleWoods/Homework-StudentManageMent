@@ -211,6 +211,26 @@ namespace StudentManagement_Web.Controllers
                 return NotFound(e.Message);
             }
         }
+        
+        /// <summary>
+        /// 学生参加考试
+        /// </summary>
+        /// <param name="studentId">学生Id</param>
+        /// <param name="id">考试Id</param>
+        /// <returns>修改成功与否</returns>
+        // PUT: api/ApiExamination/StudentJoinExam/{id}?studentId={studentId}
+        [HttpPut("StudentJoinExam/{id}")]
+        public IActionResult StudentJoinExam(string studentId, int id)
+        {
+            try
+            {
+                return Ok(examinationBll.StudentJoinExam(studentId, id));
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
 
         /// <summary>
         /// 获取考试申请分页列表

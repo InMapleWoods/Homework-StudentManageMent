@@ -322,6 +322,26 @@ namespace Bll
             }
             return result;
         }
+        
+        /// <summary>
+        /// 学生参加考试
+        /// </summary>
+        /// <param name="studentId">学生Id</param>
+        /// <param name="id">考试Id</param>
+        /// <returns>修改成功与否</returns>
+        public bool StudentJoinExam(string studentId, int id)
+        {
+            bool result = false;
+            try
+            {
+                result = examinationDal.StudentJoinExam(studentId, id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); throw e;
+            }
+            return result;
+        }
         #endregion
 
         #region 考试申请相关

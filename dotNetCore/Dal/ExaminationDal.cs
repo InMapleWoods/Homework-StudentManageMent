@@ -220,6 +220,26 @@ namespace Dal
                 return true;
             return false;
         }
+
+        /// <summary>
+        /// 学生参加考试
+        /// </summary>
+        /// <param name="studentId">学生Id</param>
+        /// <param name="id">考试Id</param>
+        /// <returns>修改成功与否</returns>
+        public bool StudentJoinExam(string studentId, int id)
+        {
+            string str = "insert into tb_ExamGrade(EId, SId) Values(@EId, @SId)";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@SId",studentId),
+                new SqlParameter("@EId",id),
+            };
+            int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
+            if (result > 0)
+                return true;
+            return false;
+        }
         #endregion
 
         #region 考试申请相关
