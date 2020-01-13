@@ -229,16 +229,27 @@ namespace Dal
         /// <returns>修改成功与否</returns>
         public bool StudentJoinExam(string studentId, int id)
         {
-            string str = "insert into tb_ExamGrade(EId, SId) Values(@EId, @SId)";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            string sqlstr = "StudentJoinExam";
+            //储存Datatable
+            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@SId",studentId),
-                new SqlParameter("@EId",id),
+                new SqlParameter("@examId",id),
+                new SqlParameter("@studentId",studentId),
+                new SqlParameter("@result",SqlDbType.VarChar,30),
             };
-            int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
-            if (result > 0)
+            para[2].Direction = ParameterDirection.Output;
+            int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.StoredProcedure);
+            string result = para[2].Value.ToString();
+            if (result != "")
+                throw new Exception(result);
+            if (count > 0)
+            {
                 return true;
-            return false;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 
