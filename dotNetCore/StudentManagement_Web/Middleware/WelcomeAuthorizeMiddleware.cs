@@ -86,7 +86,15 @@ namespace StudentManagement_Web.Middleware
         {
             StringValues values;
             httpContext.Request.Headers.TryGetValue("Cookie", out values);
-            var cookies = values.ToString().Split(';').ToList();
+            System.Collections.Generic.List<string> cookies = new System.Collections.Generic.List<string>();
+            if (values.Count > 1)
+            {
+                cookies = values.ToList();
+            }
+            else
+            {
+                cookies = values.ToString().Split(';').ToList();
+            }
             if (cookies[0] == "")
                 return String.Empty;
             var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
