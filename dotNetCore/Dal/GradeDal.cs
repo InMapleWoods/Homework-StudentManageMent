@@ -1,5 +1,5 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace Dal
 {
@@ -11,7 +11,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240;port=1733;database=db_StudentManage;user id=Lsa;password=llfllf;Charset=utf8;";
 
         /// <summary>
         /// SQL帮助类
@@ -28,11 +28,11 @@ namespace Dal
         public DataTable GetStudentGrade(string Id, string courseId, string examId)
         {
             string sqlstr = "GetStudentGrade";//SQL执行字符串
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
             {
-                new SqlParameter("@studentId",int.Parse(Id)),
-                new SqlParameter("@courseId",int.Parse(courseId)),
-                new SqlParameter("@examId",int.Parse(examId)),
+                new MySqlParameter("@studentId",int.Parse(Id)),
+                new MySqlParameter("@courseId",int.Parse(courseId)),
+                new MySqlParameter("@examId",int.Parse(examId)),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, para, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -45,12 +45,14 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetCourseGrade(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id order by tb_Students.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
-            SqlParameter[] paras = new SqlParameter[]
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
+            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id order by tb_Students.Number limit @startPos,@endPos;";//SQL执行字符串
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@id",Id),
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
+                new MySqlParameter("@id",Id),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             return dataTable;
@@ -64,12 +66,14 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetAllStudentAllGrade(string Id, int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetAllStudentAllGrade";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@teacherid",Id),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@teacherid",Id),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -81,12 +85,14 @@ namespace Dal
         /// <returns>全部学生成绩数据表</returns>
         public DataTable GetExamGrade(string Id, int index, int size)
         {
-            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id order by tb_Students.Number offset ((@index - 1)* @size ) rows fetch next @size rows only";//SQL执行字符串
-            SqlParameter[] paras = new SqlParameter[]
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
+            string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id order by tb_Students.Number limit @startPos,@endPos;";//SQL执行字符串
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@id",Id),
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
+                new MySqlParameter("@id",Id),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             return dataTable;
@@ -99,9 +105,9 @@ namespace Dal
         public int GetAllCoursePageNum(string id, int size)
         {
             string sqlstr = "select count(*) from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id ";//SQL执行字符串
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             DataRow dataRow = dataTable.Rows[0];
@@ -117,9 +123,9 @@ namespace Dal
         public int GetAllExamPageNum(string id, int size)
         {
             string sqlstr = "select count(*) from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id";//SQL执行字符串
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             DataRow dataRow = dataTable.Rows[0];
@@ -139,11 +145,11 @@ namespace Dal
         {
             string sqlstr = "UPDATE tb_CourseGrade SET Score=@score where SId=dbo.GetUserIdByNumber(@studenid) and CId=@courseid";
             //储存Datatable
-            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@score",score),
-                new SqlParameter("@studenid",studenid),
-                new SqlParameter("@courseid",courseid),
+                new MySqlParameter("@score",score),
+                new MySqlParameter("@studenid",studenid),
+                new MySqlParameter("@courseid",courseid),
             };
             int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.Text);
             if (count > 0)
@@ -166,11 +172,11 @@ namespace Dal
         {
             string sqlstr = "UPDATE tb_ExamGrade SET Score=@score where SId=dbo.GetUserIdByNumber(@studenid) and Eid=@examid";
             //储存Datatable
-            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@score",score),
-                new SqlParameter("@studenid",studenid),
-                new SqlParameter("@examid",examid),
+                new MySqlParameter("@score",score),
+                new MySqlParameter("@studenid",studenid),
+                new MySqlParameter("@examid",examid),
             };
             int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.Text);
             if (count > 0)

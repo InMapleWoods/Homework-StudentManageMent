@@ -1,7 +1,7 @@
 ﻿using Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 
 namespace Dal
@@ -14,7 +14,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private static readonly string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240;port=1733;database=db_StudentManage;user id=Lsa;password=llfllf;Charset=utf8;";
 
         /// <summary>
         /// 登录用户
@@ -55,10 +55,10 @@ namespace Dal
             string pwd = helper.GetMD5(password);
             //编写SQL语句
             string sqlstr = "SELECT * FROM tb_Users where Number=@number AND Password=@password";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@number",account),
-                new SqlParameter("@password",pwd)
+                new MySqlParameter("@number",account),
+                new MySqlParameter("@password",pwd)
             };
             //将返回的结果保存在datatable中
             using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
@@ -69,7 +69,7 @@ namespace Dal
                     int userId = (int)dr["Id"];
                     string name = dr["Name"].ToString();
                     string psw = dr["Password"].ToString();
-                    int Role = (int)dr["Role"];
+                    int Role = (int)(long)dr["Role"];
                     string Number = dr["Number"].ToString();
                     if (Role == 0)//未审核人员无法访问
                     {
@@ -125,9 +125,9 @@ namespace Dal
             }
             //编写SQL语句
             string sqlstr = "SELECT * FROM tb_Users where Number=@number";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@number",account),
+                new MySqlParameter("@number",account),
             };
             //将返回的结果保存在datatable中
             using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
@@ -138,7 +138,7 @@ namespace Dal
                     int userId = (int)dr["Id"];
                     string name = dr["Name"].ToString();
                     string psw = dr["Password"].ToString();
-                    int Role = (int)dr["Role"];
+                    int Role = (int)(long)dr["Role"];
                     string Number = dr["Number"].ToString();
                     t = new User(userId, name, psw, Role, Number);//将用户信息保存到变量t中
                     user = t;
@@ -165,9 +165,9 @@ namespace Dal
         {
             //编写SQL语句
             string sqlstr = "SELECT * FROM tb_Users where Name=@userName";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@userName",userName),
+                new MySqlParameter("@userName",userName),
             };
             //将返回的结果保存在datatable中
             using (DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text))
@@ -219,16 +219,16 @@ namespace Dal
             //向User表中插入数据
             string sqlStr = "Register";
             //储存Datatable
-            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("returnValue",SqlDbType.Int,4),
-                new SqlParameter("@number",SqlDbType.VarChar,200),
-                new SqlParameter("@name",name),
-                new SqlParameter("@passWord",helper.GetMD5(password)),
-                new SqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
-                new SqlParameter("@role",role),
+                new MySqlParameter("@returnValue",MySqlDbType.Int32,4),
+                new MySqlParameter("@number",MySqlDbType.VarChar,200),
+                new MySqlParameter("@name",name),
+                new MySqlParameter("@passWord",helper.GetMD5(password)),
+                new MySqlParameter("@repeatpwd",helper.GetMD5(repeatpwd)),
+                new MySqlParameter("@role",role),
             };
-            para[0].Direction = ParameterDirection.ReturnValue;
+            para[0].Direction = ParameterDirection.Output;
             para[1].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             int result = (int)para[0].Value;
@@ -293,10 +293,10 @@ namespace Dal
         public bool ChangedName(string id, string changedName, out User user)
         {
             string sqlStr = "update " + helper.GetUserRole(id) + " set Name=@name where Id=dbo.GetUserIdByNumber(@Id)";
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
              {
-                new SqlParameter("@name",changedName),
-                new SqlParameter("@Id",id),
+                new MySqlParameter("@name",changedName),
+                new MySqlParameter("@Id",id),
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
@@ -323,10 +323,10 @@ namespace Dal
         public bool ChangePassword(string opwd, string npwd, string id, out User user)
         {
             string sqlStr = "update " + helper.GetUserRole(id) + " set Password=@password where Id=dbo.GetUserIdByNumber(@Id)";
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
              {
-                new SqlParameter("@password",helper.GetMD5(npwd)),
-                new SqlParameter("@Id",id),
+                new MySqlParameter("@password",helper.GetMD5(npwd)),
+                new MySqlParameter("@Id",id),
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)

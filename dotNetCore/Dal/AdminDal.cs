@@ -1,5 +1,5 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace Dal
 {
@@ -11,7 +11,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240;port=1733;database=db_StudentManage;user id=Lsa;password=llfllf;Charset=utf8;";
 
         /// <summary>
         /// SQL帮助类
@@ -27,9 +27,9 @@ namespace Dal
         public bool AcceptLog(string id)
         {
             string sqlStr = "AcceptLog";
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
              {
-                new SqlParameter("@id",id)
+                new MySqlParameter("@id",id)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)
@@ -49,9 +49,9 @@ namespace Dal
         public bool RejectionLog(string id)
         {
             string sqlStr = "RejectionLog";
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
              {
-                new SqlParameter("@id",id)
+                new MySqlParameter("@id",id)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             if (count > 0)
@@ -71,9 +71,9 @@ namespace Dal
         public bool DeleteUser(string number)
         {
             string sqlStr = "delete from " + helper.GetUserRole(number) + " where Number=@number";
-            SqlParameter[] para = new SqlParameter[]
+            MySqlParameter[] para = new MySqlParameter[]
              {
-                new SqlParameter("@number",number)
+                new MySqlParameter("@number",number)
              };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
@@ -94,12 +94,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersWaitingToCheck(int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetPageByOption";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@option","GetPaperUsersWaitingToCheck"),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@option","GetPaperUsersWaitingToCheck"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -114,12 +116,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersStudent(int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetPageByOption";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@option","GetPaperUsersStudent"),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@option","GetPaperUsersStudent"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -133,12 +137,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperUsersTeacher(int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetPageByOption";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@option","GetPaperUsersTeacher"),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@option","GetPaperUsersTeacher"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -193,11 +199,11 @@ namespace Dal
             //向User表中插入数据
             string sqlStr = "INSERT INTO " + helper.GetTableNameByRole(role) + "(Name,Password,Number) VALUES(@name,@password,@number)";
             //储存Datatable
-            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@number",account),
-                new SqlParameter("@name",name),
-                new SqlParameter("@passWord",helper.GetMD5(password)),
+                new MySqlParameter("@number",account),
+                new MySqlParameter("@name",name),
+                new MySqlParameter("@passWord",helper.GetMD5(password)),
             };
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.Text);
             if (count > 0)
@@ -214,7 +220,7 @@ namespace Dal
         public DataTable GetSettings()
         {
             string str = "select * from tb_Settings";
-            SqlParameter[] para = new SqlParameter[] {
+            MySqlParameter[] para = new MySqlParameter[] {
             };
             using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.Text))
             {
@@ -229,8 +235,8 @@ namespace Dal
         public string ReverseRegisterOpenState()
         {
             string str = "ReverseRegisterOpenState";
-            SqlParameter[] para = new SqlParameter[] {
-                new SqlParameter("result",SqlDbType.VarChar,20)
+            MySqlParameter[] para = new MySqlParameter[] {
+                new MySqlParameter("@result",MySqlDbType.VarChar,5000)
             };
             para[0].Direction = ParameterDirection.Output;
             using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.StoredProcedure))
@@ -257,8 +263,8 @@ namespace Dal
         public string ReverseCourseChooseOpenState()
         {
             string str = "ReverseCourseChooseOpenState";
-            SqlParameter[] para = new SqlParameter[] {
-                new SqlParameter("result",SqlDbType.VarChar,20)
+            MySqlParameter[] para = new MySqlParameter[] {
+                new MySqlParameter("@result",MySqlDbType.VarChar,5000)
             };
             para[0].Direction = ParameterDirection.Output;
             using (DataTable dataTable = helper.ExecuteQuery(str, para, CommandType.StoredProcedure))

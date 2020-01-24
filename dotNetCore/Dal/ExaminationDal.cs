@@ -1,7 +1,7 @@
 ﻿using Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Dal
 {
@@ -13,7 +13,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240;port=1733;database=db_StudentManage;user id=Lsa;password=llfllf;Charset=utf8;";
 
         /// <summary>
         /// SQL帮助类
@@ -29,12 +29,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExam(int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetPageByOption";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@option","GetPaperExam"),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@option","GetPaperExam"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -60,9 +62,9 @@ namespace Dal
         public int GetAllPageNum(int size, int studentId)
         {
             string str = "select count(*) as ALLCOUNT from tb_Examination where tb_Examination.CourseId in (select tb_Course.Id from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id)";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",studentId),
+                new MySqlParameter("@id",studentId),
             };
             DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text);
             int num = (int)dataTable.Rows[0]["ALLCOUNT"];
@@ -89,9 +91,9 @@ namespace Dal
         public Examination GetExaminationById(int id)
         {
             string sqlStr = "select * from tb_Examination where id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             if (dataTable.Rows.Count == 1)
@@ -116,9 +118,9 @@ namespace Dal
         public DataTable GetExaminationByCourseId(int id)
         {
             string sqlStr = "select * from tb_Examination where CourseId=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             return dataTable;
@@ -132,9 +134,9 @@ namespace Dal
         public DataTable GetExaminationByTeacherId(int id)
         {
             string sqlStr = "GetTeacherAllExam";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.StoredProcedure);
             return dataTable;
@@ -150,12 +152,12 @@ namespace Dal
             if (examination == null)
                 return false;
             string str = "insert into tb_Examination(CourseId,Time,Name,Duration) Values(@courseid,@time,@examname,@duration)";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@courseid",examination.CourseId),
-                new SqlParameter("@time",examination.Time),
-                new SqlParameter("@examname",examination.Name),
-                new SqlParameter("@duration",examination.Duration),
+                new MySqlParameter("@courseid",examination.CourseId),
+                new MySqlParameter("@time",examination.Time),
+                new MySqlParameter("@examname",examination.Name),
+                new MySqlParameter("@duration",examination.Duration),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -171,9 +173,9 @@ namespace Dal
         public bool DeleteExamination(int id)
         {
             string str = "delete from tb_Examination where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -190,10 +192,10 @@ namespace Dal
         public bool UpdateExaminationTime(DateTime dateTime, int id)
         {
             string str = "update tb_Examination set Time=@time where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@time",dateTime),
-                new SqlParameter("@id",id),
+                new MySqlParameter("@time",dateTime),
+                new MySqlParameter("@id",id),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -210,10 +212,10 @@ namespace Dal
         public bool UpdateExaminationName(string name, int id)
         {
             string str = "update tb_Examination set Name=@name where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@name",name),
-                new SqlParameter("@id",id),
+                new MySqlParameter("@name",name),
+                new MySqlParameter("@id",id),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -231,11 +233,11 @@ namespace Dal
         {
             string sqlstr = "StudentJoinExam";
             //储存Datatable
-            SqlParameter[] para = new SqlParameter[]//存储相应参数的容器
+            MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
-                new SqlParameter("@examId",id),
-                new SqlParameter("@studentId",studentId),
-                new SqlParameter("@result",SqlDbType.VarChar,30),
+                new MySqlParameter("@examId",id),
+                new MySqlParameter("@studentId",studentId),
+                new MySqlParameter("@result",MySqlDbType.VarChar,5000),
             };
             para[2].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.StoredProcedure);
@@ -262,12 +264,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExamApply(int index, int size)
         {
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
             string str = "GetPageByOption";
-            SqlParameter[] paras = new SqlParameter[]
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
-                new SqlParameter("@option","GetPaperExamApply"),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
+                new MySqlParameter("@option","GetPaperExamApply"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -293,12 +297,14 @@ namespace Dal
         /// <returns>分页后名单</returns>
         public DataTable GetPaperExamApply(int id, int index, int size)
         {
-            string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Teachers.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Teachers where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Teachers.Id = tb_Course.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_Course.TeacherId=@id order by tb_ExamApplyLog.Id offset((@index -1)*@size ) rows fetch next @size rows only; ";
-            SqlParameter[] paras = new SqlParameter[]
+            int startPos = (index - 1) * size;
+            int endPos = index * size;
+            string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Teachers.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Teachers where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Teachers.Id = tb_Course.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_Course.TeacherId=@id order by tb_ExamApplyLog.Id limit @startPos,@endPos;";
+            MySqlParameter[] paras = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
-                new SqlParameter("@index",index),
-                new SqlParameter("@size",size),
+                new MySqlParameter("@id",id),
+                new MySqlParameter("@startPos",startPos),
+                new MySqlParameter("@endPos",endPos),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.Text);//储存Datatable
             return dataTable;
@@ -312,7 +318,7 @@ namespace Dal
         public int GetAllPageApplyNum(int id, int size)
         {
             string str = "select count(*) from tb_ExamApplyLog,tb_Course where tb_ExamApplyLog.CourseId=tb_Course.Id and tb_Course.TeacherId=@id";
-            int num = (int)helper.ExecuteQuery(str, new SqlParameter[] { new SqlParameter("@id", id) }, CommandType.Text).Rows[0][0];
+            int num = (int)(long)helper.ExecuteQuery(str, new MySqlParameter[] { new MySqlParameter("@id", id) }, CommandType.Text).Rows[0][0];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -328,18 +334,18 @@ namespace Dal
             if (examination == null)
                 return false;
             string str = "AddExamApply";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@out",SqlDbType.VarChar,200),
-                new SqlParameter("@courseid",examination.CourseId),
-                new SqlParameter("@time",examination.Time),
-                new SqlParameter("@examname",examination.Name),
-                new SqlParameter("@ischecked",false),
-                new SqlParameter("@duration",examination.Duration),
+                new MySqlParameter("@courseid",examination.CourseId),
+                new MySqlParameter("@time",examination.Time),
+                new MySqlParameter("@examname",examination.Name),
+                new MySqlParameter("@ischecked",false),
+                new MySqlParameter("@duration",examination.Duration),
+                new MySqlParameter("@output",MySqlDbType.VarChar,200),
             };
-            sqlParameters[0].Direction = ParameterDirection.Output;
+            sqlParameters[5].Direction = ParameterDirection.Output;
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.StoredProcedure);
-            string output = sqlParameters[0].Value.ToString();
+            string output = sqlParameters[5].Value.ToString();
             if (output != "")
                 throw new Exception(output);
             if (result > 0)
@@ -355,10 +361,10 @@ namespace Dal
         public bool UpdateExamApplyCheckedState(int id)
         {
             string str = "Update tb_ExamApplyLog set IsChecked=@ischecked where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
-                new SqlParameter("@ischecked",true),
+                new MySqlParameter("@id",id),
+                new MySqlParameter("@ischecked",true),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -375,10 +381,10 @@ namespace Dal
         {
             Examination examination = null;
             string sqlStr = "select * from tb_ExamApplyLog where id=@id and IsChecked=@ischecked";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
-                new SqlParameter("@ischecked",false),
+                new MySqlParameter("@id",id),
+                new MySqlParameter("@ischecked",false),
             };
             DataTable dataTable = helper.ExecuteQuery(sqlStr, sqlParameters, CommandType.Text);
             if (dataTable.Rows.Count == 1)

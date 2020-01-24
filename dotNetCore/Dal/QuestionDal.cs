@@ -1,9 +1,8 @@
 ﻿using Model;
+using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Dal
 {
@@ -15,7 +14,7 @@ namespace Dal
         /// <summary>
         /// 连接字符串
         /// </summary>
-        private const string sqlConnect = "server=152.136.73.240,1733;database=db_StudentManage;uid=Lsa;pwd=llfllf";
+        private const string sqlConnect = "server=152.136.73.240;port=1733;database=db_StudentManage;user id=Lsa;password=llfllf;Charset=utf8;";
 
         /// <summary>
         /// SQL帮助类
@@ -30,9 +29,9 @@ namespace Dal
         public DataTable GetExamAllQuestions(int examid)
         {
             string str = "select * from tb_ExamQuestion where ExamId=@examid";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@examid",examid),
+                new MySqlParameter("@examid",examid),
             };
             DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text);
             return dataTable;
@@ -46,9 +45,9 @@ namespace Dal
         public ExamQuestion GetExaminationQuestionById(int questionId)
         {
             string str = "select * from tb_ExamQuestion where Id=@questionid";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@questionid",questionId),
+                new MySqlParameter("@questionid",questionId),
             };
             using (DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text))
             {
@@ -69,9 +68,9 @@ namespace Dal
         public bool DeleteExaminationQuestion(int id)
         {
             string str = "delete from tb_ExamQuestion where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@id",id),
+                new MySqlParameter("@id",id),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -90,10 +89,10 @@ namespace Dal
             if (question == null)
                 return false;
             string str = "insert into tb_ExamQuestion(ExamId,QuestionText) Values(@examid,@questiontext)";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@examid",question.ExamId),
-                new SqlParameter("@questiontext",question.QuestionText),
+                new MySqlParameter("@examid",question.ExamId),
+                new MySqlParameter("@questiontext",question.QuestionText),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)
@@ -167,11 +166,11 @@ namespace Dal
         private bool UpdateExaminationQuestion(ExamQuestion question)
         {
             string str = "Update tb_ExamQuestion set ExamId=@examid,QuestionText=@questiontext where Id=@id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
+            MySqlParameter[] sqlParameters = new MySqlParameter[]
             {
-                new SqlParameter("@examid",question.ExamId),
-                new SqlParameter("@id",question.Id),
-                new SqlParameter("@questiontext",question.QuestionText),
+                new MySqlParameter("@examid",question.ExamId),
+                new MySqlParameter("@id",question.Id),
+                new MySqlParameter("@questiontext",question.QuestionText),
             };
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.Text);
             if (result > 0)

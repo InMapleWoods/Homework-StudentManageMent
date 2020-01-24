@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>F:\程序\ASP.NET\StudentManage\dotNetCore\StudentManagement_Web\StudentManagement_Web.xml</DocumentationFile>
+    <DocumentationFile>StudentManagement_Web.xml</DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup>

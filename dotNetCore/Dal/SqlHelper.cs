@@ -1,19 +1,19 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Security.Cryptography;
 
 namespace Dal
 {
     public class SQLHelper
     {
-        private readonly SqlConnection conn = null;
-        private SqlCommand cmd = null;
-        private readonly SqlDataReader sdr = null;
+        private readonly MySqlConnection conn = null;
+        private MySqlCommand cmd = null;
+        private readonly MySqlDataReader sdr = null;
 
         public SQLHelper(string sqlConnect)
         {
-            conn = new SqlConnection(sqlConnect);
+            conn = new MySqlConnection(sqlConnect);
         }
 
         private string protectsql(string text)
@@ -27,7 +27,7 @@ namespace Dal
         /// 打开数据库
         /// </summary>
         /// <returns>返回SqlConnection</returns>
-        private SqlConnection getconn()
+        private MySqlConnection getconn()
         {
             try
             {
@@ -55,10 +55,10 @@ namespace Dal
             int res = 0;
             try
             {
-                using (cmd = new SqlCommand(sqltext, conn))
+                using (cmd = new MySqlCommand(sqltext, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    res = (int)cmd.ExecuteScalar();
+                    res = (int)(long)cmd.ExecuteScalar();
                 }
             }
             catch (Exception ex)
@@ -90,7 +90,7 @@ namespace Dal
             int res = 0;
             try
             {
-                using (cmd = new SqlCommand(sqltext, conn))
+                using (cmd = new MySqlCommand(sqltext, conn))
                 {
 
                     cmd.CommandType = CommandType.Text;
@@ -126,7 +126,7 @@ namespace Dal
             int res = 0;
             try
             {
-                using (cmd = new SqlCommand(sqltext, conn))
+                using (cmd = new MySqlCommand(sqltext, conn))
                 {
 
                     cmd.CommandType = CommandType.Text;
@@ -157,11 +157,11 @@ namespace Dal
         {
             cmdtext = protectsql(cmdtext);
             getconn();
-            SqlDataAdapter da;
+            MySqlDataAdapter da;
             DataSet ds;
             try
             {
-                using (da = new SqlDataAdapter(cmdtext, conn))
+                using (da = new MySqlDataAdapter(cmdtext, conn))
                 {
                     using (ds = new DataSet())
                     {
@@ -190,13 +190,13 @@ namespace Dal
         /// <param name="paras">参数集合</param>
         /// <param name="ct">命令类型（SQL语句或存储过程）</param>
         /// <returns></returns>
-        public int ExecuteNonQuery(string cmdtext, SqlParameter[] paras, CommandType ct)
+        public int ExecuteNonQuery(string cmdtext, MySqlParameter[] paras, CommandType ct)
         {//该方法执行传入的SQL语句
             cmdtext = protectsql(cmdtext);
             int res = 0;
             try
             {
-                using (cmd = new SqlCommand(cmdtext, getconn()))
+                using (cmd = new MySqlCommand(cmdtext, getconn()))
                 {
                     cmd.CommandType = ct;
                     cmd.Parameters.AddRange(paras);
@@ -224,17 +224,17 @@ namespace Dal
         /// <param name="paras">参数集合</param>
         /// <param name="ct">命令类型（SQL语句或存储过程）</param>
         /// <returns></returns>
-        public DataTable ExecuteQuery(string cmdtext, SqlParameter[] paras, CommandType ct)
+        public DataTable ExecuteQuery(string cmdtext, MySqlParameter[] paras, CommandType ct)
         {//执行查询
             cmdtext = protectsql(cmdtext);
             DataTable dt = new DataTable();
             try
             {
-                using (cmd = new SqlCommand(cmdtext, getconn()))
+                using (cmd = new MySqlCommand(cmdtext, getconn()))
                 {
                     cmd.CommandType = ct;
                     cmd.Parameters.AddRange(paras);
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
                         dt.Load(sdr);
                     }
@@ -286,10 +286,10 @@ namespace Dal
             int res = 0;
             try
             {
-                using (cmd = new SqlCommand(sqlStr, conn))
+                using (cmd = new MySqlCommand(sqlStr, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(new SqlParameter("@number", number));
+                    cmd.Parameters.Add(new MySqlParameter("@number", number));
                     res = (int)cmd.ExecuteScalar();
                 }
             }
