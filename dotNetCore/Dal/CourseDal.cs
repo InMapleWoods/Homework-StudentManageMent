@@ -37,7 +37,7 @@ namespace Dal
         public DataTable GetStudentNoChooseCourse(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string sqlstr = "select tb_Course.Id 课程ID, tb_Course.Name 课程名称, tb_Teachers.Name 教师名称 from tb_Course, tb_Teachers where tb_Course.TeacherId = tb_Teachers.Id and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id) order by tb_Course.Id limit @startPos,@endPos;";//SQL执行字符串
             MySqlParameter[] para = new MySqlParameter[] {
                 new MySqlParameter("@id",Id),
@@ -55,7 +55,7 @@ namespace Dal
         public DataTable GetStudentAllCourse(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id order by tb_Course.Id limit @startPos,@endPos;";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -73,7 +73,7 @@ namespace Dal
         public DataTable GetTeacherAllCourse(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string sqlstr = "select tb_Course.Id,tb_Course.Name from tb_Course where TeacherId=@id order by tb_Course.Id limit @startPos,@endPos;";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -205,7 +205,7 @@ namespace Dal
         public DataTable GetPaperCourse(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {

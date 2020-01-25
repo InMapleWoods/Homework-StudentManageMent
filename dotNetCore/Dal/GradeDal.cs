@@ -46,7 +46,7 @@ namespace Dal
         public DataTable GetCourseGrade(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_CourseGrade.Score as 课程分数 from tb_CourseGrade,tb_Students where tb_CourseGrade.CId=@id and tb_CourseGrade.SId=tb_Students.Id order by tb_Students.Number limit @startPos,@endPos;";//SQL执行字符串
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -67,7 +67,7 @@ namespace Dal
         public DataTable GetAllStudentAllGrade(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetAllStudentAllGrade";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -86,7 +86,7 @@ namespace Dal
         public DataTable GetExamGrade(string Id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string sqlstr = "select tb_Students.Number as 学生学号,tb_Students.Name as 学生姓名,tb_ExamGrade.Score as 课程分数 from tb_ExamGrade,tb_Students where tb_ExamGrade.EId=@id and tb_ExamGrade.SId=tb_Students.Id order by tb_Students.Number limit @startPos,@endPos;";//SQL执行字符串
             MySqlParameter[] paras = new MySqlParameter[]
             {

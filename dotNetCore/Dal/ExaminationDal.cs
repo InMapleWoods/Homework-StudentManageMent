@@ -30,7 +30,7 @@ namespace Dal
         public DataTable GetPaperExam(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -268,7 +268,7 @@ namespace Dal
         public DataTable GetPaperExamApply(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -301,7 +301,7 @@ namespace Dal
         public DataTable GetPaperExamApply(int id, int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "select tb_ExamApplyLog.Id 考试ID,tb_Course.Name 课程名称,tb_Teachers.Name 老师名称,tb_ExamApplyLog.ExamName 考试名称,tb_ExamApplyLog.Time 考试时间,tb_ExamApplyLog.Duration 考试时长 from tb_Course, tb_ExamApplyLog, tb_Teachers where tb_Course.Id = tb_ExamApplyLog.CourseId and tb_Teachers.Id = tb_Course.TeacherId and tb_ExamApplyLog.IsChecked = 0 and tb_Course.TeacherId=@id order by tb_ExamApplyLog.Id limit @startPos,@endPos;";
             MySqlParameter[] paras = new MySqlParameter[]
             {

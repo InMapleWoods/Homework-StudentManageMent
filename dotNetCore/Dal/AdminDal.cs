@@ -101,7 +101,7 @@ namespace Dal
         public DataTable GetPaperUsersWaitingToCheck(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -123,7 +123,7 @@ namespace Dal
         public DataTable GetPaperUsersStudent(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
@@ -144,7 +144,7 @@ namespace Dal
         public DataTable GetPaperUsersTeacher(int index, int size)
         {
             int startPos = (index - 1) * size;
-            int endPos = index * size;
+            int endPos = size;
             string str = "GetPageByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
