@@ -292,7 +292,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool ChangedName(string id, string changedName, out User user)
         {
-            string sqlStr = "update " + helper.GetUserRole(id) + " set Name=@name where Id=dbo.GetUserIdByNumber(@Id)";
+            string sqlStr = "update " + helper.GetUserRole(id) + " set Name=@name where Id=GetUserIdByNumber(@Id)";
             MySqlParameter[] para = new MySqlParameter[]
              {
                 new MySqlParameter("@name",changedName),
@@ -322,7 +322,7 @@ namespace Dal
         /// <returns>成功与否</returns>
         public bool ChangePassword(string opwd, string npwd, string id, out User user)
         {
-            string sqlStr = "update " + helper.GetUserRole(id) + " set Password=@password where Id=dbo.GetUserIdByNumber(@Id)";
+            string sqlStr = "update " + helper.GetUserRole(id) + " set Password=@password where Id=GetUserIdByNumber(@Id)";
             MySqlParameter[] para = new MySqlParameter[]
              {
                 new MySqlParameter("@password",helper.GetMD5(npwd)),

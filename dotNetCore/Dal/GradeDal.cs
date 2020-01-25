@@ -71,9 +71,9 @@ namespace Dal
             string str = "GetAllStudentAllGrade";
             MySqlParameter[] paras = new MySqlParameter[]
             {
+                new MySqlParameter("@teacherid",Id),
                 new MySqlParameter("@startPos",startPos),
                 new MySqlParameter("@endPos",endPos),
-                new MySqlParameter("@teacherid",Id),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -111,7 +111,7 @@ namespace Dal
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             DataRow dataRow = dataTable.Rows[0];
-            int num = (int)dataRow[0];
+            int num = (int)(long)dataRow[0];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -129,7 +129,7 @@ namespace Dal
             };
             DataTable dataTable = helper.ExecuteQuery(sqlstr, paras, CommandType.Text);//储存Datatable
             DataRow dataRow = dataTable.Rows[0];
-            int num = (int)dataRow[0];
+            int num = (int)(long)dataRow[0];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -143,7 +143,7 @@ namespace Dal
         /// <returns>修改是否成功</returns>
         public bool ChangeCourseGrade(string score, string studenid, string courseid)
         {
-            string sqlstr = "UPDATE tb_CourseGrade SET Score=@score where SId=dbo.GetUserIdByNumber(@studenid) and CId=@courseid";
+            string sqlstr = "UPDATE tb_CourseGrade SET Score=@score where SId=GetUserIdByNumber(@studenid) and CId=@courseid";
             //储存Datatable
             MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
@@ -170,7 +170,7 @@ namespace Dal
         /// <returns>修改是否成功</returns>
         public bool ChangeExamGrade(string score, string studenid, string examid)
         {
-            string sqlstr = "UPDATE tb_ExamGrade SET Score=@score where SId=dbo.GetUserIdByNumber(@studenid) and Eid=@examid";
+            string sqlstr = "UPDATE tb_ExamGrade SET Score=@score where SId=GetUserIdByNumber(@studenid) and Eid=@examid";
             //储存Datatable
             MySqlParameter[] para = new MySqlParameter[]//存储相应参数的容器
             {
