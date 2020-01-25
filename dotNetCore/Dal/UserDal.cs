@@ -246,7 +246,7 @@ namespace Dal
             }
             t = new User(helper.sqlMaxID("Id", "tb_Users"), name, password, Role, accountResult);//将用户信息保存到变量t中
             user = t;
-            if (count > 0)
+            if (result == 1)
             {
                 return true;
             }

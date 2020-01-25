@@ -135,7 +135,7 @@ namespace Dal
                 throw new Exception("选课功能被关闭");
             if (result != "")
                 throw new Exception(result);
-            if (count > 0)
+            if (resultcount == 1)
             {
                 return true;
             }
@@ -159,12 +159,12 @@ namespace Dal
                 new MySqlParameter("@sid",UserId),
                 new MySqlParameter("@returnValue",MySqlDbType.Int32)
             };
-            para[2].Direction = ParameterDirection.ReturnValue;
+            para[2].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
             int result = (int)para[2].Value;
             if (result == -2)
                 throw new Exception("选课功能被关闭");
-            if (count > 0)
+            if (result == 1)
             {
                 return true;
             }

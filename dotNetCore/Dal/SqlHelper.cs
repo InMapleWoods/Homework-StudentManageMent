@@ -94,7 +94,7 @@ namespace Dal
                 {
 
                     cmd.CommandType = CommandType.Text;
-                    res = (int)cmd.ExecuteScalar();
+                    res = (int)(long)cmd.ExecuteScalar();
                 }
             }
             catch (Exception ex)
@@ -130,7 +130,7 @@ namespace Dal
                 {
 
                     cmd.CommandType = CommandType.Text;
-                    res = (int)cmd.ExecuteScalar();
+                    res = (int)(long)cmd.ExecuteScalar();
                 }
             }
             catch (Exception ex)
@@ -290,7 +290,7 @@ namespace Dal
                 {
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add(new MySqlParameter("@number", number));
-                    res = (int)cmd.ExecuteScalar();
+                    res = (int)(long)cmd.ExecuteScalar();
                 }
             }
             catch (Exception ex)

@@ -238,13 +238,16 @@ namespace Dal
                 new MySqlParameter("@examId",id),
                 new MySqlParameter("@studentId",studentId),
                 new MySqlParameter("@result",MySqlDbType.VarChar,5000),
+                new MySqlParameter("@returnValue",MySqlDbType.Int32,4),
             };
             para[2].Direction = ParameterDirection.Output;
+            para[3].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlstr, para, CommandType.StoredProcedure);
             string result = para[2].Value.ToString();
+            int resultcount = (int)para[3].Value;
             if (result != "")
                 throw new Exception(result);
-            if (count > 0)
+            if (resultcount == 1)
             {
                 return true;
             }
@@ -342,13 +345,16 @@ namespace Dal
                 new MySqlParameter("@ischecked",false),
                 new MySqlParameter("@duration",examination.Duration),
                 new MySqlParameter("@output",MySqlDbType.VarChar,200),
+                new MySqlParameter("@returnValue",MySqlDbType.Int32,4)
             };
             sqlParameters[5].Direction = ParameterDirection.Output;
+            sqlParameters[6].Direction = ParameterDirection.Output;
             int result = helper.ExecuteNonQuery(str, sqlParameters, CommandType.StoredProcedure);
             string output = sqlParameters[5].Value.ToString();
+            int resultcount = (int)sqlParameters[6].Value;
             if (output != "")
                 throw new Exception(output);
-            if (result > 0)
+            if (resultcount == 1)
                 return true;
             return false;
         }

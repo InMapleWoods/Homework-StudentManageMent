@@ -29,10 +29,13 @@ namespace Dal
             string sqlStr = "AcceptLog";
             MySqlParameter[] para = new MySqlParameter[]
              {
-                new MySqlParameter("@id",id)
+                new MySqlParameter("@id",id),
+                new MySqlParameter("@returnValue",MySqlDbType.Int32,4),
              };
+            para[1].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
-            if (count > 0)
+            int resultcount = (int)para[1].Value;
+            if (resultcount > 0)
             {
                 return true;
             }
@@ -51,10 +54,13 @@ namespace Dal
             string sqlStr = "RejectionLog";
             MySqlParameter[] para = new MySqlParameter[]
              {
-                new MySqlParameter("@id",id)
+                new MySqlParameter("@id",id),
+                new MySqlParameter("@returnValue",MySqlDbType.Int32,4),
              };
+            para[1].Direction = ParameterDirection.Output;
             int count = helper.ExecuteNonQuery(sqlStr, para, CommandType.StoredProcedure);
-            if (count > 0)
+            int resultcount = (int)para[1].Value;
+            if (resultcount > 0)
             {
                 return true;
             }
