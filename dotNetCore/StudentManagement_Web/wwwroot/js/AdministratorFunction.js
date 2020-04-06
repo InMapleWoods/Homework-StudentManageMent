@@ -79,7 +79,7 @@ function GetPageNumAdmin(choose) {
         $.ajax({
             type: "Get",
             async: false,
-            url: '../api/ApiAdmin/GetAllPageNum?size=' + admin_size + '&choose=' + choose,
+            url: '../api/ApiAdmin/GetAllPageNum?size=' + admin_size + '&choose=' + choose + '&account=' + $("#query_account").val() + '&userName=' + $("#query_userName").val(),
             success: function (data) {
                 admin_page = data;
                 $("#page").text(data);
@@ -143,7 +143,7 @@ function onloadUserApplyView(index) {
     $.ajax({
         type: "Get",
         async: false,
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=3',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=3' + '&account=' + $("#query_account").val() + '&userName=' + $("#query_userName").val(),
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");
@@ -257,7 +257,7 @@ function onloadStudentView(index) {
     $.ajax({
         type: "Get",
         async: false,
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=2',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=2' + '&account=' + $("#query_account").val() + '&userName=' + $("#query_userName").val(),
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");
@@ -302,7 +302,7 @@ function onloadTeacherView(index) {
     $.ajax({
         type: "Get",
         async: false,
-        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=1',
+        url: '../api/ApiAdmin/GetPaperUsersArray?index=' + index + '&size=' + admin_size + '&choose=1' + '&account=' + $("#query_account").val() + '&userName=' + $("#query_userName").val(),
         success: function (data) {
             var applyList = data;
             $('#apply_list').html("");

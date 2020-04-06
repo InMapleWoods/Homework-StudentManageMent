@@ -83,23 +83,25 @@ namespace Bll
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsers(int index, int size, int choose)
+        public DataTable GetPaperUsers(int index, int size, int choose, string account, string userName)
         {
             DataTable result;
             try
             {
                 if (choose == choose_Student)
                 {
-                    result = adminDal.GetPaperUsersStudent(index, size);
+                    result = adminDal.GetPaperUsersStudent(index, size, account, userName);
                 }
                 else if (choose == choose_Teacher)
                 {
-                    result = adminDal.GetPaperUsersTeacher(index, size);
+                    result = adminDal.GetPaperUsersTeacher(index, size, account, userName);
                 }
                 else if (choose == choose_Unchecked)
                 {
-                    result = adminDal.GetPaperUsersWaitingToCheck(index, size);
+                    result = adminDal.GetPaperUsersWaitingToCheck(index, size, account, userName);
                 }
                 else
                 {
@@ -116,12 +118,14 @@ namespace Bll
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        public IEnumerable GetPaperUsersArray(int index, int size, int choose)
+        public IEnumerable GetPaperUsersArray(int index, int size, int choose, string account, string userName)
         {
             try
             {
-                DataTable dataTable = GetPaperUsers(index, size, choose);
+                DataTable dataTable = GetPaperUsers(index, size, choose, account, userName);
                 if ((choose == choose_Student) || (choose == choose_Teacher))
                 {
                     List<UserTempObject> temp = new List<UserTempObject>();
@@ -159,23 +163,25 @@ namespace Bll
         /// </summary>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页数</returns>
-        public int GetAllPageNum(int size, int choose)
+        public int GetAllPageNum(int size, int choose, string account, string userName)
         {
             int result;
             try
             {
                 if (choose == choose_Student)
                 {
-                    result = adminDal.GetAllPageNum_Student(size);
+                    result = adminDal.GetAllPageNum_Student(size, account, userName);
                 }
                 else if (choose == choose_Teacher)
                 {
-                    result = adminDal.GetAllPageNum_Teacher(size);
+                    result = adminDal.GetAllPageNum_Teacher(size, account, userName);
                 }
                 else if (choose == choose_Unchecked)
                 {
-                    result = adminDal.GetAllPageNumUnChecked(size);
+                    result = adminDal.GetAllPageNumUnChecked(size, account, userName);
                 }
                 else
                 {

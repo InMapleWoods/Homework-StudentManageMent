@@ -97,17 +97,23 @@ namespace Dal
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsersWaitingToCheck(int index, int size)
+        public DataTable GetPaperUsersWaitingToCheck(int index, int size, string account, string userName)
         {
+            account = "%" + account + "%";
+            userName = "%" + userName + "%";
             int startPos = (index - 1) * size;
             int endPos = size;
-            string str = "GetPageByOption";
+            string str = "GetPaperUsersByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
                 new MySqlParameter("@startPos",startPos),
                 new MySqlParameter("@endPos",endPos),
-                new MySqlParameter("@option","GetPaperUsersWaitingToCheck"),
+                new MySqlParameter("@account",account),
+                new MySqlParameter("@userName",userName),
+                new MySqlParameter("@option","WaitingToCheck"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -119,17 +125,23 @@ namespace Dal
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsersStudent(int index, int size)
+        public DataTable GetPaperUsersStudent(int index, int size, string account, string userName)
         {
+            account = "%" + account + "%";
+            userName = "%" + userName + "%";
             int startPos = (index - 1) * size;
             int endPos = size;
-            string str = "GetPageByOption";
+            string str = "GetPaperUsersByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
                 new MySqlParameter("@startPos",startPos),
                 new MySqlParameter("@endPos",endPos),
-                new MySqlParameter("@option","GetPaperUsersStudent"),
+                new MySqlParameter("@account",account),
+                new MySqlParameter("@userName",userName),
+                new MySqlParameter("@option","Student"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -140,17 +152,23 @@ namespace Dal
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        public DataTable GetPaperUsersTeacher(int index, int size)
+        public DataTable GetPaperUsersTeacher(int index, int size, string account, string userName)
         {
+            account = "%" + account + "%";
+            userName = "%" + userName + "%";
             int startPos = (index - 1) * size;
             int endPos = size;
-            string str = "GetPageByOption";
+            string str = "GetPaperUsersByOption";
             MySqlParameter[] paras = new MySqlParameter[]
             {
                 new MySqlParameter("@startPos",startPos),
                 new MySqlParameter("@endPos",endPos),
-                new MySqlParameter("@option","GetPaperUsersTeacher"),
+                new MySqlParameter("@account",account),
+                new MySqlParameter("@userName",userName),
+                new MySqlParameter("@option","Teacher"),
             };
             DataTable dataTable = helper.ExecuteQuery(str, paras, CommandType.StoredProcedure);//储存Datatable
             return dataTable;
@@ -160,10 +178,17 @@ namespace Dal
         /// 获取未审核用户分页总页数
         /// </summary>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页数</returns>
-        public int GetAllPageNumUnChecked(int size)
+        public int GetAllPageNumUnChecked(int size, string account, string userName)
         {
-            int num = helper.sqlNum("tb_Log where IsChecked=0");
+            account = "%" + account + "%";
+            userName = "%" + userName + "%";
+            string str = "select count(*) as Count from tb_Log,tb_Users where IsChecked = 0 and tb_Users.Id = tb_Log.UserId and tb_Users.Name = tb_Log.Name and tb_Users.Number like @account and tb_Users.Name like @userName;";
+            DataTable dataTable = helper.ExecuteQuery(str, new MySqlParameter[] { new MySqlParameter("@account", account), new MySqlParameter("@userName", userName) }, CommandType.Text);
+            DataRow dr = dataTable.Rows[0];
+            int num = (int)(long)dr["Count"];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -172,10 +197,12 @@ namespace Dal
         /// 获取老师分页总页数
         /// </summary>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页数</returns>
-        public int GetAllPageNum_Teacher(int size)
+        public int GetAllPageNum_Teacher(int size, string account, string userName)
         {
-            int num = helper.sqlNum("tb_Teachers");
+            int num = helper.sqlNum("tb_Teachers where Name like '%" + userName + "%' and Number like '%" + account + "%';");
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -184,10 +211,12 @@ namespace Dal
         /// 获取学生分页总页数
         /// </summary>
         /// <param name="size">分页大小</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页数</returns>
-        public int GetAllPageNum_Student(int size)
+        public int GetAllPageNum_Student(int size, string account, string userName)
         {
-            int num = helper.sqlNum("tb_Students");
+            int num = helper.sqlNum("tb_Students where Name like '%" + userName + "%' and Number like '%" + account + "%';");
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }

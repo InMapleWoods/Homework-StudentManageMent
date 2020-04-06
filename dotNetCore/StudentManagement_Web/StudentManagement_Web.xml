@@ -50,21 +50,25 @@
             <param name="number">用户账号</param>
             <returns>成功与否</returns>       
         </member>
-        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetPaperUsersArray(System.Int32,System.Int32,System.Int32)">
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetPaperUsersArray(System.Int32,System.Int32,System.Int32,System.String,System.String)">
             <summary>
             获取分页后的用户名单
             </summary>
             <param name="index">索引</param>
             <param name="size">分页大小</param>
             <param name="choose">分页选项</param>
+            <param name="account">账号</param>
+            <param name="userName">昵称</param>
             <returns>分页后名单</returns>
         </member>
-        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetAllPageNum(System.Int32,System.Int32)">
+        <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetAllPageNum(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             获取未审核用户分页总页数
             </summary>
             <param name="size">分页大小</param>
             <param name="choose">分页选项</param>
+            <param name="account">账号</param>
+            <param name="userName">昵称</param>
             <returns>分页数</returns>
         </member>
         <member name="M:StudentManagement_Web.Controllers.ApiAdminController.GetSettings">

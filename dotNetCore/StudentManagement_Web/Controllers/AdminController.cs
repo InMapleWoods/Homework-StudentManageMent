@@ -92,14 +92,16 @@ namespace StudentManagement_Web.Controllers
         /// <param name="index">索引</param>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页后名单</returns>
-        //GET: api/ApiAdmin/GetPaperUsersArray?index={index}&size={size}&choose={choose}
+        //GET: api/ApiAdmin/GetPaperUsersArray?index={index}&size={size}&choose={choose}&account={account}&userName={userName}
         [HttpGet("GetPaperUsersArray")]
-        public IActionResult GetPaperUsersArray(int index, int size, int choose)
+        public IActionResult GetPaperUsersArray(int index, int size, int choose, string account = "", string userName = "")
         {
             try
             {
-                var users = adminBll.GetPaperUsersArray(index, size, choose);
+                var users = adminBll.GetPaperUsersArray(index, size, choose, account, userName);
                 return Ok(users);
             }
             catch (Exception ex)
@@ -112,14 +114,16 @@ namespace StudentManagement_Web.Controllers
         /// </summary>
         /// <param name="size">分页大小</param>
         /// <param name="choose">分页选项</param>
+        /// <param name="account">账号</param>
+        /// <param name="userName">昵称</param>
         /// <returns>分页数</returns>
-        //GET: api/ApiAdmin/GetAllPageNum?size={size}&choose={choose}
+        //GET: api/ApiAdmin/GetAllPageNum?size={size}&choose={choose}&account={account}&userName={userName}
         [HttpGet("GetAllPageNum")]
-        public IActionResult GetAllPageNum(int size, int choose)
+        public IActionResult GetAllPageNum(int size, int choose, string account = "", string userName = "")
         {
             try
             {
-                return Ok(adminBll.GetAllPageNum(size, choose));
+                return Ok(adminBll.GetAllPageNum(size, choose, account, userName));
             }
             catch (Exception ex)
             {

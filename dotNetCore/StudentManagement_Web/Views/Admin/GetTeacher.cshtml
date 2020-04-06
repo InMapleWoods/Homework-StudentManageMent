@@ -14,6 +14,33 @@
     }
 
 </script>
+<style>
+    #query_btn {
+        width: inherit;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-sm-6 input-group">
+            <div class="input-group-append">
+                <span class="input-group-text">账号：</span>
+            </div>
+            <input type="text" class="form-control" id="query_account" placeholder="要查询的账号">
+        </div>
+        <div class="col-xs-12 col-md-6 col-sm-6 input-group">
+            <div class="input-group-append">
+                <span class="input-group-text">名称：</span>
+            </div>
+            <input type="text" class="form-control" id="query_userName" placeholder="要查询的名称">
+        </div>
+        <div class="col-xs-12 col-md-4 col-sm-4 offset-md-4 offset-sm-4">
+            <button id="query_btn" class="btn btn-success"
+                    onclick="onloadViewAdmin(admin_index, dataTypeChoose)">
+                查询
+            </button>
+        </div>
+    </div>
+</div>
 <div>
     <table id="apply_table" style="margin:auto;text-align:center">
         <thead>
