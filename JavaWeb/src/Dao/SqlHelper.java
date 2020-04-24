@@ -4,10 +4,20 @@ import java.security.MessageDigest;
 import java.sql.*;
 
 public class SqlHelper {
-
+    /**
+     * 连接配置字符串
+     */
     private String[] ConnectionConfigStrings = new String[]{};
+
+    /**
+     * SQL连接
+     */
     private Connection ct = null;
 
+    /**
+     * 构造函数
+     * @param connnectionString 连接字符串
+     */
     public SqlHelper(String connnectionString) {
         try {
             ConnectionConfigStrings = connnectionString.split(",");
@@ -18,6 +28,9 @@ public class SqlHelper {
         }
     }
 
+    /**
+     * 无参构造函数
+     */
     public SqlHelper() {
         String connnectionString = "jdbc:sqlserver://152.136.73.240:1733;databaseName=db_StudentManage;user=Lsa;password=llfllf";
         try {
@@ -29,7 +42,12 @@ public class SqlHelper {
         }
     }
 
-
+    /**
+     * 执行SQL查询语句
+     * @param cmdText SQL语句
+     * @param parameter SQL参数
+     * @return 查询结果集
+     */
     public ResultSet ExecuteQuery(String cmdText, Object[] parameter) {
         ResultSet resultSet = null;
         try {
@@ -61,7 +79,13 @@ public class SqlHelper {
         return resultSet;
     }
 
-    public int ExecuteNonQuery(String cmdText, Object[] parameter) throws SQLException {
+    /**
+     * 执行SQL增删改语句
+     * @param cmdText SQL语句
+     * @param parameter SQL参数
+     * @return 受影响的语句
+     */
+    public int ExecuteNonQuery(String cmdText, Object[] parameter){
         int result = -1;
         try {
             PreparedStatement ps = ct.prepareStatement(cmdText, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -121,6 +145,11 @@ public class SqlHelper {
         return result;
     }*/
 
+    /**
+     * MD5加密
+     * @param input 需要加密的字符串
+     * @return 加密结果
+     */
     public String GetMD5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
