@@ -1,94 +1,255 @@
-﻿.HeaderDiv {
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrap {
+    height: 719px;
+    width: 100%;
+    background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+}
+
+@keyframes head_animation {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 240px;
+    }
+}
+
+#head {
+    background-image: linear-gradient(to top, #5E5E5E, #000000, #5E5E5E);
+    background-position: -50%;
+    animation: head_animation 2s linear infinite;
+    height: 80px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    background-size: 2000px 240px;
+}
+
+#foot {
+    width: 100%;
+    height: 80px;
+    background-color: #CC9933;
+    position: relative;
+}
+
+#login,
+#register {
+    display: none
+}
+
+.widget-tab .widget-box ul {
+    display: block;
+    opacity: 0%;
+    transition: opacity 1s;
+    transition-delay: 0.5s;
+    -moz-transition: opacity 1s;
+    -moz-transition-delay: 0.5s;
+    /* Firefox 4 */
+    -webkit-transition: opacity 1s;
+    -webkit-transition-delay: 0.5s;
+    /* Safari and Chrome */
+    -o-transition: opacity 1s;
+    -o-transition-delay: 0.5s;
+    /* Opera */
+}
+
+.login_register {
+    background: #F7F7F7;
+    transition: height 1s;
+    -moz-transition: height 1s;
+    /* Firefox 4 */
+    -webkit-transition: height 1s;
+    /* Safari and Chrome */
+    -o-transition: height 1s;
+    /* Opera */
+}
+
+#login:checked ~ .login_register .widget-title .login_tip,
+#register:checked ~ .login_register .widget-title .register_tip {
+    background: #FFFFFF;
+}
+
+#login:checked ~ .login_register .widget-box .login_list,
+#register:checked ~ .login_register .widget-box .register_list {
+    opacity: 100%;
+}
+
+#wrap .login_register {
+    width: 368px;
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 20%;
+    opacity: 95%;
+    right: 15%;
+}
+
+.login_register li {
+    list-style-type: none;
+    background: #F7F7F7;
+}
+
+.login_register_button input {
+    width: 100%;
+    height: 45px;
+    background-color: #ee7700;
+    border: none;
+    color: white;
+    font-size: 18px;
+}
+
+.login_info,
+.register_info {
+    display: inline-block;
+    font-size: 28px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 180px;
+    text-align: center;
+}
+
+.login_tip,
+.register_tip {
+    margin-right: auto;
+    margin-left: auto;
+    display: inline-block;
+}
+
+.login_register_input img {
+    position: absolute;
+    right: 0px;
+}
+
+.login_register_input input {
+    width: 100%;
     width: -webkit-fill-available;
+    height: 42px;
+    text-indent: 2.5rem;
 }
 
-@media (min-width: 0px) {
-    .HeaderDiv {
-        height: 50px;
+.login_register_input select {
+    width: 100%;
+    width: -webkit-fill-available;
+    height: 42px;
+    text-indent: 2.5rem;
+}
+
+.login_register_input {
+    width: 86%;
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.login_captcha_input {
+    float: left;
+    width: 60%;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+    .login_captcha_input input {
+        width: 100%;
+        width: -webkit-fill-available;
+        height: 42px;
     }
 
+.login_captcha_img {
+    float: right;
+    width: 30%;
+    position: relative;
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
-@media (min-width: 530px) {
-    .HeaderDiv {
-        height: 100px;
-    }
-
-}
-
-@media (min-width: 992px) {
-    .HeaderDiv {
-        height: 150px;
-    }
-
-}
-
-
-.Logintable {
-    text-align: center;
-    width: auto;
-    height: auto;
-    margin: auto;
-}
-
-.TipFont {
-    align-self: center;
-    text-align: center;
-    font: 300;
-    color: darkorange;
-    font-size: 25px;
-}
-
-.titlediv {
-    align-self: center;
-    text-align: center;
-}
-
-.Registertable {
-    text-align: center;
-    width: auto;
-    height: auto;
-    margin: auto;
-}
-
-.titlediv {
-    font: 300;
-    color: darkorange;
-    font-size: 25px;
-}
-
-.tip {
-    color: lightslategray;
-    font-size: 15px;
+.login_register_button {
+    width: 86%;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
 }
 
 .errortip {
     color: red;
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
-.link {
-    color: slateblue;
-    font-size: 15px;
+    .errortip div {
+        text-align: center;
+    }
+
+.title {
+    font-family: "微软雅黑";
+    color: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 使用css3的transform来实现水平居中 */
+    font-size: 36px;
+    height: 40px;
+    width: 30%;
 }
 
-.DiffPwd {
-    color: red;
-    font-size: 15px;
+.copyright {
+    font-family: "微软雅黑";
+    color: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 使用css3的transform来实现 */
+    height: 60px;
+    width: 40%;
+    text-align: center;
 }
 
-#txtUserName:focus {
-    background-color: #FFFFB0;
+
+#foot .copyright .img {
+    width: 100%;
+    height: 24px;
+    position: relative;
 }
 
-#txtRegisterPwd:focus {
-    background-color: #B3FFB3;
+.copyright .img .icon_email,
+.copyright .img .icon_address,
+.copyright .img .icon_phone {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 22px;
+    vertical-align: middle;
+    background-repeat: round;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
-#txtRepwd:focus {
-    background-color: #FFB0FF;
+.copyright .img .icon_email {
+    background-image: url(../images/email.png);
 }
 
-#selectRole:focus {
-    background-color: #A7F8F8;
+.copyright .img .icon_address {
+    background-image: url(../images/house.png);
+}
+
+.copyright .img .icon_phone {
+    background-image: url(../images/phone.png);
+}
+
+#foot .copyright p {
+    height: 24px;
+    width: 100%;
 }

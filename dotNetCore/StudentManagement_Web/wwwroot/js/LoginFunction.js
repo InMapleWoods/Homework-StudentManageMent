@@ -1,18 +1,26 @@
 ﻿var validatestring = "";
+var login_register_height = 0;
+var errorMessage = "";
 window.onload = function () {
     if (getCookie('islogin') == 'true') {
         location = '../Welcome';
     } else {
         if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
             if (getCookie('times') >= 5) {
-                $('#ValidateNum1').css('display', 'block');
-                $('#ValidateNum2').css('display', 'block');
+                $("#captcha").css('display', 'block');
+                $('.login_register')[0].style.height = 390 + 'px';
+                login_register_height = 390;
                 getRandom();
+            }
+            else {
+                $('.login_register')[0].style.height = 320 + 'px';
+                login_register_height = 320;
             }
         } else {
             setCookie('times', 0);
-            $('#ValidateNum1').css('display', 'none');
-            $('#ValidateNum2').css('display', 'none');
+            $("#captcha").css('display', 'none');
+            $('.login_register')[0].style.height = 320 + 'px';
+            login_register_height = 320;
         }
     }
     $('#txtAccount').bind('keyup', function (event) {
@@ -22,7 +30,7 @@ window.onload = function () {
     });
     $('#txtPwd').bind('keyup', function (event) {
         if (event.keyCode == "13") {
-            if ($('#ValidateNum1').css('display') != 'none') {
+            if ($('#captcha').css('display') != 'none') {
                 $('#txtValidateNum').focus();
             } else {
                 Login();
@@ -34,7 +42,18 @@ window.onload = function () {
             Login();
         }
     });
-
+    var loginTab = $(".login_info")[0];
+    var registerTab = $(".register_info")[0];
+    loginTab.onclick = function () {
+        $(".register_list")[0].style.display = 'none';
+        $(".login_list")[0].style.display = 'block';
+        $('.login_register')[0].style.height = login_register_height + 'px';
+    }
+    registerTab.onclick = function () {
+        $(".login_list")[0].style.display = 'none';
+        $(".register_list")[0].style.display = 'block';
+        $('.login_register')[0].style.height = 470 + 'px';
+    }
 
 }
 
@@ -59,12 +78,12 @@ function getRandom() {
 }
 
 function Login() {
-    if ($('#ValidateNum1').css('display') == 'none') {
+    if ($('#captcha').css('display') == 'none') {
         validate = validatestring;
     } else {
         validate = $('#txtValidateNum').val();
     }
-    if (validatestring == $('#txtValidateNum').val().toUpperCase() || $('#ValidateNum1').css('display') == 'none') {
+    if (validatestring == $('#txtValidateNum').val().toUpperCase() || $('#captcha').css('display') == 'none') {
         LoginWithValidate();
     } else {
         alert('验证码输入错误');
@@ -134,6 +153,74 @@ function LoginWithValidate() {
     });
 }
 
+function PasswordCheck() {
+    var pwd = $('#txtRegisterPwd').val();
+    if (pwd.length >= 11) {
+        errorMessage = '密码过长';
+        return false;
+    } else if (pwd.length <= 5) {
+        errorMessage = '密码过短';
+        return false;
+    } else {
+        errorMessage = "";
+        return true;
+    }
+}
+
+function PasswordReCheck() {
+    var pwd = $('#txtRegisterPwd').val();
+    var repwd = $('#txtRepwd').val();
+    if (repwd.length >= 11) {
+        errorMessage = "密码过长";
+        return false;
+    } else if (repwd.length <= 5) {
+        errorMessage = "密码过短";
+        return false;
+    } else {
+        if (pwd == repwd) {
+            errorMessage = "";
+            return true;
+        } else {
+            errorMessage = "两次密码输入不一致";
+            return false;
+        }
+    }
+}
+
 function Register() {
-    location = "Login/Register";
+    var password_check = PasswordCheck();
+    var repeat_password_check = PasswordReCheck();
+    if (errorMessage == "") {
+        $('.login_register')[0].style.height = '470px';
+    }
+    else {
+        $('.login_register')[0].style.height = '500px';
+    }
+    setTimeout(()=>{$('#errortipdiv').text(errorMessage);}, "200")
+    if (password_check && repeat_password_check ) {       
+        $.ajax({
+            type: "post",
+            url: '../api/ApiLogin/Register?name=' + $('#txtUserName').val() + '&password=' + $('#txtRegisterPwd').val() +
+                '&repeat=' + $('#txtRepwd').val() + '&role=' + $('#selectRole').val(),
+            success: function (data) {
+                if (data[0]) {
+                    alert('注册成功');
+                    var id = data[1];
+                    alert('请牢记登录账号为:' + id)
+                    location = '../';
+                } else {
+                    alert('注册失败');
+                    location = '../Login/Register';
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxError(XMLHttpRequest, textStatus);
+                location = '../Login/Register';
+            }
+        });
+    }
+}
+
+function btnBack_Click() {
+    location = '../';
 }

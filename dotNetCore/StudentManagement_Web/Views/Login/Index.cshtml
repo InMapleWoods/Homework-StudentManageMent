@@ -1,43 +1,115 @@
 ﻿@{
-    Layout = "_LoginRegisterLayout";
-    ViewData["Title"] = "登录";
+    Layout = "";
+    ViewData["Title"] = "登录系统";
     ViewData["JsFunction"] = "LoginFunction.js";
 }
-<div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3">
-    <div class="TipFont">
-        请先登录！！!
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/LoginView.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/CookieAbout.js"></script>
+    <script type="text/javascript" src="~/js/AjaxAbout.js"></script>
+    <script type="text/javascript" src="~/js/@ViewData["JsFunction"]"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<body>
+    <div class="header" id="head">
+        <div class="title">学生信息管理系统</div>
     </div>
-    <div class="input-group">
-        <div class="input-group-append">
-            <span class="input-group-text">账号：</span>
+    <div class="wrap widget-tab" id="wrap">
+        <input type="radio" name="widget-tab" id="login" checked="checked" />
+        <input type="radio" name="widget-tab" id="register" />
+        <div class="login_register">
+            <div class="widget-title inline-block">
+                <ul>
+                    <li class="login_tip">
+                        <label for="login" class="login_info">登录</label>
+                    </li>
+                    <li class="register_tip">
+                        <label for="register" class="register_info">注册</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="widget-box">
+                <ul class="login_list">
+                    <li>
+                        <div class="login">
+                            <form action="">
+                                <!-- 输入框 -->
+                                <div class="login_register_input">
+                                    <input type="text" placeholder="输入用户名" id="txtAccount" />
+                                </div>
+                                <div class="login_register_input">
+                                    <input type="password" placeholder="输入用户密码" id="txtPwd" />
+                                </div>
+                                <div class="login_register_input" style="height: 42px; display:none" id="captcha">
+                                    <div class="login_captcha_input">
+                                        <input type="text" placeholder="输入验证码" id="txtValidateNum">
+                                    </div>
+                                    <div class="login_captcha_img">
+                                        <img style="height: 100%;" onclick="getRandom()" id="NumImage" src="#" />
+                                    </div>
+                                </div>
+                                <div class="login_register_button">
+                                    <input type="button" id="btnLogin" class="btn" onclick="Login()" value="登录">
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="register_list">
+                    <li>
+                        <div class="register">
+                            <form action="">
+                                <!-- 输入框 -->
+                                <div class="login_register_input">
+                                    <input type="text" placeholder="输入用户名" id="txtUserName" />
+                                </div>
+                                <div class="login_register_input">
+                                    <input type="password" placeholder="输入用户密码" id="txtRegisterPwd" />
+                                </div>
+                                <div class="login_register_input">
+                                    <input type="password" placeholder="再次输入密码" id="txtRepwd" />
+                                </div>
+                                <div class="login_register_input">
+                                    <select id="selectRole">
+                                        <option value="1">学生</option>
+                                        <option value="2">教师</option>
+                                    </select>
+                                </div>
+                                <div class="errortip">
+                                    <div id="errortipdiv"></div>
+                                </div>
+                                <div class="login_register_button">
+                                    <input type="button" id="btnRegister" class="btn" onclick="Register()" value="注册">
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <input type="text" class="form-control" id="txtAccount" />
     </div>
-    <div class="input-group">
-        <div class="input-group-append">
-            <span class="input-group-text">密码：</span>
+
+    <div class="footer" id="foot">
+        <div class="copyright">
+            <div class="img">
+                <i class="icon_email"></i><span>联系邮箱：XXX</span>
+            </div>
+
+            <div class="img">
+                <i class="icon_address"></i><span>联系地址：XXX</span>
+            </div>
+
+            <div class="img">
+                <i class="icon_phone"></i><span>联系电话：XXX</span>
+            </div>
         </div>
-        <input type="password" class="form-control" id="txtPwd" />
     </div>
-</div>
-<div class="col-md-2 col-sm-2"></div>
-<div id="ValidateNum1" class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3" style="display:none">
-    <div class="input-group">
-        <div class="input-group-append">
-            <span class="input-group-text">验证码:</span>
-        </div>
-        <input type="text" class="form-control" id="txtValidateNum" />
-    </div>
-</div>
-<div id="ValidateNum2" class="col-xs-12 col-md-4 col-sm-4" style="display:none">
-    <p>
-        <img style="height: 100%;" onclick="getRandom()" id="NumImage" src="#" /> 请输入图片中验证码！
-    </p>
-</div>
-<div class="col-xs-12 col-md-4 offset-md-3 col-sm-4 offset-sm-3 text-center">
-    <div class="btn-group">
-        <input type="button" id="btnLogin" class='btn btn-success' onclick="Login()" value="登录" />
-        <input type="button" id="btnRegister" class="btn btn-success" onclick="Register()" value="注册" />
-    </div>
-</div>
-<div class="col-md-2 col-sm-2"></div>
+</body>
+
+</html>
