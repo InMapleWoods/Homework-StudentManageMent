@@ -1,26 +1,57 @@
 ﻿var validatestring = "";
 var login_register_height = 0;
 var errorMessage = "";
+var isWideScreen = false;
+var sqls = [
+    window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
+    window.matchMedia('(max-width:530px)'),
+    window.matchMedia('(max-width:992px)'),
+    window.matchMedia('(max-width:1200px)')
+]
+
+function mediaMatches() {
+    if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
+        if (getCookie('times') >= 5) {
+            if (sqls[0].matches) {
+                $(".login_register")[0].style.height = "100%";
+            } else if (sqls[1].matches) {
+                $(".login_register")[0].style.height = "100%";
+            } else if (sqls[2].matches) {
+                $(".login_register")[0].style.height = "390px";
+            } else if (sqls[3].matches) {
+                $(".login_register")[0].style.height = "390px";
+            } else {
+                $(".login_register")[0].style.height = "390px";
+            }
+        }
+    }
+}
+for (var i = 0; i < sqls.length; i++) {
+    sqls[i].addListener(mediaMatches);
+}
 window.onload = function () {
+    var loginTab = $(".login_info")[0];
+    var registerTab = $(".register_info")[0];
+    loginTab.onclick = function () {
+        $(".register_list")[0].style.display = 'none';
+        $(".login_list")[0].style.display = 'block';
+    }
+    registerTab.onclick = function () {
+        $(".login_list")[0].style.display = 'none';
+        $(".register_list")[0].style.display = 'block';
+    }
     if (getCookie('islogin') == 'true') {
         location = '../Welcome';
     } else {
         if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
             if (getCookie('times') >= 5) {
                 $("#captcha").css('display', 'block');
-                $('.login_register')[0].style.height = 390 + 'px';
-                login_register_height = 390;
+                mediaMatches()
                 getRandom();
-            }
-            else {
-                $('.login_register')[0].style.height = 320 + 'px';
-                login_register_height = 320;
             }
         } else {
             setCookie('times', 0);
             $("#captcha").css('display', 'none');
-            $('.login_register')[0].style.height = 320 + 'px';
-            login_register_height = 320;
         }
     }
     $('#txtAccount').bind('keyup', function (event) {
@@ -42,18 +73,6 @@ window.onload = function () {
             Login();
         }
     });
-    var loginTab = $(".login_info")[0];
-    var registerTab = $(".register_info")[0];
-    loginTab.onclick = function () {
-        $(".register_list")[0].style.display = 'none';
-        $(".login_list")[0].style.display = 'block';
-        $('.login_register')[0].style.height = login_register_height + 'px';
-    }
-    registerTab.onclick = function () {
-        $(".login_list")[0].style.display = 'none';
-        $(".register_list")[0].style.display = 'block';
-        $('.login_register')[0].style.height = 470 + 'px';
-    }
 
 }
 
@@ -192,12 +211,13 @@ function Register() {
     var repeat_password_check = PasswordReCheck();
     if (errorMessage == "") {
         $('.login_register')[0].style.height = '470px';
-    }
-    else {
+    } else {
         $('.login_register')[0].style.height = '500px';
     }
-    setTimeout(()=>{$('#errortipdiv').text(errorMessage);}, "200")
-    if (password_check && repeat_password_check ) {       
+    setTimeout(() => {
+        $('#errortipdiv').text(errorMessage);
+    }, "200")
+    if (password_check && repeat_password_check) {
         $.ajax({
             type: "post",
             url: '../api/ApiLogin/Register?name=' + $('#txtUserName').val() + '&password=' + $('#txtRegisterPwd').val() +

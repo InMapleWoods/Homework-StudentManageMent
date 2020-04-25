@@ -4,7 +4,6 @@
 }
 
 #wrap {
-    height: 719px;
     width: 100%;
     background-image: url(../images/background.jpg);
     background-repeat: no-repeat;
@@ -40,6 +39,113 @@
     position: relative;
 }
 
+@media (min-width: 0px) {
+    .login_register {
+        width: 100%;
+        height: 100%;
+        height: -webkit-fill-available;
+    }
+
+    .login_tip,
+    .register_tip {
+        width: 49%;
+        text-align: center;
+    }
+
+    #register:checked~.login_register {
+        height: 100%;
+    }
+
+    #wrap {
+        height: 490px;
+    }
+
+    .copyright {
+        width: 100%;
+    }
+
+    .title {
+        width: 100%;
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 530px) {
+    .login_register {
+        width: 368px;
+        position: absolute;
+        right: 15%;
+        top: 20%;
+        height: 320px;
+    }
+
+    .login_info,
+    .register_info {
+        width: 180px;
+    }
+
+    #register:checked~.login_register {
+        height: 490px;
+    }
+
+    #wrap {
+        height: 719px;
+    }
+
+    .copyright {
+        width: 40%;
+    }
+}
+
+@media (min-width: 992px) {
+    .login_register {
+        position: absolute;
+        width: 368px;
+        right: 15%;
+        top: 20%;
+        height: 320px;
+    }
+
+    .login_info,
+    .register_info {
+        width: 180px;
+    }
+
+    #register:checked~.login_register {
+        height: 490px;
+    }
+
+    #wrap {
+        height: 719px;
+    }
+
+    .copyright {
+        width: 40%;
+    }
+
+    .title {
+        width: 30%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 36px;
+    }
+}
+
+
+
+.login_register {
+    transition: height 1s;
+    -moz-transition: height 1s;
+    /* Firefox 4 */
+    -webkit-transition: height 1s;
+    /* Safari and Chrome */
+    -o-transition: height 1s;
+    /* Opera */
+    background-color: #F7F7F7;
+    opacity: 95%;
+}
+
 #login,
 #register {
     display: none
@@ -61,34 +167,15 @@
     /* Opera */
 }
 
-.login_register {
-    background: #F7F7F7;
-    transition: height 1s;
-    -moz-transition: height 1s;
-    /* Firefox 4 */
-    -webkit-transition: height 1s;
-    /* Safari and Chrome */
-    -o-transition: height 1s;
-    /* Opera */
-}
 
-#login:checked ~ .login_register .widget-title .login_tip,
-#register:checked ~ .login_register .widget-title .register_tip {
+#login:checked~.login_register .widget-title .login_tip,
+#register:checked~.login_register .widget-title .register_tip {
     background: #FFFFFF;
 }
 
-#login:checked ~ .login_register .widget-box .login_list,
-#register:checked ~ .login_register .widget-box .register_list {
+#login:checked~.login_register .widget-box .login_list,
+#register:checked~.login_register .widget-box .register_list {
     opacity: 100%;
-}
-
-#wrap .login_register {
-    width: 368px;
-    position: absolute;
-    background-color: #FFFFFF;
-    top: 20%;
-    opacity: 95%;
-    right: 15%;
 }
 
 .login_register li {
@@ -111,7 +198,6 @@
     font-size: 28px;
     margin-top: 15px;
     margin-bottom: 15px;
-    width: 180px;
     text-align: center;
 }
 
@@ -158,11 +244,11 @@
     margin-left: auto;
 }
 
-    .login_captcha_input input {
-        width: 100%;
-        width: -webkit-fill-available;
-        height: 42px;
-    }
+.login_captcha_input input {
+    width: 100%;
+    width: -webkit-fill-available;
+    height: 42px;
+}
 
 .login_captcha_img {
     float: right;
@@ -187,21 +273,19 @@
     margin-bottom: 10px;
 }
 
-    .errortip div {
-        text-align: center;
-    }
+.errortip div {
+    text-align: center;
+}
 
 .title {
     font-family: "微软雅黑";
     color: #FFFFFF;
+    transform: translate(-50%, -50%);
+    /* 使用css3的transform来实现水平居中 */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    /* 使用css3的transform来实现水平居中 */
-    font-size: 36px;
     height: 40px;
-    width: 30%;
 }
 
 .copyright {
@@ -213,7 +297,6 @@
     transform: translate(-50%, -50%);
     /* 使用css3的transform来实现 */
     height: 60px;
-    width: 40%;
     text-align: center;
 }
 
