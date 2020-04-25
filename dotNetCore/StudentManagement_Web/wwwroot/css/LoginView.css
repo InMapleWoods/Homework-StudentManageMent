@@ -112,7 +112,7 @@
     }
 
     #register:checked~.login_register {
-        height: 490px;
+        height: 470px;
     }
 
     #wrap {
@@ -142,7 +142,8 @@
     /* Safari and Chrome */
     -o-transition: height 1s;
     /* Opera */
-    background-color: #F7F7F7;
+  /*  background-color: #F7F7F7;*/
+    background-color: #FFFFFF;
     opacity: 95%;
 }
 
@@ -178,11 +179,6 @@
     opacity: 100%;
 }
 
-.login_register li {
-    list-style-type: none;
-    background: #F7F7F7;
-}
-
 .login_register_button input {
     width: 100%;
     height: 45px;
@@ -202,7 +198,9 @@
 }
 
 .login_tip,
-.register_tip {
+.register_tip {   
+    list-style-type: none;
+    background: #F7F7F7;
     margin-right: auto;
     margin-left: auto;
     display: inline-block;
