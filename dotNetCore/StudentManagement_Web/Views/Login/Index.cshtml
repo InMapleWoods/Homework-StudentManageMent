@@ -67,16 +67,16 @@
                             <form action="">
                                 <!-- 输入框 -->
                                 <div class="login_register_input">
-                                    <input type="text" placeholder="输入用户名" id="txtUserName" />
+                                    <input type="text" placeholder="输入用户名" id="txtUserName" onblur="registerCheck()" />
                                 </div>
                                 <div class="login_register_input">
-                                    <input type="password" placeholder="输入用户密码" id="txtRegisterPwd" />
+                                    <input type="password" placeholder="输入用户密码" id="txtRegisterPwd" onblur="registerCheck()" />
                                 </div>
                                 <div class="login_register_input">
-                                    <input type="password" placeholder="再次输入密码" id="txtRepwd" />
+                                    <input type="password" placeholder="再次输入密码" id="txtRepwd" onblur="registerCheck()" />
                                 </div>
                                 <div class="login_register_input">
-                                    <select id="selectRole">
+                                    <select id="selectRole" onblur="registerCheck()">
                                         <option value="1">学生</option>
                                         <option value="2">教师</option>
                                     </select>

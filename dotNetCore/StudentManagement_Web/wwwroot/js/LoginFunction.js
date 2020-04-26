@@ -1,7 +1,7 @@
 ﻿var validatestring = "";
 var login_register_height = 0;
 var errorMessage = "";
-var isWideScreen = false;
+var isCaptchaShow = false;
 var sqls = [
     window.matchMedia('(max-width:418px)'), //和CSS一样，也要注意顺序！
     window.matchMedia('(max-width:530px)'),
@@ -10,35 +10,48 @@ var sqls = [
 ]
 
 function mediaMatches() {
-    if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
-        if (getCookie('times') >= 5) {
-            if (sqls[0].matches) {
-                $(".login_register")[0].style.height = "100%";
-            } else if (sqls[1].matches) {
-                $(".login_register")[0].style.height = "100%";
-            } else if (sqls[2].matches) {
-                $(".login_register")[0].style.height = "390px";
-            } else if (sqls[3].matches) {
-                $(".login_register")[0].style.height = "390px";
-            } else {
-                $(".login_register")[0].style.height = "390px";
-            }
+    if (isCaptchaShow) {
+        if (sqls[0].matches) {
+            $(".login_register")[0].style.height = "100%";
+        } else if (sqls[1].matches) {
+            $(".login_register")[0].style.height = "100%";
+        } else if (sqls[2].matches) {
+            $(".login_register")[0].style.height = "390px";
+        } else if (sqls[3].matches) {
+            $(".login_register")[0].style.height = "390px";
+        } else {
+            $(".login_register")[0].style.height = "390px";
         }
     }
 }
 for (var i = 0; i < sqls.length; i++) {
     sqls[i].addListener(mediaMatches);
 }
+
+function isCaptcha() {
+    if ((isExistCookie('times')) && (getCookie('times') != 'NaN')) {
+        if (getCookie('times') >= 5) {
+            isCaptchaShow = true;
+        } else {
+            isCaptchaShow = false;
+        }
+    }
+}
 window.onload = function () {
+    isCaptcha();
     var loginTab = $(".login_info")[0];
     var registerTab = $(".register_info")[0];
     loginTab.onclick = function () {
         $(".register_list")[0].style.display = 'none';
         $(".login_list")[0].style.display = 'block';
+        mediaMatches();
     }
     registerTab.onclick = function () {
         $(".login_list")[0].style.display = 'none';
         $(".register_list")[0].style.display = 'block';
+        if (isCaptchaShow) {
+            $(".login_register")[0].style.height = errorMessage == "" ? "470px" : "500px";
+        }
     }
     if (getCookie('islogin') == 'true') {
         location = '../Welcome';
@@ -68,12 +81,33 @@ window.onload = function () {
             }
         }
     });
+    $('#txtUserName').bind('keyup', function (event) {
+        if (event.keyCode == "13") {
+            $('#txtRegisterPwd').focus();
+        }
+    });
+    $('#txtRegisterPwd').bind('keyup', function (event) {
+        if (event.keyCode == "13") {
+            $('#txtRepwd').focus();
+        }
+        registerCheck();
+    });
+    $('#txtRepwd').bind('keyup', function (event) {
+        if (event.keyCode == "13") {
+            $('#selectRole').focus();
+        }
+        registerCheck();
+    });
+    $('#selectRole').bind('keyup', function (event) {
+        if (event.keyCode == "13") {
+            Register();
+        }
+    });
     $('#txtValidateNum').bind('keyup', function (event) {
         if (event.keyCode == "13") {
             Login();
         }
     });
-
 }
 
 function getRandom() {
@@ -172,6 +206,19 @@ function LoginWithValidate() {
     });
 }
 
+function registerCheck() {
+    PasswordCheck();
+    PasswordReCheck();
+    if (errorMessage == "") {
+        $('.login_register')[0].style.height = '470px';
+    } else {
+        $('.login_register')[0].style.height = '500px';
+    }
+    setTimeout(() => {
+        $('#errortipdiv').text(errorMessage);
+    }, "200");
+}
+
 function PasswordCheck() {
     var pwd = $('#txtRegisterPwd').val();
     if (pwd.length >= 11) {
@@ -209,14 +256,7 @@ function PasswordReCheck() {
 function Register() {
     var password_check = PasswordCheck();
     var repeat_password_check = PasswordReCheck();
-    if (errorMessage == "") {
-        $('.login_register')[0].style.height = '470px';
-    } else {
-        $('.login_register')[0].style.height = '500px';
-    }
-    setTimeout(() => {
-        $('#errortipdiv').text(errorMessage);
-    }, "200")
+    registerCheck();
     if (password_check && repeat_password_check) {
         $.ajax({
             type: "post",
