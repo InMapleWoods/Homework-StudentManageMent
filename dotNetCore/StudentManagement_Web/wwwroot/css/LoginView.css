@@ -177,6 +177,7 @@
 #login:checked~.login_register .widget-box .login_list,
 #register:checked~.login_register .widget-box .register_list {
     opacity: 100%;
+    list-style-type: none;
 }
 
 .login_register_button input {
