@@ -44,14 +44,16 @@ window.onload = function () {
     loginTab.onclick = function () {
         $(".register_list")[0].style.display = 'none';
         $(".login_list")[0].style.display = 'block';
+        if (!isCaptchaShow) {
+            $(".login_register")[0].style.height = "320px";
+        }
         mediaMatches();
     }
     registerTab.onclick = function () {
         $(".login_list")[0].style.display = 'none';
         $(".register_list")[0].style.display = 'block';
-        if (isCaptchaShow) {
-            $(".login_register")[0].style.height = errorMessage == "" ? "470px" : "500px";
-        }
+        $(".login_register")[0].style.height = errorMessage == "" ? "470px" : "500px";
+
     }
     if (getCookie('islogin') == 'true') {
         location = '../Welcome';

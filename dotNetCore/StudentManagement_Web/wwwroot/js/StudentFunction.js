@@ -316,13 +316,13 @@ function onloadExamView(index, userId) {
 }
 
 function TakeExam(examId) {
-    location = '../Student/ExamView/' + examId;
     $.ajax({
         type: "Put",
         url: '../api/ApiExamination/StudentJoinExam/' + examId + '?studentId=' + Id,
         success: function (data) {
             if (data == true) {
                 alert('成功');
+                location = '../Student/ExamView/' + examId;
             } else {
                 alert('失败');
             }
