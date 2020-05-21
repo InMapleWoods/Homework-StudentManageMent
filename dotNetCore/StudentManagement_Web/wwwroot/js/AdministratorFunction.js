@@ -138,6 +138,7 @@ function GetPageNumAdmin(choose) {
 }
 
 function onloadUserApplyView(index) {
+    var UserRoleArray = ["学生", "老师", "管理员"];
     $("#index").text(admin_index);
     GetPageNumAdmin(dataTypeChoose);
     $.ajax({
@@ -150,7 +151,7 @@ function onloadUserApplyView(index) {
             for (i = 0; i < applyList.length; i++) {
                 var Number = applyList[i].number;
                 var Name = applyList[i].name;
-                var Role = applyList[i].role;
+                var Role = UserRoleArray[applyList[i].role - 1];
                 $('#apply_list').append("<tr><td>" + Number + "</td><td>" + Name + "</td><td>" + Role + "</td><td><button class='btn btn-block btn-danger' onclick=AccpetApply('" + Number + "')>通过</button></td><td><button class='btn btn-block btn-danger' onclick=RejectApply('" + Number + "')>拒绝</button></td></tr>");
             }
         },
@@ -471,11 +472,11 @@ function onloadSettingsView(index) {
                 if ((SettingValue == 'true') || (SettingValue == 'false')) {
                     if (SettingName == 'RegisterOpenState') {
                         Name = '注册功能是否开启';
-                        Value = 'true' == SettingValue ?"已开启":"已关闭";
+                        Value = 'true' == SettingValue ? "已开启" : "已关闭";
                     }
                     else if (SettingName == 'CourseChooseOpenState') {
                         Name = '选课功能是否开启';
-                        Value = 'true' == SettingValue ?"已开启":"已关闭";
+                        Value = 'true' == SettingValue ? "已开启" : "已关闭";
                     }
                     $('#settingList').append("<div class='col-6'>" + Name + "</div><div class='col-6'>" + Value + "</div><div class='col-12'><button class='btn btn-block btn-info' onclick=updateSettings('" + SettingName + "','" + SettingValue + "')>修改</button></div></div>");
                 }
