@@ -94,14 +94,6 @@ namespace Model
         public string Stem { get; set; }
 
         /// <summary>
-        /// 无参构造函数
-        /// </summary>
-        public ExaminationQuestion()
-        {
-            Stem = "";
-        }
-
-        /// <summary>
         /// 有参构造函数
         /// </summary>
         /// <param name="stem"></param>
@@ -131,7 +123,7 @@ namespace Model
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
         /// <param name="options">选项</param>
-        public ChoiceQuestion(int rightAnswer, IEnumerable options)
+        public ChoiceQuestion(int rightAnswer, IEnumerable options, string stem) : base(stem)
         {
             choiceRightAnswer = rightAnswer;
             this.options = options;
@@ -208,7 +200,7 @@ namespace Model
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
-        public TrueOrFalseQuestion(bool rightAnswer)
+        public TrueOrFalseQuestion(bool rightAnswer, string stem) : base(stem)
         {
             TOFRightAnswer = rightAnswer;
         }
@@ -228,7 +220,7 @@ namespace Model
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
-        public ShortAnswerQuestion(string rightAnswer)
+        public ShortAnswerQuestion(string rightAnswer, string stem) : base(stem)
         {
             shortAnsRightAnswer = rightAnswer;
         }
@@ -247,7 +239,7 @@ namespace Model
         /// 有参构造函数
         /// </summary>
         /// <param name="rightAnswer">正确答案</param>
-        public GapFillingQuestion(string rightAnswer)
+        public GapFillingQuestion(string rightAnswer, string stem) : base(stem)
         {
             gapFillRightAnswer = rightAnswer;
         }

@@ -119,7 +119,7 @@ namespace Dal
                     if (parameters.Length == 2)
                     {
                         List<string> ops = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(parameters[1].ToString());
-                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray());
+                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray(), stem);
                     }
                     else
                         return false;
@@ -127,7 +127,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.GapFillingQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new GapFillingQuestion(parameters[0].ToString());
+                        question = new GapFillingQuestion(parameters[0].ToString(), stem);
                     }
                     else
                         return false;
@@ -135,7 +135,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.ShortAnswerQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new ShortAnswerQuestion(parameters[0].ToString());
+                        question = new ShortAnswerQuestion(parameters[0].ToString(), stem);
                     }
                     else
                         return false;
@@ -143,7 +143,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.TrueOrFalseQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()));
+                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()), stem);
                     }
                     else
                         return false;
@@ -151,7 +151,6 @@ namespace Dal
             }
             if (question == null)
                 return false;
-            question.Stem = stem;
             ExamQuestion examQuestion = new ExamQuestion(0, examid, question);
             return AddExaminationQuestion(examQuestion);
         }
@@ -198,7 +197,7 @@ namespace Dal
                     if (parameters.Length == 2)
                     {
                         List<string> ops = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(parameters[1].ToString());
-                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray());
+                        question = new ChoiceQuestion(Convert.ToInt32(parameters[0].ToString()), ops.ToArray(), stem);
                     }
                     else
                         return false;
@@ -206,7 +205,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.GapFillingQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new GapFillingQuestion(parameters[0].ToString());
+                        question = new GapFillingQuestion(parameters[0].ToString(), stem);
                     }
                     else
                         return false;
@@ -214,7 +213,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.ShortAnswerQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new ShortAnswerQuestion(parameters[0].ToString());
+                        question = new ShortAnswerQuestion(parameters[0].ToString(), stem);
                     }
                     else
                         return false;
@@ -222,7 +221,7 @@ namespace Dal
                 case ExamQuestion.QuestionType.TrueOrFalseQuestion:
                     if (parameters.Length == 1)
                     {
-                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()));
+                        question = new TrueOrFalseQuestion(Convert.ToBoolean(parameters[0].ToString()), stem);
                     }
                     else
                         return false;
@@ -230,7 +229,6 @@ namespace Dal
             }
             if (question == null)
                 return false;
-            question.Stem = stem;
             ExamQuestion examQuestion = new ExamQuestion(id, examid, question);
             return UpdateExaminationQuestion(examQuestion);
         }
