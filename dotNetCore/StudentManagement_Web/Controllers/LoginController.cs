@@ -133,7 +133,7 @@ namespace StudentManagement_Web.Controllers
         /// <param name="key">键</param>
         /// <param name="value">值</param>  
         /// <param name="minutes">过期时长，单位：分钟</param>   
-        public void SetCookies(string key, string value, int minutes = 30)
+        private void SetCookies(string key, string value, int minutes = 30)
         {
             HttpContext.Response.Cookies.Append(key, value, new CookieOptions
             {
