@@ -239,7 +239,7 @@ namespace Dal
             string str = "select count(*) as Count from tb_Course, tb_Teachers where tb_Course.TeacherId = tb_Teachers.Id and tb_Course.Id Not in (select tb_CourseGrade.CId from tb_CourseGrade where tb_CourseGrade.SId = @Id)";
             DataTable dataTable = helper.ExecuteQuery(str, new MySqlParameter[] { new MySqlParameter("@id", Id) }, CommandType.Text);
             DataRow dr = dataTable.Rows[0];
-            int num = (int)dr["Count"];
+            int num = (int)(long)dr["Count"];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
@@ -254,7 +254,7 @@ namespace Dal
             string str = "select count(*) as Count from tb_Course inner join tb_CourseGrade on tb_CourseGrade.SId=@id and tb_CourseGrade.CId=tb_Course.Id";
             DataTable dataTable = helper.ExecuteQuery(str, new MySqlParameter[] { new MySqlParameter("@id", Id) }, CommandType.Text);
             DataRow dr = dataTable.Rows[0];
-            int num = (int)dr["Count"];
+            int num = (int)(long)dr["Count"];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }

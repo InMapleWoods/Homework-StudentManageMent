@@ -67,7 +67,7 @@ namespace Dal
                 new MySqlParameter("@id",studentId),
             };
             DataTable dataTable = helper.ExecuteQuery(str, sqlParameters, CommandType.Text);
-            int num = (int)dataTable.Rows[0]["ALLCOUNT"];
+            int num = (int)(long)dataTable.Rows[0]["ALLCOUNT"];
             num = num / size + (num % size == 0 ? 0 : 1);
             return num;
         }
