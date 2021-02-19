@@ -12,6 +12,15 @@ var sqls = [
     window.matchMedia('(max-width:1200px)')
 ]
 
+function setIframeHeight(iframe) {
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+        }
+    }
+};
+
 function mediaMatches() {
     if (sqls[0].matches) {
         teacher_size = 5;
