@@ -23,6 +23,7 @@ function mediaMatches() {
         admin_size = 12;
     }
     onloadViewAdmin(admin_index, dataTypeChoose);
+    setIframeHeight(document.getElementById('AdminFrame'));
 }
 mediaMatches(); //页面首次加载
 

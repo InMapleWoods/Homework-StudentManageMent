@@ -25,6 +25,7 @@ function mediaMatches() {
         teacher_size = 12;
     }
     onloadViewTeacher(teacher_index, dataTypeChoose, Id);
+    setIframeHeight(document.getElementById('TeacherFrame'));
 }
 
 mediaMatches(); //页面首次加载

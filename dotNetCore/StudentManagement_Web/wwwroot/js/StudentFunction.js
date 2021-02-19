@@ -23,6 +23,7 @@ function mediaMatches() {
         student_size = 12;
     }
     onloadViewStudent(student_index, dataTypeChoose, Id);
+    setIframeHeight(document.getElementById('StudentFrame'));
 }
 
 mediaMatches(); //页面首次加载

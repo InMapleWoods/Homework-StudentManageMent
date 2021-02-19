@@ -9,6 +9,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     position: relative;
+    padding-top: 80px;
 }
 
 @keyframes head_animation {
@@ -28,7 +29,8 @@
     height: 80px;
     width: 100%;
     text-align: center;
-    position: relative;
+    position: fixed;
+    top: 0;
     background-size: 2000px 240px;
 }
 
@@ -52,7 +54,7 @@
         text-align: center;
     }
 
-    #register:checked~.login_register {
+    #register:checked ~ .login_register {
         height: 100%;
     }
 
@@ -84,7 +86,7 @@
         width: 180px;
     }
 
-    #register:checked~.login_register {
+    #register:checked ~ .login_register {
         height: 490px;
     }
 
@@ -111,7 +113,7 @@
         width: 180px;
     }
 
-    #register:checked~.login_register {
+    #register:checked ~ .login_register {
         height: 470px;
     }
 
@@ -142,7 +144,7 @@
     /* Safari and Chrome */
     -o-transition: height 1s;
     /* Opera */
-  /*  background-color: #F7F7F7;*/
+    /*  background-color: #F7F7F7;*/
     background-color: #FFFFFF;
     opacity: 95%;
 }
@@ -169,13 +171,13 @@
 }
 
 
-#login:checked~.login_register .widget-title .login_tip,
-#register:checked~.login_register .widget-title .register_tip {
+#login:checked ~ .login_register .widget-title .login_tip,
+#register:checked ~ .login_register .widget-title .register_tip {
     background: #FFFFFF;
 }
 
-#login:checked~.login_register .widget-box .login_list,
-#register:checked~.login_register .widget-box .register_list {
+#login:checked ~ .login_register .widget-box .login_list,
+#register:checked ~ .login_register .widget-box .register_list {
     opacity: 100%;
     list-style-type: none;
 }
@@ -186,7 +188,7 @@
     background-color: #ee7700;
     color: white;
     font-size: 18px;
-    border:1px solid transparent;
+    border: 1px solid transparent;
     border-radius: 6px;
 }
 
@@ -200,7 +202,7 @@
 }
 
 .login_tip,
-.register_tip {   
+.register_tip {
     list-style-type: none;
     background: #F7F7F7;
     margin-right: auto;
@@ -211,7 +213,7 @@
 .login_register_input img {
     position: absolute;
     right: 0px;
-    border:1px solid transparent;
+    border: 1px solid transparent;
     border-radius: 6px;
 }
 
@@ -220,7 +222,7 @@
     width: -webkit-fill-available;
     height: 42px;
     text-indent: 2.5rem;
-    border:1px solid #A7A7A7;
+    border: 1px solid #A7A7A7;
     border-radius: 6px;
 }
 
@@ -249,11 +251,11 @@
     margin-left: auto;
 }
 
-.login_captcha_input input {
-    width: 100%;
-    width: -webkit-fill-available;
-    height: 42px;
-}
+    .login_captcha_input input {
+        width: 100%;
+        width: -webkit-fill-available;
+        height: 42px;
+    }
 
 .login_captcha_img {
     float: right;
@@ -278,9 +280,9 @@
     margin-bottom: 10px;
 }
 
-.errortip div {
-    text-align: center;
-}
+    .errortip div {
+        text-align: center;
+    }
 
 .title {
     font-family: "微软雅黑";
