@@ -5,6 +5,7 @@
         deleteCookie('times');
     }
     UserName();
+    setIframeHeight(document.getElementById('_iFrame'));
 }
 
 function closePageForm() {

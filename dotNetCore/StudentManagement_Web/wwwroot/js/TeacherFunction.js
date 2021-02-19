@@ -34,7 +34,7 @@ function mediaMatches() {
         teacher_size = 12;
     }
     onloadViewTeacher(teacher_index, dataTypeChoose, Id);
-    setIframeHeight(document.getElementById('TeacherFrame'));
+    setIframeHeight(document.getElementById('_iFrame'));
 }
 
 mediaMatches(); //页面首次加载
@@ -46,13 +46,13 @@ function onclickTeacherTab(name) {
         return;
     }
     if (name == 'addCourse') {
-        $('#TeacherFrame').attr('src', '../Teacher/AddCourse');
+        $('#_iFrame').attr('src', '../Teacher/AddCourse');
     } else if (name == 'applyExam') {
-        $('#TeacherFrame').attr('src', '../Teacher/ApplyExam');
+        $('#_iFrame').attr('src', '../Teacher/ApplyExam');
     } else if (name == 'gradeView') {
-        $('#TeacherFrame').attr('src', '../Teacher/ManageGrade');
+        $('#_iFrame').attr('src', '../Teacher/ManageGrade');
     } else if (name == 'allGrade') {
-        $('#TeacherFrame').attr('src', '../Teacher/AllGrade');
+        $('#_iFrame').attr('src', '../Teacher/AllGrade');
     }
 }
 

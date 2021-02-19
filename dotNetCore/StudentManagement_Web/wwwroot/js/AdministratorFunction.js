@@ -32,7 +32,6 @@ function mediaMatches() {
         admin_size = 12;
     }
     onloadViewAdmin(admin_index, dataTypeChoose);
-    setIframeHeight(document.getElementById('AdminFrame'));
 }
 mediaMatches(); //页面首次加载
 
@@ -43,25 +42,25 @@ function onclickAdminTab(name) {
         return;
     }
     if (name == 'UserApply') {
-        $('#AdminFrame').attr('src', '../Admin/UserApply');
+        $('#_iFrame').attr('src', '../Admin/UserApply');
     }
     else if (name == 'ExamApply') {
-        $('#AdminFrame').attr('src', '../Admin/ExamApply');
+        $('#_iFrame').attr('src', '../Admin/ExamApply');
     }
     else if (name == 'Exam') {
-        $('#AdminFrame').attr('src', '../Admin/GetExam');
+        $('#_iFrame').attr('src', '../Admin/GetExam');
     }
     else if (name == 'Student') {
-        $('#AdminFrame').attr('src', '../Admin/GetStudent');
+        $('#_iFrame').attr('src', '../Admin/GetStudent');
     }
     else if (name == 'Teacher') {
-        $('#AdminFrame').attr('src', '../Admin/GetTeacher');
+        $('#_iFrame').attr('src', '../Admin/GetTeacher');
     }
     else if (name == 'Course') {
-        $('#AdminFrame').attr('src', '../Admin/GetCourse');
+        $('#_iFrame').attr('src', '../Admin/GetCourse');
     }
     else if (name == 'Setting') {
-        $('#AdminFrame').attr('src', '../Admin/GetSettings');
+        $('#_iFrame').attr('src', '../Admin/GetSettings');
     }
 }
 for (var i = 0; i < sqls.length; i++) {

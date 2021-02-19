@@ -32,7 +32,7 @@ function mediaMatches() {
         student_size = 12;
     }
     onloadViewStudent(student_index, dataTypeChoose, Id);
-    setIframeHeight(document.getElementById('StudentFrame'));
+    setIframeHeight(document.getElementById('_iFrame'));
 }
 
 mediaMatches(); //页面首次加载
@@ -44,13 +44,13 @@ function onclickStudentTab(name) {
         return;
     }
     if (name == 'courseView') {
-        $('#StudentFrame').attr('src', '../Student/GetCourseView');
+        $('#_iFrame').attr('src', '../Student/GetCourseView');
     } else if (name == 'chooseCourse') {
-        $('#StudentFrame').attr('src', '../Student/ChooseCourse');
+        $('#_iFrame').attr('src', '../Student/ChooseCourse');
     } else if (name == 'gradeView') {
-        $('#StudentFrame').attr('src', '../Student/GetGradeView');
+        $('#_iFrame').attr('src', '../Student/GetGradeView');
     } else if (name == 'Exam') {
-        $('#StudentFrame').attr('src', '../Student/GetExam');
+        $('#_iFrame').attr('src', '../Student/GetExam');
     }
 }
 
