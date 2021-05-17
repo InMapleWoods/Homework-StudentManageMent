@@ -34,7 +34,7 @@ function mediaMatches() {
         teacher_size = 12;
     }
     onloadViewTeacher(teacher_index, dataTypeChoose, Id);
-    setIframeHeight(document.getElementById('_iFrame'));
+//    setIframeHeight(document.getElementById('_iFrame'));
 }
 
 mediaMatches(); //页面首次加载

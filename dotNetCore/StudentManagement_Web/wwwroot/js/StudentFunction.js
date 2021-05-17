@@ -32,7 +32,7 @@ function mediaMatches() {
         student_size = 12;
     }
     onloadViewStudent(student_index, dataTypeChoose, Id);
-    setIframeHeight(document.getElementById('_iFrame'));
+//    setIframeHeight(document.getElementById('_iFrame'));
 }
 
 mediaMatches(); //页面首次加载
